@@ -95,8 +95,8 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size) {
 				return ret;
 			
 			/* after this operation we have a deterministic splits */
-			if ((ret = automata_map_splits(atm)))
-				return ret;
+			/*if ((ret = automata_map_splits(atm)))
+				return ret;*/
 			
 			atm->state = SYM_A;
 			/* for each element in deterministic split vector */

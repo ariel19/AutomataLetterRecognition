@@ -108,7 +108,7 @@ atm_err_code automata_get_feat(automata_t *atm, feature_t *feat);
  * 
  * @return ATM_OK if function succeed, error code in other cases
  */
-atm_err_code automata_build_start(automata_t *atm);
+atm_err_code automata_build_start(automata_t *atm, msize_t input_size);
 
 /**
  * @brief maps real values -> deterministic
