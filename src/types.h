@@ -63,6 +63,7 @@ typedef enum {
 				ATM_OK = 0,
 				ATM_STRUCT_IS_NULL, /* atm pointer is NULL */
 				ATM_SPLIT_POS,		/* split number should be positive */
+				ATM_MTX_INIT_ERR,
 				ATM_SCN_POS			/* symbol class number should be positive */
 			} atm_err_code;
 

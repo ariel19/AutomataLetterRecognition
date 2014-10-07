@@ -132,12 +132,15 @@ atm_err_code automata_init_matrix(automata_t *atm) {
 	msize_t s;
 	*/
 	
-	/* TODO: ret values should be checked */
-	/* FXIME: dummy data */
+	mtx_err_code ret;
+	
 	/* should be NUM_OF_SPLITS x NUM_OF_SYM x NUM_OF_SYM */
-	matrix_init(&(atm->mtx), atm->splits, atm->sym_class_num, atm->sym_class_num);
-	matrix_set_add(&(atm->mtx), max);
-	matrix_set_mul(&(atm->mtx), min);
+	if ((ret = matrix_init(&(atm->mtx), atm->splits, atm->sym_class_num, atm->sym_class_num)))
+		return ATM_MTX_INIT_ERR;
+	if ((ret = matrix_set_add(&(atm->mtx), max)))
+		return ATM_MTX_INIT_ERR;
+	if ((ret = matrix_set_mul(&(atm->mtx), min)))
+		return ATM_MTX_INIT_ERR;
 	
 	/*
 	matrix_show(&(atm->mtx), 0);
