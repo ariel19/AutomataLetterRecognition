@@ -1,7 +1,7 @@
 #include "matrix.h"
 
 /* initializes matrix with specified args */
-mtx_err_code matrix_ptr_check(matrix_t *mtx) {
+mtx_err_code matrix_ptr_check(const matrix_t *mtx) {
 	if (!mtx)
 		return MTX_STRUCT_IS_NULL;
 		
@@ -11,7 +11,7 @@ mtx_err_code matrix_ptr_check(matrix_t *mtx) {
 }
 
 /* initializes matrix with specified args */
-mtx_err_code matrix_init(matrix_t *mtx, msize_t m, msize_t n, msize_t k) {
+mtx_err_code matrix_init(matrix_t *mtx, const msize_t m, const msize_t n, const msize_t k) {
 	msize_t i;
 	
 	if (!mtx)
@@ -87,7 +87,7 @@ mtx_err_code matrix_free(matrix_t *mtx) {
 }
 
 /* sets a function responsible for add operation in matrix multiplication */
-mtx_err_code matrix_set_add(matrix_t *mtx, mfunc_add add) {
+mtx_err_code matrix_set_add(matrix_t *mtx, const mfunc_add add) {
 	if (!mtx)
 		return MTX_STRUCT_IS_NULL;
 	
@@ -97,7 +97,7 @@ mtx_err_code matrix_set_add(matrix_t *mtx, mfunc_add add) {
 }
 
 /* sets a function responsible for mul operation in matrix multiplication */
-mtx_err_code matrix_set_mul(matrix_t *mtx, mfunc_mul mul) {
+mtx_err_code matrix_set_mul(matrix_t *mtx, const mfunc_mul mul) {
 	if (!mtx)
 		return MTX_STRUCT_IS_NULL;
 	
@@ -107,7 +107,7 @@ mtx_err_code matrix_set_mul(matrix_t *mtx, mfunc_mul mul) {
 }
 
 /* matrix x vector multiplication function */
-mtx_err_code matrix_mul(matrix_t *mtx, msize_t m, mvec1_t vec1,  msize_t vec_size, mvec2_t *vec2) {
+mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1,  const msize_t vec_size, mvec2_t *vec2) {
 	mvec2_t _vec2;
 	mvec1_t mul;
 	mtx_err_code ret;
@@ -150,7 +150,7 @@ mtx_err_code matrix_mul(matrix_t *mtx, msize_t m, mvec1_t vec1,  msize_t vec_siz
 }
 
 /* gets a 2d matrix from 3d matrix using specified split value */
-mtx_err_code matrix_get_2d(matrix_t *mtx, msize_t m, mvec2_t *vec2) {
+mtx_err_code matrix_get_2d(const matrix_t *mtx, const msize_t m, mvec2_t *vec2) {
 	mtx_err_code ret;
 	
 	if ((ret = matrix_ptr_check(mtx)))
@@ -167,7 +167,7 @@ mtx_err_code matrix_get_2d(matrix_t *mtx, msize_t m, mvec2_t *vec2) {
 }
 
 /* sets a value on specified position */
-mtx_err_code matrix_set_val(matrix_t *mtx, msize_t m, msize_t n, msize_t k, melem_t val) {
+mtx_err_code matrix_set_val(matrix_t *mtx, const msize_t m, const msize_t n, const msize_t k, const melem_t val) {
 	mtx_err_code ret;
 	mvec2_t vec2;
 	
@@ -184,7 +184,7 @@ mtx_err_code matrix_set_val(matrix_t *mtx, msize_t m, msize_t n, msize_t k, mele
 }
 
 /* shows matrix in human readable format */
-mtx_err_code matrix_show(matrix_t *mtx, msize_t m) {
+mtx_err_code matrix_show(const matrix_t *mtx, const msize_t m) {
 	mtx_err_code ret;
 	msize_t n, k;
 	mvec2_t vec2;

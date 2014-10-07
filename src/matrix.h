@@ -34,7 +34,7 @@ typedef struct matrix {
  * 
  * @return MTX_OK if function succeed, error code in other cases
 **/
-mtx_err_code matrix_ptr_check(matrix_t *mtx);
+mtx_err_code matrix_ptr_check(const matrix_t *mtx);
  
  /**
   * @brief initializes matrix with specified args
@@ -45,7 +45,7 @@ mtx_err_code matrix_ptr_check(matrix_t *mtx);
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/  
-mtx_err_code matrix_init(matrix_t *mtx, msize_t m, msize_t n, msize_t k);
+mtx_err_code matrix_init(matrix_t *mtx, const msize_t m, const msize_t n, const msize_t k);
  
  /**
   * @brief randomly sets value one in every column of 2d array (get from split m)
@@ -70,7 +70,7 @@ mtx_err_code matrix_free(matrix_t *mtx);
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/
-mtx_err_code matrix_set_add(matrix_t *mtx, mfunc_add add);
+mtx_err_code matrix_set_add(matrix_t *mtx, const mfunc_add add);
 
 /**
   * @brief sets a function responsible for mul operation in matrix multiplication
@@ -79,7 +79,7 @@ mtx_err_code matrix_set_add(matrix_t *mtx, mfunc_add add);
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/
-mtx_err_code matrix_set_mul(matrix_t *mtx, mfunc_mul mul);
+mtx_err_code matrix_set_mul(matrix_t *mtx, const mfunc_mul mul);
 
 /**
   * @brief matrix x vector multiplication function
@@ -91,7 +91,7 @@ mtx_err_code matrix_set_mul(matrix_t *mtx, mfunc_mul mul);
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/
-mtx_err_code matrix_mul(matrix_t *mtx, msize_t m, mvec1_t vec1, msize_t vec_size, mvec2_t *vec2);
+mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1, const msize_t vec_size, mvec2_t *vec2);
 
 /**
   * @brief gets a 2d matrix from 3d matrix using specified split value
@@ -101,7 +101,7 @@ mtx_err_code matrix_mul(matrix_t *mtx, msize_t m, mvec1_t vec1, msize_t vec_size
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/
-mtx_err_code matrix_get_2d(matrix_t *mtx, msize_t m, mvec2_t *vec2);
+mtx_err_code matrix_get_2d(const matrix_t *mtx, const msize_t m, mvec2_t *vec2);
 
  /**
   * @brief sets a value on specified position
@@ -113,7 +113,7 @@ mtx_err_code matrix_get_2d(matrix_t *mtx, msize_t m, mvec2_t *vec2);
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/
-mtx_err_code matrix_set_val(matrix_t *mtx, msize_t m, msize_t n, msize_t k, melem_t val);
+mtx_err_code matrix_set_val(matrix_t *mtx, const msize_t m, const msize_t n, const msize_t k, const melem_t val);
 
 /**
   * @brief shows matrix in human readable format
@@ -122,7 +122,7 @@ mtx_err_code matrix_set_val(matrix_t *mtx, msize_t m, msize_t n, msize_t k, mele
   * 
   * @return MTX_OK if function succeed, error code in other cases
  **/
-mtx_err_code matrix_show(matrix_t *mtx, msize_t m);
+mtx_err_code matrix_show(const matrix_t *mtx, const msize_t m);
  
  #endif /* _MATRIX_H */
  

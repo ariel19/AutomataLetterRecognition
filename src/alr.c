@@ -1,12 +1,12 @@
 #include "alr.h"
 
 /* finds minimum from two specified  values */
-melem_t min(melem_t v1, melem_t v2) {
+melem_t min(const melem_t v1, const melem_t v2) {
 	return v1 > v2 ? v2 : v1;
 }
 
 /* finds maximum from the specified vector */
-melem_t max(mvec1_t vec1, msize_t size) {
+melem_t max(const mvec1_t vec1, const msize_t size) {
 	msize_t s;
 	melem_t _max;
 	/* TODO: if vec1 is NULL */
@@ -23,4 +23,9 @@ melem_t max(mvec1_t vec1, msize_t size) {
 			_max = vec1[s];
 			
 	return _max;
+}
+
+/* responsible for normalizing specified feature vector */
+ftr_err_code normalize(feat_t feat, const feat_t normal, const fsize_t size) {
+	return FTR_OK;
 }

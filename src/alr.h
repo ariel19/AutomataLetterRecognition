@@ -8,13 +8,17 @@ typedef struct automata {
 } automata_t;
 
 /**
+ * MATRIX ADD & MUL FUNC
+ */
+
+/**
  * @brief finds minimum from two specified  values
  * @param v1 first value
  * @param v2 second value
  * 
  * @return minimum from two values
-**/
-melem_t min(melem_t v1, melem_t v2);
+ */
+melem_t min(const melem_t v1, const melem_t v2);
 
 /**
  * @brief finds maximum from the specified vector
@@ -22,7 +26,17 @@ melem_t min(melem_t v1, melem_t v2);
  * @param size size of vector
  * 
  * @return maximum value from vector
-**/
-melem_t max(mvec1_t vec1, msize_t size);
+ */
+melem_t max(const mvec1_t vec1, const msize_t size);
+
+/**
+ * FEATURE
+ */
+
+/**
+ * @brief responsible for normalizing specified feature vector
+ * @
+ */
+ftr_err_code normalize(feat_t feat, const feat_t normal, const fsize_t size);
 
 #endif /* _ALR_H */
