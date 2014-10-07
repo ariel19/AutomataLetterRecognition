@@ -2,9 +2,50 @@
 #define _ALR_H
 
 #include "types.h"
+#include "matrix.h"
 
+/**
+ * @brief structure that represents feature vector
+ * feat feature values vector
+ * size vector size
+ * correct correct state
+ * determin_splits vector of deterministic splits A_1, A_3 .... A_6, A_2
+ */
+typedef struct feature {
+	feat_t feat;
+	fsize_t size;
+	symbol_class correct;
+	fscn_t determin_splits;
+} feature_t;
+
+/**
+ * @brief structure that represents statistics of correctly distinguished symbols
+ * whole whole number of input features
+ * errors number of errors during the automata work
+ */
+typedef struct statistic {
+	lssize_t whole,
+			 errors;
+} statistic_t;
+
+/**
+ * @brief structure that represents dynamically generated automata
+ * feat feature structure
+ * mtx matrix structure
+ * stat statistic structure
+ * rng range structure
+ * state current state
+ * splits number of splits on [0, 1]
+ * sym_class_num number of symbol classes
+ */
 typedef struct automata {
-	unsigned char dummy;
+	feature_t feat;
+	feature_t max;
+	matrix_t mtx;
+	statistic_t stat;
+	symbol_class state;
+	msize_t splits,
+			sym_class_num;
 } automata_t;
 
 /**
@@ -30,13 +71,62 @@ melem_t min(const melem_t v1, const melem_t v2);
 melem_t max(const mvec1_t vec1, const msize_t size);
 
 /**
+ * AUTOMATA
+ */
+
+/**
+ * @brief initializes a specified automata instance
+ * @param atm pointer to automata_t
+ * @param splits number of splits in range [0, 1]
+ * @param sym_class_num number of symbol classes
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
+ */
+atm_err_code automata_init(automata_t *atm, const feature_t *max, const msize_t splits, const msize_t sym_class_num);
+
+/**
+ * @brief initializes a matrix related with specified automata
+ * @param atm pointer to automata_t
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
+ */
+atm_err_code automata_init_matrix(automata_t *atm);
+
+/**
+ * @brief receives next feature structure as an input
+ * @param atm pointer to automata_t
+ * @param feat pointer to feature_t
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
+ */
+atm_err_code automata_get_feat(automata_t *atm, feature_t *feat);
+
+/**
+ * @brief starts automata building
+ * @param atm pointer to automata_t
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
+ */
+atm_err_code automata_build_start(automata_t *atm);
+
+/**
+ * @brief maps real values -> deterministic
+ * @param atm pointer to automata_t
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
+ */
+atm_err_code automata_map_splits(automata_t *atm);
+
+/**
  * FEATURE
  */
 
 /**
  * @brief responsible for normalizing specified feature vector
- * @
+ * @param atm pointer to automata_t
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
  */
-ftr_err_code normalize(feat_t feat, const feat_t normal, const fsize_t size);
+ftr_err_code automata_feature_normalize(automata_t *atm);
 
 #endif /* _ALR_H */

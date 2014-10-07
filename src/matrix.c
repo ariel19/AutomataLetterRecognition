@@ -17,10 +17,14 @@ mtx_err_code matrix_init(matrix_t *mtx, const msize_t m, const msize_t n, const 
 	if (!mtx)
 		return MTX_STRUCT_IS_NULL;
 	
+	/*
 	mtx->mtx = NULL;
 	mtx->add = NULL;
 	mtx->mul = NULL;
 	mtx->m = mtx->n = mtx->k = 0;
+	*/
+	
+	memset(mtx, 0, sizeof(matrix_t));
 	
 	if (!(m && n && k))
 		return MTX_DIMENSION_POS;
@@ -77,11 +81,15 @@ mtx_err_code matrix_free(matrix_t *mtx) {
 	
 	/* free 3d matrix */
 	free(mtx->mtx);
+	
+	/*
 	mtx->mtx = NULL;
 	
 	mtx->m = mtx->n = mtx->k = 0;
 	mtx->add = NULL;
 	mtx->mul = NULL;
+	*/
+	memset(mtx, 0, sizeof(matrix_t));
 	
 	return MTX_OK;	
 }

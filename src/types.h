@@ -4,36 +4,42 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define MTX_2D(i, j, n) (i * n + j)
-
-/**
- * MATRIX
- */
-typedef uint32_t	msize_t; /* matrix size type */
-typedef uint8_t		melem_t; /* matrix element type */
-typedef melem_t*	mvec1_t; /* vector type */
-typedef melem_t*	mvec2_t; /* 2d matrix */
-typedef melem_t**	mvec3_t; /* 3d matrix */
-
-typedef melem_t 	(*mfunc_mul)(melem_t, melem_t);
-typedef melem_t 	(*mfunc_add)(mvec1_t, msize_t);\
-
-/**
- * FEATURE 
- */
-typedef uint32_t	fsize_t; /* feature size type */
-typedef double		felem_t; /* feature value */
-typedef felem_t*	feat_t;	 /* array of feature */	
-
-typedef uint8_t		err_t;	 /* error type */
-
 /**
  * ERROR CODES
  **/
 
 #define ERR_PANIC(src) (fprintf(stderr, "%s: %d", __FILE__, __LINE__), \
 						perror(src), exit(EXIT_FAILURE))
- 
+
+typedef enum {
+				SYM_A,
+				SYM_B,
+				SYM_C,
+				SYM_D,
+				SYM_E,
+				SYM_F,
+				SYM_G,
+				SYM_H,
+				SYM_I,
+				SYM_J,
+				SYM_K,
+				SYM_L,
+				SYM_M,
+				SYM_N,
+				SYM_O,
+				SYM_P,
+				SYM_Q,
+				SYM_R,
+				SYM_S,
+				SYM_T,
+				SYM_U,
+				SYM_V,
+				SYM_W,
+				SYM_X,
+				SYM_Y,
+				SYM_Z
+			} symbol_class;
+
  /* matrix error codes */
 typedef enum { 	
 				MTX_OK = 0, 
@@ -47,9 +53,48 @@ typedef enum {
 
 /* feature error codes */		
 typedef enum {
-				FTR_OK = 0
+				FTR_OK = 0,
+				FTR_STRUCT_IS_NULL, /* ftr pointer is NULL */
+				FTR_IS_NULL,		/* internal vector is NULL */
+				FTR_DIMENSION_DIFF  /* dimension differs (should be equal) */
 			} ftr_err_code;
 			
+typedef enum {
+				ATM_OK = 0,
+				ATM_STRUCT_IS_NULL, /* atm pointer is NULL */
+				ATM_SPLIT_POS,		/* split number should be positive */
+				ATM_SCN_POS			/* symbol class number should be positive */
+			} atm_err_code;
 
+/**
+ * MATRIX
+ */
+
+#define MTX_2D(i, j, n) (i * n + j)
+
+typedef uint32_t	msize_t; /* matrix size type */
+typedef uint8_t		melem_t; /* matrix element type */
+typedef melem_t*	mvec1_t; /* vector type */
+typedef melem_t*	mvec2_t; /* 2d matrix */
+typedef melem_t**	mvec3_t; /* 3d matrix */
+
+typedef melem_t 	(*mfunc_mul)(melem_t, melem_t);
+typedef melem_t 	(*mfunc_add)(mvec1_t, msize_t);
+
+/**
+ * FEATURE 
+ */
+ 
+typedef uint32_t	fsize_t; /* feature size type */
+typedef double		felem_t; /* feature value */
+typedef felem_t*	feat_t;	 /* array of feature */	
+typedef symbol_class* fscn_t; /* array of mapped splits */
+
+typedef uint8_t		err_t;	 /* error type */
+
+/**
+ * AUTOMATA
+ */
+typedef uint32_t	lssize_t; /* learn set size and number of errors type */
 
 #endif /* _TYPES_H */
