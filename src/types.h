@@ -62,6 +62,8 @@ typedef enum {
 typedef enum {
 				ATM_OK = 0,
 				ATM_STRUCT_IS_NULL, /* atm pointer is NULL */
+				ATM_MAX_IS_NULL,	/* max pointer is NULL */
+				ATM_RANGE_IS_NULL,
 				ATM_SPLIT_POS,		/* split number should be positive */
 				ATM_MTX_INIT_ERR,
 				ATM_SCN_POS			/* symbol class number should be positive */
@@ -88,8 +90,9 @@ typedef melem_t 	(*mfunc_add)(mvec1_t, msize_t);
  
 typedef uint32_t	fsize_t; /* feature size type */
 typedef double		felem_t; /* feature value */
-typedef felem_t*	feat_t;	 /* array of feature */	
-typedef symbol_class* fscn_t; /* array of mapped splits */
+typedef felem_t*	feat_t;	 /* vector of features */	
+typedef symbol_class* fscn_t;/* vector of mapped splits */
+typedef fsize_t*	srdet_t; /* vector of splited deterministic values */
 
 typedef uint8_t		err_t;	 /* error type */
 

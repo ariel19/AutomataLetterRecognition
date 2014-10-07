@@ -15,7 +15,7 @@ typedef struct feature {
 	feat_t feat;
 	fsize_t size;
 	symbol_class correct;
-	fscn_t determin_splits;
+	srdet_t determin_splits;
 } feature_t;
 
 /**
@@ -83,7 +83,7 @@ melem_t max(const mvec1_t vec1, const msize_t size);
  * 
  * @return ATM_OK if function succeed, error code in other cases
  */
-atm_err_code automata_init(automata_t *atm, const feature_t *max, const msize_t splits, const msize_t sym_class_num);
+atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num);
 
 /**
  * @brief initializes a matrix related with specified automata
@@ -109,14 +109,6 @@ atm_err_code automata_get_feat(automata_t *atm, feature_t *feat);
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_build_start(automata_t *atm);
-
-/**
- * @brief maps real values -> deterministic
- * @param atm pointer to automata_t
- * 
- * @return ATM_OK if function succeed, error code in other cases
- */
-atm_err_code automata_map_splits(automata_t *atm);
 
 /**
  * @brief maps real values -> deterministic
