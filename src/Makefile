@@ -2,7 +2,7 @@ CC=
 GXX=${CC}gcc
 CFLAGS=-Wall -Wextra -pedantic -g
 LDFLAGS=
-OBJ=main.o matrix.o
+OBJ=main.o matrix.o syswrap.o alr.o
 SRC=src
 BIN=bin
 
@@ -16,6 +16,12 @@ main.o: main.c
 	${GXX} ${CFLAGS} -c $<
 
 matrix.o: matrix.c
+	${GXX} ${CFLAGS} -c $<
+
+syswrap.o: syswrap.c
+	${GXX} ${CFLAGS} -c $<
+
+alr.o: alr.c
 	${GXX} ${CFLAGS} -c $<
 
 .PHONY: clean
