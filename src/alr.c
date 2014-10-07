@@ -68,60 +68,62 @@ atm_err_code automata_get_feat(automata_t *atm, feature_t *feat) {
 }
 
 /* starts automata building */
-atm_err_code automata_build_start(automata_t *atm) {
+atm_err_code automata_build_start(automata_t *atm, msize_t input_size) {
 	atm_err_code ret;
 	fsize_t s;
 	mvec1_t out_vec,
 			cs_vec; /* current state vector */
-	msize_t input_size = 3000, i; /* TODO: should be changed */
+	msize_t i, j;
 	symbol_class prev_state;
 	
 	/* choose a start state here */
 	matrix_set_cols(&(atm->mtx));
 	cs_vec = (mvec1_t)_calloc(atm->mtx.k, sizeof(melem_t));
 	
-	for (i = 0; i < input_size; ++i) {
-		/* Get next feature using a automata_get_feat_func*/
-		/* TODO: have to read feature vector form somewhere */
-		/*
-		if ((ret = automata_get_feat(atm, )))
-			return ret;
-		*/
-		
-		/* after this operation we will have a normalized vector in feat structure */
-		if ((ret = automata_feature_normalize(atm)))
-			return ret;
-		
-		/* after this operation we have a deterministic splits */
-		if ((ret = automata_map_splits(atm)))
-			return ret;
-		
-		atm->state = SYM_A;
-		/* for each element in deterministic split vector */
-		for (s = 0; s < atm->feat.size; ++s) {
-			/* FUNC(current_state, SPLIT_VAL(i)) = next_state */
-			/* current_state = next_state */
-			prev_state = atm->state;
-			cs_vec[atm->state] = 1;
-			atm->state = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec);
-			cs_vec[prev_state] = 0;
-		 }
-		 
-		free(atm->feat.determin_splits);
-		/* check if out state equals to correct state, if no increase errors+ */
-		++atm->stat.whole;
-		if (!out_vec[atm->feat.correct])
-			++atm->stat.errors;
+	for(j = 0; j < 1000; ++j)
+	{	
+		for (i = 0; i < input_size; ++i) {
+			/* Get next feature using a automata_get_feat_func*/
+			/* TODO: have to read feature vector form somewhere */
+			/*
+			if ((ret = automata_get_feat(atm, )))
+				return ret;
+			*/
 			
-		free(out_vec);
+			/* after this operation we will have a normalized vector in feat structure */
+			if ((ret = automata_feature_normalize(atm)))
+				return ret;
+			
+			/* after this operation we have a deterministic splits */
+			if ((ret = automata_map_splits(atm)))
+				return ret;
+			
+			atm->state = SYM_A;
+			/* for each element in deterministic split vector */
+			for (s = 0; s < atm->feat.size; ++s) {
+				/* FUNC(current_state, SPLIT_VAL(i)) = next_state */
+				/* current_state = next_state */
+				prev_state = atm->state;
+				cs_vec[atm->state] = 1;
+				atm->state = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec);
+				cs_vec[prev_state] = 0;
+			 }
+			 
+			free(atm->feat.determin_splits);
+			/* check if out state equals to correct state, if no increase errors+ */
+			++atm->stat.whole;
+			if (!out_vec[atm->feat.correct])
+				++atm->stat.errors;
+				
+			free(out_vec);
+			
+		}
 		
-	}
-	
-	/* TODO: clean memory but we have to remember about MATRIX*/
-	free(cs_vec);
-	
-	/* FIXME: call a PSO here with atm->stat.whole, atm->stat.error and atm->mtx */
-	
+		/* TODO: clean memory but we have to remember about MATRIX*/
+		free(cs_vec);
+		
+		/* FIXME: call a PSO here with atm->stat.whole, atm->stat.error and atm->mtx */
+	}	
 	
 	/* With new matrix start computations once again (SHOULD BE A CONDITION)*/
 	
