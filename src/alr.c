@@ -27,6 +27,7 @@ melem_t max(const mvec1_t vec1, const msize_t size) {
 
 /* initializes a specified automata instance */
 atm_err_code automata_init(automata_t *atm, const feature_t *max, const msize_t splits, const msize_t sym_class_num) {
+	atm_err_code ret;
 	if (!atm)
 		return ATM_STRUCT_IS_NULL;
 		
@@ -44,6 +45,12 @@ atm_err_code automata_init(automata_t *atm, const feature_t *max, const msize_t 
 	memset(&(atm->feat), 0, sizeof(feature_t));
 	memset(&(atm->stat), 0, sizeof(statistic_t));
 	memcpy(&(atm->max), max, sizeof(feature_t));
+	
+	/* init range according to the split value */
+	atm->range = (feat_t)_calloc(atm->splits + 1, sizeof(felem_t));
+	
+	if ((ret = automata_split_range(atm)))
+		return ret;
 	
 	automata_init_matrix(atm);
 	
@@ -113,6 +120,7 @@ atm_err_code automata_build_start(automata_t *atm) {
 	/* With new matrix start computations once again (SHOULD BE A CONDITION)*/
 	
 	matrix_free(&(atm->mtx));
+	free(atm->range);
 	
 	return ATM_OK;
 }
@@ -120,6 +128,22 @@ atm_err_code automata_build_start(automata_t *atm) {
 /* maps real values -> deterministic */
 atm_err_code automata_map_splits(automata_t *atm) {
 	/* TODO: map values from real -> deterministic and fill a determin_splits in feature struct*/
+	return ATM_OK;
+}
+
+/* maps real values -> deterministic */
+atm_err_code automata_split_range(automata_t *atm) {
+	msize_t s;
+	if (!atm)
+		return ATM_STRUCT_IS_NULL;
+	
+	/* TODO: error code */
+	if (!atm->range)
+		return 0;
+	
+	for (s = 0; s <= atm->splits; ++s)
+		atm->range[s] = s / atm->splits;
+	
 	return ATM_OK;
 }
 
@@ -187,12 +211,11 @@ ftr_err_code automata_feature_normalize(automata_t *atm) {
 	if (feat->size != max->size)
 		return FTR_DIMENSION_DIFF;
 		
-	/* FIXME: i suppose this is a good way to normalize */
-	/* TODO: calculate splits here using a normalize function + split */
-	/*
 	for (s = 0; s < feat->size; ++s)
-		feat
+		feat->feat[s] /= max->feat[s];
+		
+	/* split range */
 	
-	*/
+	
 	return FTR_OK;
 }

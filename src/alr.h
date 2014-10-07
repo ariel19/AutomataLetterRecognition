@@ -46,6 +46,7 @@ typedef struct automata {
 	symbol_class state;
 	msize_t splits,
 			sym_class_num;
+	feat_t	range;
 } automata_t;
 
 /**
@@ -116,6 +117,14 @@ atm_err_code automata_build_start(automata_t *atm);
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_map_splits(automata_t *atm);
+
+/**
+ * @brief maps real values -> deterministic
+ * @param atm pointer to automata_t
+ * 
+ * @return ATM_OK if function succeed, error code in other cases
+ */
+atm_err_code automata_split_range(automata_t *atm);
 
 /**
  * FEATURE
