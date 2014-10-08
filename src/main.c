@@ -6,12 +6,12 @@
 #include "matrix.h"
 #include "alr.h"
 
-int read_data(msize_t *splits_num, msize_t *symbol_class_num, fsize_t *feature_num, msize_t *input_size, msize_t *repeat,
-				feat_t *max)
+int read_data(const char* filename, msize_t *splits_num, msize_t *symbol_class_num, fsize_t *feature_num, msize_t *input_size, msize_t *repeat,
+				feat_t *max, feature_t **features)
 {
-	unsigned int i;
+	unsigned int i, j;
 	FILE *f = NULL;
-	f = fopen("example.dat", "r");
+	f = fopen(filename, "r");
 	
 	if(!f)
 		return 1;
@@ -21,8 +21,21 @@ int read_data(msize_t *splits_num, msize_t *symbol_class_num, fsize_t *feature_n
 		
 	*max = (feat_t)_calloc(*feature_num, sizeof(felem_t));
 		
-	for(i = 0; i < *input_size; ++i)
+	for(i = 0; i < *feature_num; ++i)
 		fscanf(f, "%lf, ", (double*)&(*max)[i]);
+		
+	fscanf(f, "\n\n");
+		
+	*features = (feature_t*)_calloc(*input_size, sizeof(feature_t));
+	
+	for(i = 0; i < *input_size; ++i) {
+		(*features)[i].feat = (feat_t)_calloc(*feature_num, sizeof(felem_t));
+		(*features)[i].size = *feature_num;
+		fscanf(f, "%d\n", (int*)&((*features)[i].correct));
+		for(j = 0; j < *feature_num; ++j)
+			fscanf(f, "%lf, ", (double*)&((*features)[i].feat[j]));
+		fscanf(f, "\n\n");
+	}
 		
 	fclose(f);
 	
@@ -38,17 +51,16 @@ int main(int argc, char **argv) {
 	msize_t i;
 	
 	automata_t atm;
-	feat_t max; /* TODO: malloc & init */
+	feat_t max;
 	feature_t *features;
 	
-	if(read_data(&splits_num, &symbol_class_num, &feature_num, &input_size, &repeat, &max))
+	if(argc != 2) {
+		printf("Usage: %s <filename>\n", argv[0]);
 		return 1;
+	}
 	
-	features = (feature_t*)_calloc(input_size, sizeof(feature_t));
-	
-	/* TODO: init all vars from file */
-	/* TODO: init features */
-	/* TODO: init max */
+	if(read_data(argv[1], &splits_num, &symbol_class_num, &feature_num, &input_size, &repeat, &max, &features))
+		return 1;
 
 	puts("Hello, automata!");
 	

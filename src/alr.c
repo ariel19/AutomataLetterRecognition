@@ -74,10 +74,15 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 	matrix_set_cols(&(atm->mtx));
 	
 	for(j = 0; j < 1000; ++j)
-	{	
+	{
+		atm->stat.errors = 0;
+		atm->stat.whole = 0;
+		
+		printf("\nRound %d/1000\n", j + 1);
 		cs_vec = (mvec1_t)_calloc(atm->mtx.k, sizeof(melem_t));
 		
 		for (i = 0; i < input_size; ++i) {
+			printf("\rLetter %d/%d", i + 1, input_size);
 			atm->feat = features[i];
 			atm->state = SYM_A;
 			
@@ -106,6 +111,8 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 			if (atm->feat.correct != atm->state)
 				++atm->stat.errors;
 		}
+		
+		printf("\nErrors %d\n", atm->stat.errors);
 		
 		free(cs_vec);
 		
