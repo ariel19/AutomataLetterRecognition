@@ -12,6 +12,7 @@ letter_diff = 0.1
 
 max_values = []
 letters = []
+corrects = []
 
 
 def create_max_values():
@@ -23,8 +24,9 @@ def generate_letters():
     for i in range(0, symbol_class_num):
         letter = []
         for j in range(0, feature_num):
-            letter.append(random.uniform(1, max_values[j]))
+            letter.append(random.uniform(0, max_values[j]))
         letters.append(letter)
+        corrects.append(i)
 
 
 def generate_more_letters():
@@ -33,11 +35,14 @@ def generate_more_letters():
         base_l = random.randint(0, symbol_class_num - 1)
         for j in range(0, feature_num):
             base_l_feat = letters[base_l][j]
-            #base_l_max_diff = letter_diff * max[fea]
-            #letter.append(random.uniform(, letters[base_l][j])
+            base_l_max_diff = letter_diff * base_l_feat
+            letter.append(random.uniform(base_l_feat - base_l_max_diff, base_l_feat - base_l_max_diff))
         letters.append(letter)
+        corrects.append(base_l)
 
 create_max_values()
+generate_letters()
+generate_more_letters()
 
 f = open(filename, 'w')
 
@@ -49,6 +54,10 @@ for k in range(0, feature_num):
 
 f.write('\n\n')
 
-
+for k in range(0, input_size):
+    f.write(str(corrects[k]) + '\n')
+    for j in range(0, feature_num):
+        f.write(str(letters[k][j]) + ', ')
+    f.write('\n\n')
 
 f.close()
