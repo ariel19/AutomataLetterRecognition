@@ -55,7 +55,6 @@ mtx_err_code matrix_set_cols(matrix_t *mtx) {
 		
 	for (m = 0; m < mtx->m; ++m)
 		for (k = 0; k < mtx->k; ++k) {
-			/* TODO: add new error code here */
 			if ((ret = matrix_get_2d(mtx, m, &vec2)))
 				return ret;
 			vec2[MTX_2D(rand() % mtx->n, k, mtx->k)] = 1;
@@ -115,14 +114,11 @@ mtx_err_code matrix_set_mul(matrix_t *mtx, const mfunc_mul mul) {
 }
 
 /* matrix x vector multiplication function */
-symbol_class matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1,  const msize_t vec_size) {
+mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1,  const msize_t vec_size, mvec2_t *vec2) {
 	mvec2_t _vec2;
-	mvec2_t vec2;
 	mvec1_t mul;
 	mtx_err_code ret;
 	msize_t _n, _k;
-	
-	symbol_class sc;
 	
 	if ((ret = matrix_ptr_check(mtx)))
 		return ret;
@@ -136,12 +132,10 @@ symbol_class matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1
 	if (!(mtx->add && mtx->mul))
 		return MTX_OP_IS_NULL;
 		
-	/* TODO: if vec1 is NULL notify */
 	if (!vec1)
-		return MTX_OK;
+		return MTX_OP_IS_NULL;
 	
-	/* TODO: check n, k, really idk if we have to do that, cause mtx size is initialized at the end of init see matrix_init*/
-	vec2 = (mvec2_t)_calloc(mtx->n, sizeof(melem_t));
+	*vec2 = (mvec2_t)_calloc(mtx->n, sizeof(melem_t));
 	mul = (mvec1_t)_calloc(mtx->k, sizeof(melem_t));
 	
 	/* multiply matrix x vector using predefined add & mul */
@@ -151,12 +145,9 @@ symbol_class matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1
 		(*vec2)[_n] = mtx->add(mul, mtx->k);
 	}
 	
-	sc = 0; // TODO
-	
 	free(mul);
-	free(vec2);
 	
-	return sc;
+	return MTX_OK;
 }
 
 /* gets a 2d matrix from 3d matrix using specified split value */
@@ -168,10 +159,11 @@ mtx_err_code matrix_get_2d(const matrix_t *mtx, const msize_t m, mvec2_t *vec2) 
 	
 	if (mtx->m <= m)
 		return MTX_DIMENSION_OFR;
-	
-	/* TODO: do we need to notify error in case if vec2 is NULL */
-	if (vec2)
-		*vec2 = mtx->mtx[m];
+
+	if (!vec2)
+		return MTX_OP_IS_NULL;
+		
+	*vec2 = mtx->mtx[m];
 		
 	return MTX_OK;
 }
@@ -184,9 +176,8 @@ mtx_err_code matrix_set_val(matrix_t *mtx, const msize_t m, const msize_t n, con
 	if ((ret = matrix_get_2d(mtx, m, &vec2)))
 		return ret;
 		
-	/* TODO: add a new error code here */
 	if (mtx->n <= n || mtx->k <= k)
-		return MTX_OK;
+		return MTX_INVALID_INDEX;
 		
 	vec2[MTX_2D(n, k, mtx->k)] = val;
 		

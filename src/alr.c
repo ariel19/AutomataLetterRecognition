@@ -9,13 +9,12 @@ melem_t min(const melem_t v1, const melem_t v2) {
 melem_t max(const mvec1_t vec1, const msize_t size) {
 	msize_t s;
 	melem_t _max;
-	/* TODO: if vec1 is NULL */
+
 	if (!vec1)
-		return 0;
+		return -1;
 	
-	/* TODO: handle */
 	if (size <= 0)
-		return 0;
+		return -1;
 		
 	_max = vec1[0];
 	for (s = 1; s < size; ++s)
@@ -62,26 +61,22 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 	return ATM_OK;
 }
 
-/* receives next feature structure as an input */
-atm_err_code automata_get_feat(automata_t *atm, feature_t *feat) {
-	return ATM_OK;
-}
-
 /* starts automata building */
 atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features) {
 	atm_err_code ret;
 	fsize_t s;
 	mvec1_t out_vec,
 			cs_vec; /* current state vector */
-	msize_t i, j;
+	msize_t i, j, x;
 	symbol_class prev_state;
 	
 	/* choose a start state here */
 	matrix_set_cols(&(atm->mtx));
-	cs_vec = (mvec1_t)_calloc(atm->mtx.k, sizeof(melem_t));
 	
 	for(j = 0; j < 1000; ++j)
-		{	
+	{	
+		cs_vec = (mvec1_t)_calloc(atm->mtx.k, sizeof(melem_t));
+		
 		for (i = 0; i < input_size; ++i) {
 			atm->feat = features[i];
 			atm->state = SYM_A;
@@ -92,8 +87,18 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 				/* current_state = next_state */
 				prev_state = atm->state;
 				cs_vec[atm->state] = 1;
-				atm->state = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k);
+				if((ret = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec)))
+					return ret;
 				cs_vec[prev_state] = 0;
+				
+				for(x = 0; x < atm->mtx.k; ++x) {
+					if(out_vec[x]) {
+						atm->state = x;
+						break;
+					}
+				}
+				
+				free(out_vec);
 			 }
 			 
 			/* check if out state equals to correct state, if no increase errors+ */
@@ -102,13 +107,11 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 				++atm->stat.errors;
 		}
 		
-		/* TODO: clean memory but we have to remember about MATRIX*/
 		free(cs_vec);
 		
 		/* FIXME: call a PSO here with atm->stat.whole, atm->stat.error and atm->mtx */
-	}	
-	
-	/* With new matrix start computations once again (SHOULD BE A CONDITION)*/
+		/* pso() */
+	}
 	
 	matrix_free(&(atm->mtx));
 	free(atm->range);

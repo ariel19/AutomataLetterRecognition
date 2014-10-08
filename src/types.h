@@ -48,7 +48,8 @@ typedef enum {
 				MTX_DIMENSION_DIFF,	/* dimension differs (should be equal) */
 				MTX_IS_NULL,		/* internal matrix is NULL */
 				MTX_STRUCT_IS_NULL,	/* mtx pointer is NULL */
-				MTX_OP_IS_NULL		/* add && | || is NULL */
+				MTX_OP_IS_NULL,		/* add && | || is NULL */
+				MTX_INVALID_INDEX
 			} mtx_err_code;
 
 /* feature error codes */		
@@ -66,7 +67,8 @@ typedef enum {
 				ATM_RANGE_IS_NULL,
 				ATM_SPLIT_POS,		/* split number should be positive */
 				ATM_MTX_INIT_ERR,
-				ATM_SCN_POS			/* symbol class number should be positive */
+				ATM_SCN_POS,			/* symbol class number should be positive */
+				ATM_INTERNAL_ERROR 	/* ;) */
 			} atm_err_code;
 
 /**

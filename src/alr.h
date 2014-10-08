@@ -94,15 +94,6 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 atm_err_code automata_init_matrix(automata_t *atm);
 
 /**
- * @brief receives next feature structure as an input
- * @param atm pointer to automata_t
- * @param feat pointer to feature_t
- * 
- * @return ATM_OK if function succeed, error code in other cases
- */
-atm_err_code automata_get_feat(automata_t *atm, feature_t *feat);
-
-/**
  * @brief starts automata building
  * @param atm pointer to automata_t
  * 
