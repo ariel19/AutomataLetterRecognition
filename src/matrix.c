@@ -115,11 +115,14 @@ mtx_err_code matrix_set_mul(matrix_t *mtx, const mfunc_mul mul) {
 }
 
 /* matrix x vector multiplication function */
-mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1,  const msize_t vec_size, mvec2_t *vec2) {
+symbol_class matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1,  const msize_t vec_size) {
 	mvec2_t _vec2;
+	mvec2_t vec2;
 	mvec1_t mul;
 	mtx_err_code ret;
 	msize_t _n, _k;
+	
+	symbol_class sc;
 	
 	if ((ret = matrix_ptr_check(mtx)))
 		return ret;
@@ -137,12 +140,8 @@ mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1
 	if (!vec1)
 		return MTX_OK;
 	
-	/* TODO: check _vec2 */
-	if (!vec2)
-		return MTX_OK;
-	
 	/* TODO: check n, k, really idk if we have to do that, cause mtx size is initialized at the end of init see matrix_init*/
-	*vec2 = (mvec2_t)_calloc(mtx->n, sizeof(melem_t));
+	vec2 = (mvec2_t)_calloc(mtx->n, sizeof(melem_t));
 	mul = (mvec1_t)_calloc(mtx->k, sizeof(melem_t));
 	
 	/* multiply matrix x vector using predefined add & mul */
@@ -152,9 +151,12 @@ mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1
 		(*vec2)[_n] = mtx->add(mul, mtx->k);
 	}
 	
-	free(mul);
+	sc = 0; // TODO
 	
-	return MTX_OK;
+	free(mul);
+	free(vec2);
+	
+	return sc;
 }
 
 /* gets a 2d matrix from 3d matrix using specified split value */

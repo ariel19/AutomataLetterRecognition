@@ -108,7 +108,7 @@ atm_err_code automata_get_feat(automata_t *atm, feature_t *feat);
  * 
  * @return ATM_OK if function succeed, error code in other cases
  */
-atm_err_code automata_build_start(automata_t *atm, msize_t input_size);
+atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features);
 
 /**
  * @brief maps real values -> deterministic
@@ -128,6 +128,6 @@ atm_err_code automata_split_range(automata_t *atm);
  * 
  * @return ATM_OK if function succeed, error code in other cases
  */
-ftr_err_code automata_feature_normalize(automata_t *atm);
+ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat);
 
 #endif /* _ALR_H */

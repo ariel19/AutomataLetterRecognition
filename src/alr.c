@@ -68,7 +68,7 @@ atm_err_code automata_get_feat(automata_t *atm, feature_t *feat) {
 }
 
 /* starts automata building */
-atm_err_code automata_build_start(automata_t *atm, msize_t input_size) {
+atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features) {
 	atm_err_code ret;
 	fsize_t s;
 	mvec1_t out_vec,
@@ -81,42 +81,25 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size) {
 	cs_vec = (mvec1_t)_calloc(atm->mtx.k, sizeof(melem_t));
 	
 	for(j = 0; j < 1000; ++j)
-	{	
+		{	
 		for (i = 0; i < input_size; ++i) {
-			/* Get next feature using a automata_get_feat_func*/
-			/* TODO: have to read feature vector form somewhere */
-			/*
-			if ((ret = automata_get_feat(atm, )))
-				return ret;
-			*/
-			
-			/* after this operation we will have a normalized vector in feat structure */
-			if ((ret = automata_feature_normalize(atm)))
-				return ret;
-			
-			/* after this operation we have a deterministic splits */
-			/*if ((ret = automata_map_splits(atm)))
-				return ret;*/
-			
+			atm->feat = features[i];
 			atm->state = SYM_A;
+			
 			/* for each element in deterministic split vector */
 			for (s = 0; s < atm->feat.size; ++s) {
 				/* FUNC(current_state, SPLIT_VAL(i)) = next_state */
 				/* current_state = next_state */
 				prev_state = atm->state;
 				cs_vec[atm->state] = 1;
-				atm->state = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec);
+				atm->state = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k);
 				cs_vec[prev_state] = 0;
 			 }
 			 
-			free(atm->feat.determin_splits);
 			/* check if out state equals to correct state, if no increase errors+ */
 			++atm->stat.whole;
-			if (!out_vec[atm->feat.correct])
+			if (atm->feat.correct != atm->state)
 				++atm->stat.errors;
-				
-			free(out_vec);
-			
 		}
 		
 		/* TODO: clean memory but we have to remember about MATRIX*/
@@ -198,11 +181,10 @@ atm_err_code automata_init_matrix(automata_t *atm) {
 }
 
 /* responsible for normalizing specified feature vector */
-ftr_err_code automata_feature_normalize(automata_t *atm) {
+ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat) {
 	fsize_t s;
 	msize_t k;
 	
-	feature_t *feat = &(atm->feat);
 	const feature_t *max = &(atm->max);
 	
 	if (!feat || !max)
@@ -218,19 +200,18 @@ ftr_err_code automata_feature_normalize(automata_t *atm) {
 		feat->feat[s] /= max->feat[s];
 		
 	/* use splitted range i order to fill deterministica vector */
-	/* TODO: error code */
 	if (!atm->range)
-		return 0;
+		return ATM_RANGE_IS_NULL;
 	
-	atm->feat.determin_splits = (srdet_t)_calloc(atm->feat.size, sizeof(fsize_t));
-	for (s = 0; s < atm->feat.size; ++s) {
+	feat->determin_splits = (srdet_t)_calloc(feat->size, sizeof(fsize_t));
+	for (s = 0; s < feat->size; ++s) {
 		for(k = 0; k < atm->splits; ++k) {
-			if(atm->feat.feat[s] <= atm->range[k + 1]) {
-				atm->feat.determin_splits[s] = k;
+			if(feat->feat[s] <= atm->range[k + 1]) {
+				feat->determin_splits[s] = k;
 				break;
 			}
 			if(k == atm->splits - 1)
-				atm->feat.determin_splits[s] = k;
+				feat->determin_splits[s] = k;
 		}
 	}
 	
