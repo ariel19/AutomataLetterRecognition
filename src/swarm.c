@@ -14,7 +14,7 @@ double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, doub
     double error;
     double lo, hi;
 
-    unsigned int i, j, k;
+    unsigned int i, j, k; /* indicies */
     double* randomPosition;
     double* randomVelocity;
 
@@ -23,6 +23,7 @@ double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, doub
     double c2;        /* social weight */
     double r1, r2;    /* cognitive and social randomizations */
     double probDeath;
+    double die;
 
     unsigned int epoch;
 
@@ -86,19 +87,62 @@ double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, doub
                 newVelocity[j] = (w * currP.velocity[j]) +
                                  (c1 * r1 * (currP.bestPosition[j] - currP.position[j])) +
                                  (c2 * r2 * (bestGlobalPosition[j] - currP.position[j]));
-                /* Change current particle velocity to newVelocity */
-                for( k=0; k<dim;++k)
-                    currP.velocity[k] = newVelocity[k];
-
             }
+            /* Change current particle velocity to newVelocity */
+            for( k=0; k<dim;++k)
+                currP.velocity[k] = newVelocity[k];
             /* find new position according to new velocity */
             for(j=0;j<dim;++j){
                 newPosition[j] = currP.position[j] + newVelocity[j];
                 if(newPosition[j] < minX)
                     newPosition[j] = minX;
-                /* else if() */
+                else if(newPosition[j] > maxX)
+                    newPosition[j] = maxX;
             }
-        }
+            /* set new position */
+            for( k = 0; k<dim;++k)
+                currP.position[k] = newPosition[k];
+
+            newError = errorFunction(newPosition, dim);
+            currP.error = newError;
+
+            if (newError < currP.bestError){
+                for( k=0; k<dim;++k)
+                    currP.bestPosition[k] = newPosition[k];
+                currP.bestError = newError;
+            }
+            /* set best global error */
+            if (newError < bestGlobalError)
+            {
+                for( k=0; k<dim;++k)
+                    bestGlobalPosition[k] = newPosition[k];
+                bestGlobalError = newError;
+            }
+            /* Death */
+            die = (double)rand()/RAND_MAX;
+
+            if (die < probDeath)
+            {
+                for (j = 0; j < dim; ++j)
+                    currP.position[j] = (maxX-minX)*( (double)rand()/RAND_MAX ) + minX;
+                currP.error = errorFunction(currP.position, dim);
+
+                for(k=0; k<dim; ++k)
+                    currP.bestPosition[k]=currP.position[k];
+
+                currP.bestError = currP.error;
+
+                if (currP.error < bestGlobalError)
+                {
+                    bestGlobalError = currP.error;
+                    for(k=0; k<dim; ++k)
+                        bestGlobalPosition[k]=currP.position[k];
+                }
+            }
+        } /* each particle */
+        ++epoch;
     }
-    return NULL;
+
+
+    return bestGlobalPosition;
 }
