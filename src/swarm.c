@@ -6,10 +6,9 @@
 double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, double maxX,
               unsigned int maxEpochs, double exitError, double (*errorFunction)(double *x, int dim)) {
 
-    /* srand(time(NULL)); */
 
-    Particle* swarm = (Particle*)malloc(numParticles * sizeof(Particle));
-    double*   bestGlobalPosition = (double*)malloc(dim *sizeof(double));
+    Particle* swarm = (Particle*)_malloc(numParticles * sizeof(Particle));
+    double*   bestGlobalPosition = (double*)_malloc(dim *sizeof(double));
     double    bestGlobalError = DBL_MAX;
     double error;
     double lo, hi;
@@ -143,6 +142,16 @@ double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, doub
         ++epoch;
     }
 
+    /* deinitialization */
+    for(i=0;i<dim;++i){
+        free(swarm[i].position);
+        free(swarm[i].velocity);
+        free(swarm[i].bestPosition);
+
+    }
+    free(swarm);
+    free(newPosition);
+    free(newVelocity);
 
     return bestGlobalPosition;
 }

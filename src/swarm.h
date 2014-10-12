@@ -18,13 +18,13 @@ typedef struct Particle
 
 /**
  * @brief PSO
- * @param dim dimension of smth
- * @param
- * @param
- * @param
- * @param
- * @param
- * @param
+ * @param dim size of the problem
+ * @param numParticles number of particles used in the algorithm
+ * @param minX minimal value of particles' position
+ * @param maxX maximal value of particles' position
+ * @param maxEpochs maximal number of iterations
+ * @param exitError
+ * @param errorFuncion the function calculating error of the current position
  *
  * @return solution vector
  */
