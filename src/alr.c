@@ -68,11 +68,11 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 	fsize_t s;
 	mvec1_t out_vec,
 			cs_vec; /* current state vector */
-	msize_t i, j, x;
-	symbol_class prev_state;
+	msize_t i, j, vec_size;
 
 	/* choose a start state here */
 	matrix_set_cols(&(atm->mtx));
+	vec_size = atm->mtx.k;
 
 	for(j = 0; j < 1000; ++j)
 	{
@@ -80,36 +80,28 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 		atm->stat.whole = 0;
 
 		printf("\nRound %d/1000\n", j + 1);
-		cs_vec = (mvec1_t)_calloc(atm->mtx.k, sizeof(melem_t));
+		cs_vec = (mvec1_t)_calloc(vec_size, sizeof(melem_t));
 
 		for (i = 0; i < input_size; ++i) {
 			printf("\rLetter %d/%d", i + 1, input_size);
 			atm->feat = features[i];
 			atm->state = SYM_A;
+			cs_vec[atm->state] = 1;
 
 			/* for each element in deterministic split vector */
 			for (s = 0; s < atm->feat.size; ++s) {
 				/* FUNC(current_state, SPLIT_VAL(i)) = next_state */
-				/* current_state = next_state */
-				prev_state = atm->state;
-				cs_vec[atm->state] = 1;
 				if((ret = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec)))
 					return ret;
-				cs_vec[prev_state] = 0;
-
-				for(x = 0; x < atm->mtx.k; ++x) {
-					if(out_vec[x]) {
-						atm->state = x;
-						break;
-					}
-				}
+				
+				memcpy(cs_vec, out_vec, vec_size * sizeof(melem_t));
 
 				free(out_vec);
 			 }
 
 			/* check if out state equals to correct state, if no increase errors+ */
 			++atm->stat.whole;
-			if (atm->feat.correct != atm->state)
+			if (!cs_vec[atm->feat.correct])
 				++atm->stat.errors;
 		}
 
