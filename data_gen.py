@@ -8,8 +8,6 @@ feature_num = 20
 input_size = 3000
 repeat = 1000
 
-letter_diff = 0.1
-
 max_values = []
 letters = []
 corrects = []
@@ -35,8 +33,8 @@ def generate_more_letters():
         base_l = random.randint(0, symbol_class_num - 1)
         for j in range(0, feature_num):
             base_l_feat = letters[base_l][j]
-            base_l_max_diff = letter_diff * base_l_feat
-            letter.append(random.uniform(base_l_feat - base_l_max_diff, base_l_feat - base_l_max_diff))
+            new_feat = random.gauss(base_l_feat, 1)
+            letter.append(min(max_values[j], max(0, new_feat)))
         letters.append(letter)
         corrects.append(base_l)
 
