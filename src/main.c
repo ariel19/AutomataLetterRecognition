@@ -91,6 +91,7 @@ int main(int argc, char **argv) {
 	
 	free(features);
 	free(test_features);
+	free(max);
 		
 	return EXIT_SUCCESS;
 }
