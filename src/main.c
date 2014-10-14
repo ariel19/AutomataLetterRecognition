@@ -89,6 +89,12 @@ int main(int argc, char **argv) {
 	
 	automata_build_start(&atm, input_size, features);
 	
+	for(i = 0; i < input_size; ++i)
+		free(features[i].feat);
+		
+	for(i = 0; i < test_size; ++i)
+		free(test_features[i].feat);
+	
 	free(features);
 	free(test_features);
 	free(max);
