@@ -63,7 +63,7 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 }
 
 /* starts automata building */
-atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features) {
+atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features, msize_t repeat) {
 	atm_err_code ret;
 	fsize_t s;
 	mvec1_t out_vec,
@@ -74,7 +74,7 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 	matrix_set_cols(&(atm->mtx));
 	vec_size = atm->mtx.k;
 
-	for(j = 0; j < 1; ++j)
+	for(j = 0; j < repeat; ++j)
 	{
 		atm->stat.errors = 0;
 		atm->stat.whole = 0;

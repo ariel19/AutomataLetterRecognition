@@ -87,13 +87,17 @@ int main(int argc, char **argv) {
 	for(i = 0; i < input_size; ++i)
 		automata_feature_normalize(&atm, &features[i]);
 	
-	automata_build_start(&atm, input_size, features);
+	automata_build_start(&atm, input_size, features, repeat);
 	
-	for(i = 0; i < input_size; ++i)
+	for(i = 0; i < input_size; ++i) {
+		free(features[i].determin_splits);
 		free(features[i].feat);
+	}
 		
-	for(i = 0; i < test_size; ++i)
+	for(i = 0; i < test_size; ++i) {
+		/*free(test_features[i].determin_splits);*/
 		free(test_features[i].feat);
+	}
 	
 	free(features);
 	free(test_features);

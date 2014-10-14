@@ -99,7 +99,7 @@ atm_err_code automata_init_matrix(automata_t *atm);
  * 
  * @return ATM_OK if function succeed, error code in other cases
  */
-atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features);
+atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features, msize_t repeat);
 
 /**
  * @brief maps real values -> deterministic
