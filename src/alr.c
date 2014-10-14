@@ -74,7 +74,7 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 	matrix_set_cols(&(atm->mtx));
 	vec_size = atm->mtx.k;
 
-	for(j = 0; j < 1000; ++j)
+	for(j = 0; j < 1; ++j)
 	{
 		atm->stat.errors = 0;
 		atm->stat.whole = 0;

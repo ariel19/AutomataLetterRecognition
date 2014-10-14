@@ -28,6 +28,7 @@ int read_data(const char* filename, msize_t *splits_num, msize_t *symbol_class_n
 	fscanf(f, "\n\n");
 		
 	*features = (feature_t*)_calloc(*input_size, sizeof(feature_t));
+	*test_features = (feature_t*)_calloc(*test_size, sizeof(feature_t));
 	
 	for(i = 0; i < *input_size; ++i) {
 		(*features)[i].feat = (feat_t)_calloc(*feature_num, sizeof(felem_t));
