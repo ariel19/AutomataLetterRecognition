@@ -140,7 +140,7 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 			++atm->stat.errors;
 	}
 
-	printf("\nErrors %d\n", atm->stat.errors);
+	/* printf("\nErrors %d\n", atm->stat.errors); */
 
 	free(cs_vec);
 

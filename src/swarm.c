@@ -207,6 +207,8 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
         /* error = errorFunction(randomPosition, dim); */
         errorFunction(randomPosition, atm, input_size, features, &uerror);
         error = uerror;
+        
+        fprintf(stdout, "error <random position[%u]>: %u\n", i, uerror);
 
         for(j=0; j<dim;++j){
             lo = minX * 0.1;
@@ -274,6 +276,8 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
 			errorFunction(newPosition, atm, input_size, features, &uerror);
 			newError = uerror;
             currP.error = newError;
+            
+			fprintf(stdout, "error epoch: %u <new position[%u]>: %u\n", epoch, i, uerror);
 
             if (newError < currP.bestError){
                 for( k=0; k<dim;++k)
@@ -298,6 +302,8 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
                 /* currP.error = errorFunction(currP.position, dim);*/
 				errorFunction(currP.position, atm, input_size, features, &uerror);
 				currP.error = uerror;
+				
+				/*fprintf(stdout, "error epoch: %u <cur position[%u]>: %u\n", epoch, i, uerror);*/
 
                 for(k=0; k<dim; ++k)
                     currP.bestPosition[k]=currP.position[k];
