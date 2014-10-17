@@ -6,6 +6,7 @@
 #include <time.h>
 #include <limits.h>
 #include "types.h"
+#include "alr.h"
 
 typedef struct Particle
 {
@@ -30,5 +31,9 @@ typedef struct Particle
  */
 double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, double maxX,
                   unsigned int maxEpochs, double exitError, double (*errorFunction)(double *x, int dim));
+                  
+void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, unsigned int maxEpochs, double exitError, 
+		 void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, msize_t *),
+		 automata_t *atm, msize_t input_size, feature_t *features);
 
 #endif

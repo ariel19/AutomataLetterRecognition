@@ -1,6 +1,8 @@
 #include "alr.h"
 #include "swarm.h"
 
+#include <float.h>
+
 /* finds minimum from two specified  values */
 melem_t min(const melem_t v1, const melem_t v2) {
 	return v1 > v2 ? v2 : v1;
@@ -62,6 +64,98 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 	return ATM_OK;
 }
 
+void init_from_vec(double *vec, automata_t *atm) {
+	msize_t split, n, k;
+	double max;
+	int i;
+	
+	if(!vec)
+		return;
+		
+	/* for each split */
+	for(split = 0; split < atm->mtx.m; ++split) {
+		/* for each column */
+		for (k = 0; k < atm->mtx.k; ++k) {
+			max = DBL_MIN;
+			i = -1;
+			/* for each row */
+			for (n = 0; n < atm->mtx.n; ++n) {
+				atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)] = 0;
+				if (max < vec[split * (atm->sym_class_num * atm->sym_class_num) + 
+							  atm->sym_class_num * k + n]) {
+								  
+					max = vec[split * (atm->sym_class_num * atm->sym_class_num) + 
+						  atm->sym_class_num * k + n];
+					i = n;
+				}
+			}
+			
+			if (i == -1) {
+				fprintf(stderr, "Negative value\n");
+				exit(EXIT_FAILURE);
+			}
+			atm->mtx.mtx[split][MTX_2D(i, k, atm->mtx.k)] = 1;
+		}
+	}
+}
+
+void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, msize_t *err_num) {
+	atm_err_code ret;
+	fsize_t s;
+	mvec1_t out_vec,
+			cs_vec; /* current state vector */
+	msize_t i, vec_size;
+	
+	init_from_vec(vec, atm);
+
+	/* choose a start state here */
+	/*matrix_set_cols(&(atm->mtx));*/
+	vec_size = atm->mtx.k;
+
+	atm->stat.errors = 0;
+	atm->stat.whole = 0;
+
+	cs_vec = (mvec1_t)_calloc(vec_size, sizeof(melem_t));
+
+	for (i = 0; i < input_size; ++i) {
+		/*printf("\rLetter %d/%d", i + 1, input_size);*/
+		atm->feat = features[i];
+		atm->state = SYM_A;
+		cs_vec[atm->state] = 1;
+
+		/* for each element in deterministic split vector */
+		for (s = 0; s < atm->feat.size; ++s) {
+			if((ret = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec)))
+				/*return ret;*/
+				exit(EXIT_FAILURE);
+			
+			memcpy(cs_vec, out_vec, vec_size * sizeof(melem_t));
+
+			free(out_vec);
+		 }
+
+		/* check if out state equals to correct state, if no increase errors+ */
+		++atm->stat.whole;
+		if (!cs_vec[atm->feat.correct])
+			++atm->stat.errors;
+	}
+
+	printf("\nErrors %d\n", atm->stat.errors);
+
+	free(cs_vec);
+
+	*err_num = atm->stat.errors;
+
+	/* FIXME: should be free */
+	/*
+	matrix_free(&(atm->mtx));
+	free(atm->range);
+	*/
+	
+	/*return ATM_OK;*/
+	return;
+}
+
 /* starts automata building */
 atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features, msize_t repeat) {
 	atm_err_code ret;
@@ -90,8 +184,8 @@ atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t
 
 			/* for each element in deterministic split vector */
 			for (s = 0; s < atm->feat.size; ++s) {
-				/* FUNC(current_state, SPLIT_VAL(i)) = next_state */
-				if((ret = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], cs_vec, atm->mtx.k, &out_vec)))
+				if((ret = matrix_mul(&(atm->mtx), atm->feat.determin_splits[s], 
+									 cs_vec, atm->mtx.k, &out_vec)))
 					return ret;
 				
 				memcpy(cs_vec, out_vec, vec_size * sizeof(melem_t));

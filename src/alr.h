@@ -85,6 +85,8 @@ melem_t max(const mvec1_t vec1, const msize_t size);
  */
 atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num);
 
+void init_from_vec(double *vec, automata_t *atm);
+
 /**
  * @brief initializes a matrix related with specified automata
  * @param atm pointer to automata_t
@@ -100,6 +102,8 @@ atm_err_code automata_init_matrix(automata_t *atm);
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features, msize_t repeat);
+
+void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, msize_t *err_num);
 
 /**
  * @brief maps real values -> deterministic

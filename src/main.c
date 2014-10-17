@@ -5,6 +5,7 @@
 #include "types.h"
 #include "matrix.h"
 #include "alr.h"
+#include "swarm.h"
 
 int read_data(const char* filename, msize_t *splits_num, msize_t *symbol_class_num, 
 				fsize_t *feature_num, msize_t *input_size, msize_t *repeat, msize_t *test_size,
@@ -66,6 +67,10 @@ int main(int argc, char **argv) {
 	msize_t test_size = 0;
 	msize_t i;
 	
+	unsigned int epochs = 1000;
+	unsigned int num_part = 10;
+	double min_x = 0.0, max_x = 1.0;
+	
 	automata_t atm;
 	feat_t max;
 	feature_t *features;
@@ -78,8 +83,6 @@ int main(int argc, char **argv) {
 	
 	if(read_data(argv[1], &splits_num, &symbol_class_num, &feature_num, &input_size, &repeat, &test_size, &max, &features, &test_features))
 		return 1;
-
-	puts("Hello, automata!");
 	
 	srand(time(NULL));
 	automata_init(&atm, &max, feature_num, splits_num, symbol_class_num);
@@ -87,7 +90,21 @@ int main(int argc, char **argv) {
 	for(i = 0; i < input_size; ++i)
 		automata_feature_normalize(&atm, &features[i]);
 	
-	automata_build_start(&atm, input_size, features, repeat);
+	/* automata_build_start(&atm, input_size, features, repeat); */
+	
+	puts("Starting pso...");
+	pso(atm.mtx.m * atm.mtx.n * atm.mtx.k,
+		num_part,
+		min_x,
+		max_x,
+		epochs,
+		0.0,
+		automata_build,
+		&atm,
+		input_size,
+		features);
+		 
+	puts("pso finished");
 	
 	for(i = 0; i < input_size; ++i) {
 		free(features[i].determin_splits);
