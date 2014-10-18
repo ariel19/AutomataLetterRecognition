@@ -66,6 +66,7 @@ int main(int argc, char **argv) {
 	msize_t repeat = 0;
 	msize_t test_size = 0;
 	msize_t i;
+	msize_t error_num;
 	
 	unsigned int num_part = 10;
 	double min_x = 0.0, max_x = 1.0;
@@ -103,7 +104,15 @@ int main(int argc, char **argv) {
 		input_size,
 		features);
 		 
-	puts("pso finished");
+	puts("PSO finished");
+	puts("Running with test data...");
+	
+	for(i = 0; i < test_size; ++i)
+		automata_feature_normalize(&atm, test_features[i]);
+	
+	automata_build(NULL, &atm, test_size, test_features, &error_num);
+	
+	printf("%u errors for test input.\n", error_num);
 
     automata_free(&atm);
 	
@@ -113,7 +122,7 @@ int main(int argc, char **argv) {
 	}
 		
 	for(i = 0; i < test_size; ++i) {
-		/*free(test_features[i].determin_splits);*/
+		free(test_features[i].determin_splits);
 		free(test_features[i].feat);
 	}
 	

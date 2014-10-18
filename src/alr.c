@@ -108,8 +108,6 @@ void automata_free(automata_t *atm) {
         free(atm->mtx.mtx[i]);
 
     free(atm->mtx.mtx);
-
-
 }
 
 void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, msize_t *err_num) {
