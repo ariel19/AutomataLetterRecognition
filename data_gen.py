@@ -1,13 +1,15 @@
+#!/usr/bin/env python
+
 import random
 
 filename = "example.dat"
 
-splits_num = 5
+splits_num = 50
 symbol_class_num = 26
-feature_num = 20
+feature_num = 40
 input_size = 3000
-repeat = 1000
-test_input_size = 10000
+repeat = 20
+test_input_size = 1000
 
 max_values = []
 letters = []

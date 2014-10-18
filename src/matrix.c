@@ -118,7 +118,7 @@ mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1
 	mvec2_t _vec2;
 	mvec1_t mul;
 	mtx_err_code ret;
-	msize_t _n, _k;
+    msize_t _n, _k;
 	
 	if ((ret = matrix_ptr_check(mtx)))
 		return ret;
@@ -139,9 +139,9 @@ mtx_err_code matrix_mul(const matrix_t *mtx, const msize_t m, const mvec1_t vec1
 	mul = (mvec1_t)_calloc(mtx->k, sizeof(melem_t));
 	
 	/* multiply matrix x vector using predefined add & mul */
-	for (_n = 0; _n < mtx->n; ++_n) {
+    for (_n = 0; _n < mtx->n; ++_n) {
 		for (_k = 0; _k < mtx->k; ++_k)
-			mul[_k] = mtx->mul(_vec2[MTX_2D(_n, _k, mtx->k)], vec1[_k]); /* currently min operatior */
+            mul[_k] = mtx->mul(_vec2[MTX_2D(_n, _k, mtx->k)], vec1[_k]); /* currently min operatior */
 		(*vec2)[_n] = mtx->add(mul, mtx->k);
 	}
 	

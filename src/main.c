@@ -66,9 +66,8 @@ int main(int argc, char **argv) {
 	msize_t repeat = 0;
 	msize_t test_size = 0;
 	msize_t i;
-	msize_t error_num;
 	
-	unsigned int num_part = 10;
+    unsigned int num_part = 10;
 	double min_x = 0.0, max_x = 1.0;
 	
 	automata_t atm;
@@ -108,11 +107,10 @@ int main(int argc, char **argv) {
 	puts("Running with test data...");
 	
 	for(i = 0; i < test_size; ++i)
-		automata_feature_normalize(&atm, test_features[i]);
+        automata_feature_normalize(&atm, &test_features[i]);
 	
-	automata_build(NULL, &atm, test_size, test_features, &error_num);
-	
-	printf("%u errors for test input.\n", error_num);
+    /*automata_build(NULL, &atm, test_size, test_features, NULL);*/
+    /*automata_build(NULL, &atm, input_size, features, NULL);*/
 
     automata_free(&atm);
 	

@@ -52,6 +52,7 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 	memset(&(atm->max), 0, sizeof(feature_t));
 	atm->max.size = feature_num;
 	atm->max.feat = *max;
+    atm->feat.size = feature_num;
 
 	/* init range according to the split value */
 	atm->range = (feat_t)_calloc(atm->splits + 1, sizeof(felem_t));
@@ -74,29 +75,29 @@ void init_from_vec(double *vec, automata_t *atm) {
 		
 	/* for each split */
 	for(split = 0; split < atm->mtx.m; ++split) {
-		/* for each column */
-		for (k = 0; k < atm->mtx.k; ++k) {
+        /* for each column */
+        for (k = 0; k < atm->mtx.k; ++k) {
             max = -DBL_MAX;
-			i = -1;
-			/* for each row */
-			for (n = 0; n < atm->mtx.n; ++n) {
-				atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)] = 0;
-				if (max < vec[split * (atm->sym_class_num * atm->sym_class_num) + 
-							  atm->sym_class_num * k + n]) {
+            i = -1;
+            /* for each row */
+            for (n = 0; n < atm->mtx.n; ++n) {
+                atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)] = 0;
+                if (max < vec[split * (atm->sym_class_num * atm->sym_class_num) +
+                              atm->sym_class_num * n + k]) {
 								  
-					max = vec[split * (atm->sym_class_num * atm->sym_class_num) + 
-						  atm->sym_class_num * k + n];
-					i = n;
-				}
-			}
+                    max = vec[split * (atm->sym_class_num * atm->sym_class_num) +
+                          atm->sym_class_num * n + k];
+                    i = n;
+                }
+            }
 			
-			if (i == -1) {
-				fprintf(stderr, "Negative value\n");
-				exit(EXIT_FAILURE);
-			}
-			atm->mtx.mtx[split][MTX_2D(i, k, atm->mtx.k)] = 1;
-		}
-	}
+            if (i == -1) {
+                fprintf(stderr, "Negative value\n");
+                exit(EXIT_FAILURE);
+            }
+            atm->mtx.mtx[split][MTX_2D(i, k, atm->mtx.k)] = 1;
+        }
+    }
 }
 
 void automata_free(automata_t *atm) {
@@ -112,10 +113,10 @@ void automata_free(automata_t *atm) {
 
 void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, msize_t *err_num) {
 	atm_err_code ret;
-	fsize_t s;
+    fsize_t s, q;
 	mvec1_t out_vec,
 			cs_vec; /* current state vector */
-	msize_t i, vec_size;
+    msize_t i, vec_size, valid_num = 0;
 	
 	init_from_vec(vec, atm);
 
@@ -132,6 +133,7 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 		/*printf("\rLetter %d/%d", i + 1, input_size);*/
 		atm->feat = features[i];
 		atm->state = SYM_A;
+        memset(cs_vec, 0, vec_size * sizeof(melem_t));
 		cs_vec[atm->state] = 1;
 
 		/* for each element in deterministic split vector */
@@ -141,9 +143,33 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 				exit(EXIT_FAILURE);
 			
 			memcpy(cs_vec, out_vec, vec_size * sizeof(melem_t));
+//            if(cs_vec[0] == 1 && cs_vec[1] == 1)
+//            {
+//                printf("wtf\n");
+//                for(q = 0; q < atm->splits * atm->sym_class_num * atm->sym_class_num; ++q)
+//                {
+//                    printf("%f.%f %f%f", vec[q], vec[q+1], vec[q+2], vec[q+3]);
+//                    getchar();
+//                }
+//                getchar();
+//            }
+//            for(q = 0; q < vec_size; ++q) {
+//                printf("%d ", cs_vec[q  ]);
+//            }
+//            getchar();
 
 			free(out_vec);
 		 }
+
+        if(!err_num) {
+            for(s = 0; s < vec_size; ++s) {
+                if(cs_vec[s]) {
+                    printf("Input %d = symbol %d\n", i, s);
+                    valid_num++;
+                    break;
+                }
+            }
+        }
 
 		/* check if out state equals to correct state, if no increase errors+ */
 		++atm->stat.whole;
@@ -155,7 +181,10 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 
 	free(cs_vec);
 
-	*err_num = atm->stat.errors;
+    if(err_num)
+        *err_num = atm->stat.errors;
+    else
+        printf("Invalid tests: %d\n", input_size - valid_num);
 
 	/* FIXME: should be free */
 	/*

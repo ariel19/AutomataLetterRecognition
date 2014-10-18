@@ -160,8 +160,8 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
          void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, msize_t *),
          automata_t *atm, msize_t input_size, feature_t *features) {
 
-    Particle* swarm = (Particle*)_malloc(numParticles * sizeof(Particle));
-    double*   bestGlobalPosition = (double*)_malloc(dim *sizeof(double));
+    Particle* swarm = (Particle*)_calloc(numParticles, sizeof(Particle));
+    double*   bestGlobalPosition = (double*)_calloc(dim, sizeof(double));
     double    bestGlobalError = DBL_MAX;
     unsigned int uerror;
     double error;
@@ -239,8 +239,8 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
 
     epoch = 0;
 
-    newPosition = (double*)_malloc(dim * sizeof(double));
-    newVelocity = (double*)_malloc(dim * sizeof(double));
+    newPosition = (double*)_calloc(dim, sizeof(double));
+    newVelocity = (double*)_calloc(dim, sizeof(double));
 
     /* main loop */
     while(epoch < maxEpochs) {
@@ -305,6 +305,8 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
                 printf("Particle %d died\n", i);
                 /*for (j = 0; j < dim; ++j)
                     currP.position[j] = (maxX - minX) * ((double)rand() / RAND_MAX ) + minX;*/
+
+                memset(currP.position, 0, sizeof(double) * atm->splits * atm->sym_class_num * atm->sym_class_num);
 
                 /* init automata with 0, 1 */
                 for (mi = 0; mi < atm->splits; ++mi) {
