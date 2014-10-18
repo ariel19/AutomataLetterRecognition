@@ -210,7 +210,7 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
         
         fprintf(stdout, "error <random position[%u]>: %u\n", i, uerror);
 
-        for(j=0; j<dim;++j){
+        for(j = 0; j < dim; ++j){
             lo = minX * 0.1;
             hi = maxX * 0.1;
             randomVelocity[j] = (hi-lo) * ((double)rand() / RAND_MAX ) + lo;
@@ -221,7 +221,7 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
         swarm[i].bestPosition = randomPosition;
         swarm[i].bestError    = error;
 
-        if(swarm[i].error<bestGlobalError) {
+        if(swarm[i].error < bestGlobalError) {
             bestGlobalError = swarm[i].error;
 
             /* Copy particles position to bestGlobalPosition */
@@ -302,8 +302,18 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
 
             if (die < probDeath)
             {
-                for (j = 0; j < dim; ++j)
-                    currP.position[j] = (maxX - minX) * ((double)rand() / RAND_MAX ) + minX;
+                printf("Particle %d died\n", i);
+                /*for (j = 0; j < dim; ++j)
+                    currP.position[j] = (maxX - minX) * ((double)rand() / RAND_MAX ) + minX;*/
+
+                /* init automata with 0, 1 */
+                for (mi = 0; mi < atm->splits; ++mi) {
+                    /* init columns */
+                    for (mj = 0; mj < atm->sym_class_num; ++mj) {
+                        currP.position[mi * (atm->sym_class_num * atm->sym_class_num) +
+                                mj * atm->sym_class_num + rand() % atm->sym_class_num] = 1;
+                    }
+                }
                 
                 /* currP.error = errorFunction(currP.position, dim);*/
                 errorFunction(currP.position, atm, input_size, features, &uerror);
