@@ -76,7 +76,7 @@ void init_from_vec(double *vec, automata_t *atm) {
 	for(split = 0; split < atm->mtx.m; ++split) {
 		/* for each column */
 		for (k = 0; k < atm->mtx.k; ++k) {
-			max = DBL_MIN;
+            max = -DBL_MAX;
 			i = -1;
 			/* for each row */
 			for (n = 0; n < atm->mtx.n; ++n) {
