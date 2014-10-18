@@ -67,7 +67,6 @@ int main(int argc, char **argv) {
 	msize_t test_size = 0;
 	msize_t i;
 	
-	unsigned int epochs = 1000;
 	unsigned int num_part = 10;
 	double min_x = 0.0, max_x = 1.0;
 	
@@ -97,7 +96,7 @@ int main(int argc, char **argv) {
 		num_part,
 		min_x,
 		max_x,
-		epochs,
+		repeat,
 		0.0,
 		automata_build,
 		&atm,
@@ -105,6 +104,8 @@ int main(int argc, char **argv) {
 		features);
 		 
 	puts("pso finished");
+
+    automata_free(&atm);
 	
 	for(i = 0; i < input_size; ++i) {
 		free(features[i].determin_splits);

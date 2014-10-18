@@ -87,6 +87,8 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 
 void init_from_vec(double *vec, automata_t *atm);
 
+void automata_free(automata_t *atm);
+
 /**
  * @brief initializes a matrix related with specified automata
  * @param atm pointer to automata_t
