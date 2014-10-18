@@ -113,9 +113,6 @@ void automata_free(automata_t *atm) {
 }
 
 void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, msize_t *err_num) {
-    *err_num = rand() % 1000 + 2000;
-    return;
-
 	atm_err_code ret;
 	fsize_t s;
 	mvec1_t out_vec,
