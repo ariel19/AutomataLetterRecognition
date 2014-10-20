@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
 	msize_t test_size = 0;
 	msize_t i;
 	
-    unsigned int num_part = 10;
+    unsigned int num_part = 24;
 	double min_x = 0.0, max_x = 1.0;
 	
 	automata_t atm;

@@ -143,20 +143,6 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 				exit(EXIT_FAILURE);
 			
 			memcpy(cs_vec, out_vec, vec_size * sizeof(melem_t));
-//            if(cs_vec[0] == 1 && cs_vec[1] == 1)
-//            {
-//                printf("wtf\n");
-//                for(q = 0; q < atm->splits * atm->sym_class_num * atm->sym_class_num; ++q)
-//                {
-//                    printf("%f.%f %f%f", vec[q], vec[q+1], vec[q+2], vec[q+3]);
-//                    getchar();
-//                }
-//                getchar();
-//            }
-//            for(q = 0; q < vec_size; ++q) {
-//                printf("%d ", cs_vec[q  ]);
-//            }
-//            getchar();
 
 			free(out_vec);
 		 }
@@ -263,7 +249,7 @@ atm_err_code automata_split_range(automata_t *atm) {
 		return ATM_RANGE_IS_NULL;
 
 	for (s = 0; s <= atm->splits; ++s)
-		atm->range[s] = s / atm->splits;
+        atm->range[s] = (double)s / atm->splits;
 
 	return ATM_OK;
 }
@@ -349,6 +335,7 @@ ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat) {
 			}
 			if(k == atm->splits - 1)
 				feat->determin_splits[s] = k;
+
 		}
 	}
 

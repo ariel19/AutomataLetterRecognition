@@ -4,11 +4,11 @@ import random
 
 filename = "example.dat"
 
-splits_num = 50
-symbol_class_num = 26
+splits_num = 5
+symbol_class_num = 10
 feature_num = 40
 input_size = 3000
-repeat = 20
+repeat = 100
 test_input_size = 1000
 
 max_values = []
@@ -19,6 +19,7 @@ test_letters = []
 
 def create_max_values():
     for i in range(0, feature_num):
+        #max_values.append(100)
         max_values.append(random.uniform(1, 100))
 
 
