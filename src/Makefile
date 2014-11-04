@@ -1,6 +1,6 @@
 CC=
 GXX=${CC}gcc
-CFLAGS=-Wall -Wextra -pedantic -O3
+CFLAGS=-Wall -Wextra -pedantic -g# -O3
 LDFLAGS=
 OBJ=main.o matrix.o syswrap.o alr.o swarm.o
 SRC=src

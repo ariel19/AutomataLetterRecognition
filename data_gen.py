@@ -4,10 +4,10 @@ import random
 
 filename = "example.dat"
 
-splits_num = 5
+splits_num = 4
 symbol_class_num = 10
-feature_num = 40
-input_size = 3000
+feature_num = 5
+input_size = 300
 repeat = 100
 test_input_size = 1000
 

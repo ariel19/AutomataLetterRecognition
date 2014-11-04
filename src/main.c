@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
         automata_feature_normalize(&atm, &test_features[i]);
 	
     /*automata_build(NULL, &atm, test_size, test_features, NULL);*/
-    /*automata_build(NULL, &atm, input_size, features, NULL);*/
+    automata_build(NULL, &atm, input_size, features, NULL);
 
     automata_free(&atm);
 	

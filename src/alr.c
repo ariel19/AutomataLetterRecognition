@@ -67,6 +67,61 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 
 void init_from_vec(double *vec, automata_t *atm) {
 	msize_t split, n, k;
+	double max, prev_max, nval;
+	int i, j;
+	
+	if(!vec)
+		return;
+		
+	/* for each split */
+	for(split = 0; split < atm->mtx.m; ++split) {
+        /* for each column */
+        for (k = 0; k < atm->mtx.k; ++k) {
+            max = prev_max = -DBL_MAX;
+            i = j = -1;
+            /* for each row */
+            for (n = 0; n < atm->mtx.n; ++n) {
+				nval = vec[split * (atm->sym_class_num * atm->sym_class_num) + atm->sym_class_num * n + k];
+                atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)] = 0;
+                if (max < nval) {
+					if(i != -1 && k < 2) {
+						prev_max = max;
+						j = i;
+					} 
+                    max = nval;
+                    i = n;
+                } 
+                else if(k < 2 && prev_max < nval) {
+					prev_max = nval;
+					j = n;
+				}
+            }
+			
+            if (i == -1) {
+                fprintf(stderr, "Negative value\n");
+                exit(EXIT_FAILURE);
+            }
+            atm->mtx.mtx[split][MTX_2D(i, k, atm->mtx.k)] = 1;
+            if(k < 2)
+				atm->mtx.mtx[split][MTX_2D(j, k, atm->mtx.k)] = 1;
+        }
+    }
+    
+    /*for(split = 0; split < atm->mtx.m; ++split) {
+		for (n = 0; n < atm->mtx.n; ++n) {
+			for (k = 0; k < atm->mtx.k; ++k) {
+                printf("%d ", atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
+    
+    getchar();*/
+}
+
+void init_from_vec_old(double *vec, automata_t *atm) {
+	msize_t split, n, k;
 	double max;
 	int i;
 	
@@ -148,13 +203,13 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 		 }
 
         if(!err_num) {
-            for(s = 0; s < vec_size; ++s) {
+            /*for(s = 0; s < vec_size; ++s) {
                 if(cs_vec[s]) {
                     printf("Input %d = symbol %d\n", i, s);
                     valid_num++;
                     break;
                 }
-            }
+            }*/
         }
 
 		/* check if out state equals to correct state, if no increase errors+ */
@@ -170,7 +225,7 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
     if(err_num)
         *err_num = atm->stat.errors;
     else
-        printf("Invalid tests: %d\n", input_size - valid_num);
+        printf("Error: %f%%\n", 100.0 * (atm->stat.errors / (double)input_size));
 
 	/* FIXME: should be free */
 	/*
