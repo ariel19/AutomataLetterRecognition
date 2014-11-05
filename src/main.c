@@ -7,7 +7,7 @@
 #include "alr.h"
 #include "swarm.h"
 
-int read_data(const char* filename, msize_t *splits_num, msize_t *symbol_class_num, 
+int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *symbol_class_num,
 				fsize_t *feature_num, msize_t *input_size, msize_t *repeat, msize_t *test_size,
 				feat_t *max, feature_t **features, feature_t **test_features)
 {
@@ -18,8 +18,8 @@ int read_data(const char* filename, msize_t *splits_num, msize_t *symbol_class_n
 	if(!f)
 		return 1;
 		
-	fscanf(f, "%u, %u, %u, %u, %u, %u, \n\n", (unsigned int*)splits_num, (unsigned int*)symbol_class_num, (unsigned int*)feature_num, 
-		(unsigned int*)input_size, (unsigned int*)repeat, (unsigned int*)test_size);
+    fscanf(f, "%u, %u, %u, %u, %u, %u, %u, \n\n", (unsigned int*)is_rej, (unsigned int*)splits_num, (unsigned int*)symbol_class_num,
+           (unsigned int*)feature_num, (unsigned int*)input_size, (unsigned int*)repeat, (unsigned int*)test_size);
 		
 	*max = (feat_t)_calloc(*feature_num, sizeof(felem_t));
 		
@@ -46,6 +46,8 @@ int read_data(const char* filename, msize_t *splits_num, msize_t *symbol_class_n
 	for(i = 0; i < *test_size; ++i) {
 		(*test_features)[i].feat = (feat_t)_calloc(*feature_num, sizeof(felem_t));
 		(*test_features)[i].size = *feature_num;
+
+        fscanf(f, "%d\n", (int*)&((*test_features)[i].correct));
 		
 		for(j = 0; j < *feature_num; ++j)
 			fscanf(f, "%lf, ", (double*)&((*test_features)[i].feat[j]));
@@ -66,6 +68,7 @@ int main(int argc, char **argv) {
 	msize_t repeat = 0;
 	msize_t test_size = 0;
 	msize_t i;
+    int is_rej = 0;
 	
     unsigned int num_part = 24;
 	double min_x = 0.0, max_x = 1.0;
@@ -80,16 +83,17 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	
-	if(read_data(argv[1], &splits_num, &symbol_class_num, &feature_num, &input_size, &repeat, &test_size, &max, &features, &test_features))
+    if(read_data(argv[1], &is_rej, &splits_num, &symbol_class_num, &feature_num, &input_size, &repeat, &test_size, &max, &features, &test_features))
 		return 1;
+
+    if(is_rej)
+        symbol_class_num++;
 	
 	srand(time(NULL));
 	automata_init(&atm, &max, feature_num, splits_num, symbol_class_num);
 	
 	for(i = 0; i < input_size; ++i)
 		automata_feature_normalize(&atm, &features[i]);
-	
-	/* automata_build_start(&atm, input_size, features, repeat); */
 	
 	puts("Starting pso...");
 	pso(atm.mtx.m * atm.mtx.n * atm.mtx.k,
@@ -109,8 +113,8 @@ int main(int argc, char **argv) {
 	for(i = 0; i < test_size; ++i)
         automata_feature_normalize(&atm, &test_features[i]);
 	
-    /*automata_build(NULL, &atm, test_size, test_features, NULL);*/
     automata_build(NULL, &atm, input_size, features, NULL);
+    automata_build(NULL, &atm, test_size, test_features, NULL);
 
     automata_free(&atm);
 	

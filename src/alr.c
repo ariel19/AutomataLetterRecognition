@@ -69,6 +69,7 @@ void init_from_vec(double *vec, automata_t *atm) {
 	msize_t split, n, k;
 	double max, prev_max, nval;
 	int i, j;
+    int non_d_num = 1;
 	
 	if(!vec)
 		return;
@@ -84,14 +85,14 @@ void init_from_vec(double *vec, automata_t *atm) {
 				nval = vec[split * (atm->sym_class_num * atm->sym_class_num) + atm->sym_class_num * n + k];
                 atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)] = 0;
                 if (max < nval) {
-					if(i != -1 && k < 2) {
+                    if(i != -1 && k < non_d_num) {
 						prev_max = max;
 						j = i;
 					} 
                     max = nval;
                     i = n;
                 } 
-                else if(k < 2 && prev_max < nval) {
+                else if(k < non_d_num && prev_max < nval) {
 					prev_max = nval;
 					j = n;
 				}
@@ -102,7 +103,7 @@ void init_from_vec(double *vec, automata_t *atm) {
                 exit(EXIT_FAILURE);
             }
             atm->mtx.mtx[split][MTX_2D(i, k, atm->mtx.k)] = 1;
-            if(k < 2)
+            if(k < non_d_num)
 				atm->mtx.mtx[split][MTX_2D(j, k, atm->mtx.k)] = 1;
         }
     }
@@ -200,7 +201,14 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 			memcpy(cs_vec, out_vec, vec_size * sizeof(melem_t));
 
 			free(out_vec);
-		 }
+        }
+
+        /*if(!err_num) {
+        for(s = 0; s < vec_size; ++s)
+            printf("%d ", cs_vec[s]);
+
+        printf("\n");
+        }*/
 
         if(!err_num) {
             /*for(s = 0; s < vec_size; ++s) {
