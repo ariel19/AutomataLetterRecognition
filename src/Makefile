@@ -1,7 +1,7 @@
 CC=
 GXX=${CC}gcc
 CFLAGS=-Wall -Wextra -pedantic -O3
-LDFLAGS=
+LDFLAGS=-lm
 OBJ=main.o matrix.o syswrap.o alr.o swarm.o
 SRC=src
 BIN=bin
@@ -9,7 +9,7 @@ BIN=bin
 TARGET=alr
 
 ${TARGET} : ${OBJ}
-	${GXX} ${LDFLAGS} -o ${TARGET} ${OBJ}
+	${GXX} -o ${TARGET} ${OBJ} ${LDFLAGS}
 	@mv ${TARGET} ../${BIN}
 
 main.o: main.c

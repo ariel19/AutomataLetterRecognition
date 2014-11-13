@@ -57,7 +57,7 @@ typedef struct automata {
  * @brief finds minimum from two specified  values
  * @param v1 first value
  * @param v2 second value
- * 
+ *
  * @return minimum from two values
  */
 melem_t min(const melem_t v1, const melem_t v2);
@@ -66,10 +66,28 @@ melem_t min(const melem_t v1, const melem_t v2);
  * @brief finds maximum from the specified vector
  * @param vec1 vector of elements
  * @param size size of vector
- * 
+ *
  * @return maximum value from vector
  */
 melem_t max(const mvec1_t vec1, const msize_t size);
+
+/**
+ * @brief implementation of mul operator
+ * @param v1 first value
+ * @param v2 second value
+ * 
+ * @return composition function result
+ */
+melem_t amin(const melem_t v1, const melem_t v2);
+
+/**
+ * @brief implementation of plus operator
+ * @param vec1 vector of elements
+ * @param size size of vector
+ *
+ * @return composition function result
+ */
+melem_t amax(const mvec1_t vec1, const msize_t size);
 
 /**
  * AUTOMATA
@@ -80,7 +98,7 @@ melem_t max(const mvec1_t vec1, const msize_t size);
  * @param atm pointer to automata_t
  * @param splits number of splits in range [0, 1]
  * @param sym_class_num number of symbol classes
- * 
+ *
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num);
@@ -92,7 +110,7 @@ void automata_free(automata_t *atm);
 /**
  * @brief initializes a matrix related with specified automata
  * @param atm pointer to automata_t
- * 
+ *
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_init_matrix(automata_t *atm);
@@ -100,7 +118,7 @@ atm_err_code automata_init_matrix(automata_t *atm);
 /**
  * @brief starts automata building
  * @param atm pointer to automata_t
- * 
+ *
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features, msize_t repeat);
@@ -110,7 +128,7 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 /**
  * @brief maps real values -> deterministic
  * @param atm pointer to automata_t
- * 
+ *
  * @return ATM_OK if function succeed, error code in other cases
  */
 atm_err_code automata_split_range(automata_t *atm);
@@ -122,7 +140,7 @@ atm_err_code automata_split_range(automata_t *atm);
 /**
  * @brief responsible for normalizing specified feature vector
  * @param atm pointer to automata_t
- * 
+ *
  * @return ATM_OK if function succeed, error code in other cases
  */
 ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat);

@@ -2,6 +2,7 @@
 #include "swarm.h"
 
 #include <float.h>
+#include <math.h>
 
 /* finds minimum from two specified  values */
 melem_t min(const melem_t v1, const melem_t v2) {
@@ -25,6 +26,21 @@ melem_t max(const mvec1_t vec1, const msize_t size) {
 			_max = vec1[s];
 
 	return _max;
+}
+
+/* implementation of mul operator */
+melem_t amin(const melem_t v1, const melem_t v2) {
+	return 1.0 - tanh(atanh(1.0 - v1) + atanh(1.0 - v2));
+}
+
+/* implementation of plus operator */
+melem_t amax(const mvec1_t vec1, const msize_t size) {
+	melem_t v = 0;
+	msize_t i;
+	for (i = 0; i < size; ++i)
+		v += atanh(vec1[i]);
+		
+	return tanh(v);
 }
 
 /* initializes a specified automata instance */
