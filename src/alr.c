@@ -76,14 +76,14 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 	if ((ret = automata_split_range(atm)))
 		return ret;
 
-	automata_init_matrix(atm);
-
 	/* init fuzzy */
 #ifdef FUZZY_TYPE
 	atm->fuzzy = 1;
 #else
 	atm->fuzzy = 0;
 #endif
+
+	automata_init_matrix(atm);
 
 	return ATM_OK;
 }
@@ -387,10 +387,18 @@ atm_err_code automata_init_matrix(automata_t *atm) {
 	/* should be NUM_OF_SPLITS x NUM_OF_SYM x NUM_OF_SYM */
 	if ((ret = matrix_init(&(atm->mtx), atm->splits, atm->sym_class_num, atm->sym_class_num)))
 		return ATM_MTX_INIT_ERR;
-	if ((ret = matrix_set_add(&(atm->mtx), max)))
-		return ATM_MTX_INIT_ERR;
-	if ((ret = matrix_set_mul(&(atm->mtx), min)))
-		return ATM_MTX_INIT_ERR;
+	if (atm->fuzzy) { 
+		if ((ret = matrix_set_add(&(atm->mtx), amax)))
+			return ATM_MTX_INIT_ERR;
+		if ((ret = matrix_set_mul(&(atm->mtx), amin)))
+			return ATM_MTX_INIT_ERR;
+	}
+	else {
+		if ((ret = matrix_set_add(&(atm->mtx), max)))
+			return ATM_MTX_INIT_ERR;
+		if ((ret = matrix_set_mul(&(atm->mtx), min)))
+			return ATM_MTX_INIT_ERR;
+	}
 
 	/*
 	matrix_show(&(atm->mtx), 0);
