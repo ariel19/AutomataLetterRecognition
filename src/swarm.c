@@ -352,6 +352,9 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
     free(newPosition);
     free(newVelocity);
 
-    init_from_vec(bestGlobalPosition, atm);
+	if (atm->fuzzy)
+		init_from_dvec(bestGlobalPosition, atm);
+	else init_from_vec(bestGlobalPosition, atm);
+	
     free(bestGlobalPosition);
 }

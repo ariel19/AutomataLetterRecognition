@@ -289,10 +289,7 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 		}
 		else *err_num = (double)atm->stat.errors;
 	}
-    else {
-		printf("Total error:%f%%\n", atm->stat.fuzzy_errors);
-		printf("Error: %f%%\n", 100.0 * ((!atm->fuzzy ? atm->stat.errors : atm->stat.fuzzy_errors) / (double)input_size));
-	}
+    else printf("Error: %f%%\n", 100.0 * ((!atm->fuzzy ? atm->stat.errors : atm->stat.fuzzy_errors) / (double)input_size));
 
 	/* FIXME: should be free */
 	/*
