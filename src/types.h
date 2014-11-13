@@ -78,7 +78,11 @@ typedef enum {
 #define MTX_2D(i, j, n) (i * n + j)
 
 typedef uint32_t	msize_t; /* matrix size type */
-typedef uint8_t		melem_t; /* matrix element type */
+#ifdef FUZZY_TYPE
+	typedef double		melem_t; /* matrix element type */
+#else
+	typedef uint8_t		melem_t; /* matrix element type */
+#endif
 typedef melem_t*	mvec1_t; /* vector type */
 typedef melem_t*	mvec2_t; /* 2d matrix */
 typedef melem_t**	mvec3_t; /* 3d matrix */
@@ -102,5 +106,6 @@ typedef uint8_t		err_t;	 /* error type */
  * AUTOMATA
  */
 typedef uint32_t	lssize_t; /* learn set size and number of errors type */
+typedef uint8_t		bool_t; /* boolean type */
 
 #endif /* _TYPES_H */

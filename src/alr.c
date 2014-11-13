@@ -78,6 +78,13 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 
 	automata_init_matrix(atm);
 
+	/* init fuzzy */
+#ifdef FUZZY_TYPE
+	atm->fuzzy = 1;
+#else
+	atm->fuzzy = 0;
+#endif
+
 	return ATM_OK;
 }
 
@@ -137,6 +144,23 @@ void init_from_vec(double *vec, automata_t *atm) {
     getchar();*/
 }
 
+void init_from_dvec(double *vec, automata_t *atm) {
+	msize_t split, n, k;
+	double nval;
+	
+	if(!vec)
+		return;
+		
+	/* for each split */
+	for(split = 0; split < atm->mtx.m; ++split)
+        /* for each column */
+        for (k = 0; k < atm->mtx.k; ++k)
+            /* for each row */
+            for (n = 0; n < atm->mtx.n; ++n)
+                atm->mtx.mtx[split][MTX_2D(n, k, atm->mtx.k)] = 
+					vec[split * (atm->sym_class_num * atm->sym_class_num) + atm->sym_class_num * n + k];;
+}
+
 void init_from_vec_old(double *vec, automata_t *atm) {
 	msize_t split, n, k;
 	double max;
@@ -183,14 +207,17 @@ void automata_free(automata_t *atm) {
     free(atm->mtx.mtx);
 }
 
-void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, msize_t *err_num) {
+void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, double *err_num) {
 	atm_err_code ret;
     fsize_t s, q;
 	mvec1_t out_vec,
 			cs_vec; /* current state vector */
-    msize_t i, vec_size, valid_num = 0;
+    msize_t i, vec_size, valid_num = 0, j;
+    double tmp_err;
 	
-	init_from_vec(vec, atm);
+	if (atm->fuzzy)
+		init_from_dvec(vec, atm);
+	else init_from_vec(vec, atm);
 
 	/* choose a start state here */
 	/*matrix_set_cols(&(atm->mtx));*/
@@ -198,6 +225,7 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 
 	atm->stat.errors = 0;
 	atm->stat.whole = 0;
+	atm->stat.fuzzy_errors = 0.0;
 
 	cs_vec = (mvec1_t)_calloc(vec_size, sizeof(melem_t));
 
@@ -238,7 +266,16 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 
 		/* check if out state equals to correct state, if no increase errors+ */
 		++atm->stat.whole;
-		if (!cs_vec[atm->feat.correct])
+		if (atm->fuzzy) {
+			tmp_err = 0.0;
+			for (j = 0; j < vec_size; ++j)
+				tmp_err += (atm->feat.correct == j) ? 
+							abs(cs_vec[j] - 1.0) : cs_vec[j];
+							
+			atm->stat.fuzzy_errors += tmp_err;
+			
+		}
+		else if(!cs_vec[atm->feat.correct])
 			++atm->stat.errors;
 	}
 
@@ -246,10 +283,13 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 
 	free(cs_vec);
 
-    if(err_num)
-        *err_num = atm->stat.errors;
-    else
-        printf("Error: %f%%\n", 100.0 * (atm->stat.errors / (double)input_size));
+    if(err_num) {
+        if(atm->fuzzy) {
+			*err_num = atm->stat.fuzzy_errors;
+		}
+		else *err_num = (double)atm->stat.errors;
+	}
+    else printf("Error: %f%%\n", 100.0 * ((!atm->fuzzy ? atm->stat.errors : atm->stat.fuzzy_errors) / (double)input_size));
 
 	/* FIXME: should be free */
 	/*

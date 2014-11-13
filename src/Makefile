@@ -1,6 +1,7 @@
 CC=
 GXX=${CC}gcc
 CFLAGS=-Wall -Wextra -pedantic -O3
+FUZZY=-DFUZZY_TYPE
 LDFLAGS=-lm
 OBJ=main.o matrix.o syswrap.o alr.o swarm.o
 SRC=src
@@ -22,7 +23,7 @@ syswrap.o: syswrap.c
 	${GXX} ${CFLAGS} -c $<
 
 alr.o: alr.c
-	${GXX} ${CFLAGS} -c $<
+	${GXX} ${CFLAGS} ${FUZZY} -c $<
 
 swarm.o: swarm.c
 	${GXX} ${CFLAGS} -c $<
