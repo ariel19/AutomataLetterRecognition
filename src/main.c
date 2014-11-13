@@ -83,7 +83,9 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	
-    if(read_data(argv[1], &is_rej, &splits_num, &symbol_class_num, &feature_num, &input_size, &repeat, &test_size, &max, &features, &test_features))
+    if(read_data(argv[1], &is_rej, &splits_num, &symbol_class_num, 
+				 &feature_num, &input_size, &repeat, &test_size, &max, 
+				 &features, &test_features))
 		return 1;
 
     if(is_rej)

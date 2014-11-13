@@ -1,6 +1,6 @@
 CC=
 GXX=${CC}gcc
-CFLAGS=-Wall -Wextra -pedantic -O3
+CFLAGS=-Wall -Wextra -pedantic -g#-O3
 FUZZY=-DFUZZY_TYPE
 LDFLAGS=-lm
 OBJ=main.o matrix.o syswrap.o alr.o swarm.o
@@ -14,19 +14,19 @@ ${TARGET} : ${OBJ}
 	@mv ${TARGET} ../${BIN}
 
 main.o: main.c
-	${GXX} ${CFLAGS} -c $<
+	${GXX} ${CFLAGS} ${FUZZY} -c $<
 
 matrix.o: matrix.c
-	${GXX} ${CFLAGS} -c $<
+	${GXX} ${CFLAGS} ${FUZZY} -c $<
 
 syswrap.o: syswrap.c
-	${GXX} ${CFLAGS} -c $<
+	${GXX} ${CFLAGS} ${FUZZY} -c $<
 
 alr.o: alr.c
 	${GXX} ${CFLAGS} ${FUZZY} -c $<
 
 swarm.o: swarm.c
-	${GXX} ${CFLAGS} -c $<
+	${GXX} ${CFLAGS} ${FUZZY} -c $<
 
 .PHONY: clean
 clean:
