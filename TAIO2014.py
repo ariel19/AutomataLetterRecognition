@@ -1,0 +1,230 @@
+import sys
+import os
+
+
+def print_err(s):
+    print s
+    error(1)
+
+
+def error_no_arg(a):
+    print_err('Error: Argument \'-' + a + '\' not found!')
+
+
+def error_wrong_arg(a):
+    print_err('Error: Wrong argument \'-' + a + '\'!')
+
+
+def error_invalid_arg(a, v):
+    print_err('Error: Invalid argument \'-' + a + '\' value \'' + v + '\'!')
+
+
+def check_if_values_in(s, args, valid):
+    if s in args.keys:
+        if args[s] not in valid:
+            error_invalid_arg(s, args[s])
+
+
+def check_if_file_exists(s, args):
+    if s in args.keys:
+        if not os.path.isfile(args[s]):
+            print_err('Error: File ' + args[s] + ' not found!')
+
+
+def parse_if_not_eq(s, to_check, val, fa, av):
+    if av[to_check] == val:
+        if fa[s] != -1:
+            error_wrong_arg(s)
+    else:
+        if fa[s] == -1:
+            error_no_arg(s)
+        else:
+            av[s] = sys.argv[fa[s]]
+
+
+def parse_if_not_czyt(s, fa, av):
+    parse_if_not_eq(s, 'wejscieTyp', 'czyt', fa, av)
+
+
+def parse_args(fa):
+    av = {}
+
+    s = 'etap'
+    if fa[s] == -1:
+        error_no_arg(s)
+    av[s] = sys.argv[fa[s]]
+
+    s = 'wejscieTyp'
+    if fa[s] == -1:
+        av[s] = 'gen'
+    else:
+        av[s] = sys.argv[fa[s]]
+
+    parse_if_not_eq('sciezkaTrain', 'wejscieTyp', 'gen', fa, av)
+
+    s = 'sciezkaTest'
+    if fa[s] != -1:
+        if av['wejscieTyp'] == 'gen' or fa['procRozmTest'] != -1:
+            error_wrong_arg(s)
+        else:
+            av[s] = sys.argv[fa[s]]
+
+    s = 'procRozmTest'
+    if fa[s] == -1:
+        if 'sciezkaTest' not in av.keys:
+            error_no_arg(s)
+    else:
+        if 'sciezkaTest' in av.keys():
+            error_wrong_arg(s)
+        else:
+            av[s] = sys.argv[fa[s]]
+
+    s = 'sciezkaOutputKlas'
+    if fa[s] != -1:
+        av[s] = sys.argv[fa[s]]
+
+    s = 'sciezkaOutputErr'
+    if fa[s] != -1:
+        av[s] = sys.argv[fa[s]]
+
+    parse_if_not_czyt('iloscKlas', fa, av)
+    parse_if_not_czyt('iloscCech', fa, av)
+    parse_if_not_czyt('iloscPowtorzenWKlasie', fa, av)
+    parse_if_not_czyt('minLos', fa, av)
+    parse_if_not_czyt('maxLos', fa, av)
+    parse_if_not_czyt('zaburzenie', fa, av)
+
+    s = 'ograniczNietermin'
+    if fa[s] != -1:
+        av[s] = sys.argv[fa[s]]
+
+    s = 'dyskretyzacja'
+    if fa[s] == -1:
+        error_no_arg(s)
+    av[s] = sys.argv[fa[s]]
+
+    s = 'rownolegle'
+    if fa[s] == -1:
+        av[s] = 'nie'
+    else:
+        av[s] = sys.argv[fa[s]]
+
+    if av['etap'] in ['a2', 'a4', 'a6']:
+        if fa['procRozmObce'] != -1:
+            if fa['sciezkaObceTrain'] != -1 or fa['sciezkaObceTest'] != -1:
+                error_wrong_arg('procRozmObce')
+            else:
+                av['procRozmObce'] = sys.argv[fa['procRozmObce']]
+        else:
+            if fa['sciezkaObceTrain'] == -1:
+                error_no_arg('sciezkaObceTrain')
+            av['sciezkaObceTrain'] = sys.argv[fa['sciezkaObceTrain']]
+            if fa['sciezkaObceTest'] != -1:
+                av['sciezkaObceTest'] = sys.argv[fa['sciezkaObceTest']]
+    else:
+        if fa['sciezkaObceTrain'] != -1 or fa['sciezkaObceTest'] != -1 or fa['procRozmObce'] != -1:
+            error_wrong_arg('sciezkeObceTrain/sciezkaObceTest/procRozmObce')
+
+    # TODO: procRozmZaburz
+
+    return av
+
+
+def check_args(args):
+    check_if_values_in('etap', args, ['a1', 'a2', 'a3', 'a4', 'a5', 'a6'])
+    check_if_values_in('wejscieTyp', args, ['czyt', 'gen'])
+    check_if_values_in('rownolegle', args, ['tak', 'nie'])
+    if 'rownolegle' in args.keys and args['rownolegle'] == 'tak':
+        error_invalid_arg('rownolegle', 'tak')
+
+    check_if_file_exists('sciezkaTrain', args)
+    check_if_file_exists('sciezkaTest', args)
+
+    s = 'dyskretyzacja'
+    try:
+        if int(args[s]) <= 1:
+            error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+    try:
+        if 'minLos' in args and 'maxLos' in args:
+            if float(args['minLos']) > float(args['maxLos']):
+                error_invalid_arg('minLos/maxLos', '')
+    except ValueError:
+        error_invalid_arg('minLos/maxLos', '')
+
+    s = 'procRozmTest'
+    try:
+        if s in args:
+            if int(args[s]) < 0 or int(args[s]) > 100:
+                error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+    s = 'iloscKlas'
+    try:
+        if s in args:
+            if int(args[s]) <= 1:
+                error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+    s = 'iloscCech'
+    try:
+        if s in args:
+            if int(args[s]) <= 0:
+                error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+    s = 'iloscPowtorzenWKlasie'
+    try:
+        if s in args:
+            if int(args[s]) <= 0:
+                error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+    s = 'ograniczNietermin'
+    try:
+        if s in args:
+            if float(args[s]) < 0 or float(args[s]) > 100:
+                error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+    check_if_file_exists('sciezkaObceTrain', args)
+    check_if_file_exists('sciezkaObceTest', args)
+
+    s = 'procRozmObce'
+    try:
+        if s in args:
+            if float(args[s]) < 0 or float(args[s]) > 100:
+                error_invalid_arg(s, args[s])
+    except ValueError:
+        error_invalid_arg(s, args[s])
+
+arguments = [
+    'etap', 'wejscieTyp', 'sciezkaTrain', 'sciezkaTest',
+    'sciezkaOutputKlas', 'sciezkaOutputErr', 'sciezkaObceTrain', 'sciezkaObceTest', 'iloscKlas', 'iloscCech',
+    'iloscPowtorzenWKlasie', 'minLos', 'maxLos', 'zaburzenie',
+    'procRozmTest', 'procRozmObce', 'procRozmZaburz', 'dyskretyzacja',
+    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs', 'PSOk', 'PSOp', 'PSO']
+
+argc = len(sys.argv)
+
+if argc % 2 != 1 or argc < 2:
+    print 'Error: Invalid arguments!'
+    exit(1)
+
+foundArgs = {}
+
+for a in arguments:
+    if sys.argv.count('-' + a) > 1:
+        print 'Error: To many arguments!'
+        exit(1)
+
+    foundArgs[a] = -1 if sys.argv.count('-' + a) == 0 else sys.argv.index('-' + a) + 1
+
+argValues = parse_args(foundArgs)
