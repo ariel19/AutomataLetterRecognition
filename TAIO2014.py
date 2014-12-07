@@ -20,13 +20,13 @@ def error_invalid_arg(a, v):
 
 
 def check_if_values_in(s, args, valid):
-    if s in args.keys:
+    if s in args.keys():
         if args[s] not in valid:
             error_invalid_arg(s, args[s])
 
 
 def check_if_file_exists(s, args):
-    if s in args.keys:
+    if s in args.keys():
         if not os.path.isfile(args[s]):
             print_err('Error: File ' + args[s] + ' not found!')
 
@@ -71,7 +71,7 @@ def parse_args(fa):
 
     s = 'procRozmTest'
     if fa[s] == -1:
-        if 'sciezkaTest' not in av.keys:
+        if 'sciezkaTest' not in av.keys():
             error_no_arg(s)
     else:
         if 'sciezkaTest' in av.keys():
@@ -126,6 +126,7 @@ def parse_args(fa):
             error_wrong_arg('sciezkeObceTrain/sciezkaObceTest/procRozmObce')
 
     # TODO: procRozmZaburz
+    # TODO: PSO
 
     return av
 
@@ -134,7 +135,7 @@ def check_args(args):
     check_if_values_in('etap', args, ['a1', 'a2', 'a3', 'a4', 'a5', 'a6'])
     check_if_values_in('wejscieTyp', args, ['czyt', 'gen'])
     check_if_values_in('rownolegle', args, ['tak', 'nie'])
-    if 'rownolegle' in args.keys and args['rownolegle'] == 'tak':
+    if 'rownolegle' in args.keys() and args['rownolegle'] == 'tak':
         error_invalid_arg('rownolegle', 'tak')
 
     check_if_file_exists('sciezkaTrain', args)
@@ -228,3 +229,7 @@ for a in arguments:
     foundArgs[a] = -1 if sys.argv.count('-' + a) == 0 else sys.argv.index('-' + a) + 1
 
 argValues = parse_args(foundArgs)
+check_args(argValues)
+
+print argValues
+# TODO
