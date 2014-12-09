@@ -44,7 +44,8 @@ melem_t amax(const mvec1_t vec1, const msize_t size) {
 }
 
 /* initializes a specified automata instance */
-atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num) {
+atm_err_code automata_init(automata_t *atm, double max_los, double min_los, const fsize_t feature_num, const msize_t splits,
+                           const msize_t sym_class_num) {
 	atm_err_code ret;
 	if (!atm)
 		return ATM_STRUCT_IS_NULL;
@@ -55,7 +56,7 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 	if (!sym_class_num)
 		return ATM_SCN_POS;
 
-	if(!max)
+    if(!max_los)
 		return ATM_MAX_IS_NULL;
 
 	/* init splits and symbol class number */
@@ -65,9 +66,8 @@ atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t fea
 	/* init structures */
 	memset(&(atm->feat), 0, sizeof(feature_t));
 	memset(&(atm->stat), 0, sizeof(statistic_t));
-	memset(&(atm->max), 0, sizeof(feature_t));
-	atm->max.size = feature_num;
-	atm->max.feat = *max;
+    atm->max_los = max_los;
+    atm->min_los = min_los;
     atm->feat.size = feature_num;
 
 	/* init range according to the split value */
@@ -92,7 +92,7 @@ void init_from_vec(double *vec, automata_t *atm) {
 	msize_t split, n, k;
 	double max, prev_max, nval;
 	int i, j;
-    int non_d_num = 1;
+    unsigned int non_d_num = 0;
 	
 	if(!vec)
 		return;
@@ -146,7 +146,6 @@ void init_from_vec(double *vec, automata_t *atm) {
 
 void init_from_dvec(double *vec, automata_t *atm) {
 	msize_t split, n, k;
-	double nval;
 	
 	if(!vec)
 		return;
@@ -209,10 +208,10 @@ void automata_free(automata_t *atm) {
 
 void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, double *err_num) {
 	atm_err_code ret;
-    fsize_t s, q;
+    fsize_t s;
 	mvec1_t out_vec,
 			cs_vec; /* current state vector */
-    msize_t i, vec_size, valid_num = 0, j;
+    msize_t i, vec_size, /*valid_num = 0,*/ j;
     double tmp_err;
 	
 	if (atm->fuzzy)
@@ -435,19 +434,21 @@ ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat) {
 	fsize_t s;
 	msize_t k;
 
-	const feature_t *max = &(atm->max);
+    double max_los = atm->max_los;
+    double min_los = atm->min_los;
+    double d = max_los - min_los;
 
-	if (!feat || !max)
+    if (!feat)
 		return FTR_STRUCT_IS_NULL;
 
-	if (!feat->feat || !max->feat)
+    if (!feat->feat)
 		return FTR_IS_NULL;
 
-	if (feat->size != max->size)
-		return FTR_DIMENSION_DIFF;
+    /*if (feat->size != max->size)
+        return FTR_DIMENSION_DIFF;*/
 
 	for (s = 0; s < feat->size; ++s)
-		feat->feat[s] /= max->feat[s];
+        feat->feat[s] = (feat->feat[s] - min_los) / d;
 
 	/* use splitted range i order to fill deterministica vector */
 	if (!atm->range)
@@ -467,4 +468,24 @@ ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat) {
 	}
 
 	return FTR_OK;
+}
+
+
+void print_atm(automata_t *atm)
+{
+    unsigned int i, j, k;
+
+    for(i = 0; i < atm->mtx.m; ++i) {
+        for(j = 0; j < atm->mtx.n; ++j) {
+            for(k = 0; k < atm->mtx.k; ++k) {
+#ifdef FUZZY_TYPE
+                printf("%lf, ", atm->mtx.mtx[i][j * atm->mtx.n + k]);
+#else
+                printf("%u, ", atm->mtx.mtx[i][j * atm->mtx.n + k]);
+#endif
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
 }

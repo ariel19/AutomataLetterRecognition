@@ -41,7 +41,8 @@ typedef struct statistic {
  */
 typedef struct automata {
 	feature_t feat;
-	feature_t max;
+    double max_los;
+    double min_los;
 	matrix_t mtx;
 	statistic_t stat;
 	symbol_class state;
@@ -103,7 +104,8 @@ melem_t amax(const mvec1_t vec1, const msize_t size);
  *
  * @return ATM_OK if function succeed, error code in other cases
  */
-atm_err_code automata_init(automata_t *atm, const feat_t *max, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num);
+atm_err_code automata_init(automata_t *atm, double max_los, double min_los, const fsize_t feature_num,
+                           const msize_t splits, const msize_t sym_class_num);
 
 void init_from_vec(double *vec, automata_t *atm);
 
@@ -148,5 +150,7 @@ atm_err_code automata_split_range(automata_t *atm);
  * @return ATM_OK if function succeed, error code in other cases
  */
 ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat);
+
+void print_atm(automata_t *atm);
 
 #endif /* _ALR_H */

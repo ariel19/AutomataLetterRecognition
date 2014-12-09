@@ -108,4 +108,9 @@ typedef uint8_t		err_t;	 /* error type */
 typedef uint32_t	lssize_t; /* learn set size and number of errors type */
 typedef uint8_t		bool_t; /* boolean type */
 
+typedef struct pso_params {
+    uint32_t iterations;
+    uint32_t swarmsize;
+} pso_params_t;
+
 #endif /* _TYPES_H */

@@ -36,8 +36,6 @@ mtx_err_code matrix_init(matrix_t *mtx, const msize_t m, const msize_t n, const 
 	/* allocate memory for 2d */
 	for (i = 0; i < m; ++i)
 		mtx->mtx[i] = (mvec2_t)_calloc(n * k, sizeof(melem_t));
-		
-	assert(sizeof(melem_t) == 8);
 	
 	/* set sizes */
 	mtx->m = m;
