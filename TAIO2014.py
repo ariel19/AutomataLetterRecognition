@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 import sys
 import os
+import data_gen
 
 
 def print_err(s):
@@ -44,6 +47,20 @@ def parse_if_not_eq(s, to_check, val, fa, av):
 
 def parse_if_not_czyt(s, fa, av):
     parse_if_not_eq(s, 'wejscieTyp', 'czyt', fa, av)
+
+
+def parse_or_set_def(s, def_val, fa, av):
+    if fa[s] != -1:
+        av[s] = sys.argv[fa[s]]
+    else:
+        av[s] = def_val
+
+
+def check_is_int(val):
+    try:
+        int(val)
+    except ValueError:
+        error_invalid_arg('', val)
 
 
 def parse_args(fa):
@@ -103,11 +120,7 @@ def parse_args(fa):
         error_no_arg(s)
     av[s] = sys.argv[fa[s]]
 
-    s = 'rownolegle'
-    if fa[s] == -1:
-        av[s] = 'nie'
-    else:
-        av[s] = sys.argv[fa[s]]
+    parse_or_set_def('rownolegle', 'nie', fa, av)
 
     if av['etap'] in ['a2', 'a4', 'a6']:
         if fa['procRozmObce'] != -1:
@@ -126,6 +139,10 @@ def parse_args(fa):
             error_wrong_arg('sciezkeObceTrain/sciezkaObceTest/procRozmObce')
 
     # TODO: procRozmZaburz
+
+    parse_or_set_def('PSOiter', 1000, fa, av)
+    parse_or_set_def('PSOs', 40, fa, av)
+
     # TODO: PSO
 
     return av
@@ -206,12 +223,38 @@ def check_args(args):
     except ValueError:
         error_invalid_arg(s, args[s])
 
+    check_is_int(args['PSOiter'])
+    check_is_int(args['PSOs'])
+
+
+def prepare_data(a_type, i_type, args):
+    pso_args = (args['PSOiter'], args['PSOs'])
+
+    if i_type == 'gen':
+        if a_type == 'a1':
+            data_gen.generate_data_a1(args['iloscKlas'], args['iloscCech'], args['iloscPowtorzenWKlasie'],
+                                      args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
+                                      args['dyskretyzacja'], pso_args)
+        elif a_type == 'a2':
+            data_gen.generate_data_a2()
+        elif a_type == 'a3':
+            data_gen.generate_data_a3()
+        elif a_type == 'a4':
+            data_gen.generate_data_a4()
+        elif a_type == 'a5':
+            data_gen.generate_data_a5()
+        else:
+            data_gen.generate_data_a6()
+    else:
+        # TODO
+        return
+
 arguments = [
     'etap', 'wejscieTyp', 'sciezkaTrain', 'sciezkaTest',
     'sciezkaOutputKlas', 'sciezkaOutputErr', 'sciezkaObceTrain', 'sciezkaObceTest', 'iloscKlas', 'iloscCech',
     'iloscPowtorzenWKlasie', 'minLos', 'maxLos', 'zaburzenie',
     'procRozmTest', 'procRozmObce', 'procRozmZaburz', 'dyskretyzacja',
-    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs', 'PSOk', 'PSOp', 'PSO']
+    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs']
 
 argc = len(sys.argv)
 
@@ -231,5 +274,5 @@ for a in arguments:
 argValues = parse_args(foundArgs)
 check_args(argValues)
 
-print argValues
+prepare_data(argValues['etap'], argValues['wejscieTyp'], argValues)
 # TODO

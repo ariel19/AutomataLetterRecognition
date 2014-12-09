@@ -2,102 +2,115 @@
 
 import random
 
-filename = "example.dat"
+filename = 'input.dat'
 
-splits_num = 4
-symbol_class_num = 10
-feature_num = 5
-input_size = 300
-rejected_size = 100
-repeat = 100
-test_input_size = 1000
-test_rejected_part = 0.2
+class_num = 0
+feat_num = 0
+class_repeat = 0
+min_los = 0
+max_los = 0
+disturbance = 0.0
+test_proportions = 0.0
+splits_num = 0
+pso_args = ()
 
-max_values = []
+train_size = 0
+test_size = 0
+
 letters = []
-corrects = []
-test_letters = []
-corrects_test = []
-
-
-def create_max_values():
-    for i in range(0, feature_num):
-        #max_values.append(100)
-        max_values.append(random.uniform(1, 100))
+test_set = []
+train_set = []
 
 
 def generate_letters():
-    for i in range(0, symbol_class_num):
+    for i in range(0, class_num):
         letter = []
-        for j in range(0, feature_num):
-            letter.append(random.uniform(0, max_values[j]))
-        letters.append(letter)
-        corrects.append(i)
+        for j in range(0, feat_num):
+            letter.append(random.uniform(min_los, max_los))
+        letters.append((letter, i))
+        for k in range(1, class_repeat):
+            rep_letter = []
+            for j in range(0, feat_num):
+                rep_letter.append(min(max_los, max(min_los, random.gauss(letter[j], disturbance))))
+            letters.append((rep_letter, i))
 
 
-def generate_more_letters():
-    while len(letters) < input_size:
-        letter = []
-        base_l = random.randint(0, symbol_class_num - 1)
-        for j in range(0, feature_num):
-            base_l_feat = letters[base_l][j]
-            new_feat = random.gauss(base_l_feat, 1)
-            letter.append(min(max_values[j], max(0, new_feat)))
-        letters.append(letter)
-        corrects.append(base_l)
+def create_letters_sets():
+    for i in range(0, train_size):
+        n = random.randint(0, len(letters) - 1)
+        train_set.append(letters[n])
+        del letters[n]
+
+    for i in range(0, test_size):
+        n = random.randint(0, len(letters) - 1)
+        test_set.append(letters[n])
+        del letters[n]
 
 
-def generate_test_letters():
-    test_rej_size = int(test_input_size * test_rejected_part) if rejected_size != 0 else 0
-    for i in range(test_rej_size):
-        corrects_test.append(0)
-        letter = []
-        for j in range(0, feature_num):
-            letter.append(random.uniform(0, max_values[j]))
-        test_letters.append(letter)
+def gen_dat():
+    global train_size, test_size
+    all_s = class_num * class_repeat
+    test_size = int(all_s * (test_proportions / 100.0))
+    train_size = all_s - test_size
 
-    while len(test_letters) < test_input_size:
-        letter = []
-        l_num = random.randint(0, symbol_class_num - 1)
-        corrects_test.append(l_num + (1 if rejected_size != 0 else 0))
-        for j in range(0, feature_num):
-            base_l_feat = letters[l_num][j]
-            new_feat = random.gauss(base_l_feat, 1)
-            letter.append(min(max_values[j], max(0, new_feat)))
-        test_letters.append(letter)
+    generate_letters()
+    create_letters_sets()
 
-create_max_values()
-generate_letters()
-generate_more_letters()
-generate_test_letters()
+    f = open(filename, 'w')
 
-f = open(filename, 'w')
+    f.write(str(class_num) + ', ' + str(feat_num) + ', ' + str(splits_num) + ', ' + str(train_size) + ', ' +
+            str(test_size) + ', ' + str(min_los) + ', ' + str(max_los) + ', \n')
 
-f.write(('1' if rejected_size != 0 else '0') + ',' + str(splits_num) + ', ' + str(symbol_class_num) + ', ' +
-        str(feature_num) + ', ' + str(input_size + rejected_size) + ', ' + str(repeat) + ', ' +
-        str(test_input_size) + ', \n\n')
-
-for k in range(0, feature_num):
-    f.write(str(max_values[k]) + ', ')
-
-f.write('\n\n')
-
-for k in range(0, input_size):
-    f.write(str(corrects[k] + (1 if rejected_size != 0 else 0)) + '\n')
-    for j in range(0, feature_num):
-        f.write(str(letters[k][j]) + ', ')
+    for a in pso_args:
+        f.write(str(a) + ', ')
     f.write('\n\n')
 
-for k in range(0, rejected_size):
-    f.write('0\n')
-    for j in range(0, feature_num):
-        f.write(str(random.uniform(0, max_values[j])) + ', ')
-    f.write('\n\n')
+    for l in train_set:
+        f.write(str(l[1]) + '\n')
+        for ft in l[0]:
+            f.write(str(ft) + ', ')
+        f.write('\n\n')
 
-for k in range(0, test_input_size):
-    f.write(str(corrects_test[k]) + '\n')
-    for feature in test_letters[k]:
-        f.write(str(feature) + ', ')
-    f.write('\n\n')
+    f.close()
 
-f.close()
+
+def generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _pso_args):
+    global class_num, class_repeat, feat_num, min_los, max_los, disturbance, test_proportions, splits_num
+    global pso_args
+
+    class_num = int(_class_num)
+    class_repeat = int(_class_repeat)
+    feat_num = int(_feat_num)
+    min_los = float(_min_los)
+    max_los = float(_max_los)
+    disturbance = float(_dist)
+    test_proportions = float(_test_prop)
+    splits_num = int(_splits)
+    pso_args = _pso_args
+
+    gen_dat()
+
+
+def generate_data_a1(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _pso_args):
+    generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _pso_args)
+    return
+
+
+def generate_data_a2():
+    return
+
+
+def generate_data_a3():
+    return
+
+
+def generate_data_a4():
+    return
+
+
+def generate_data_a5():
+    return
+
+
+def generate_data_a6():
+    return
