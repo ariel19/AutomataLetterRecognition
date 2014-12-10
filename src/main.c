@@ -118,7 +118,8 @@ int main(int argc, char **argv) {
     automata_build(NULL, &atm, train_size, features, NULL);
     automata_build(NULL, &atm, test_size, test_features, NULL);
 
-    print_atm(&atm);
+    /*print_atm(&atm);*/
+    // TODO: print features
 
     automata_free(&atm);
 

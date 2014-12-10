@@ -71,6 +71,12 @@ def gen_dat():
             f.write(str(ft) + ', ')
         f.write('\n\n')
 
+    for l in test_set:
+        f.write(str(l[1]) + '\n')
+        for ft in l[0]:
+            f.write(str(ft) + ', ')
+        f.write('\n\n')
+
     f.close()
 
 

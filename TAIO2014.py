@@ -63,6 +63,13 @@ def check_is_int(val):
         error_invalid_arg('', val)
 
 
+def check_is_float(val):
+    try:
+        float(val)
+    except ValueError:
+        error_invalid_arg('', val)
+
+
 def parse_args(fa):
     av = {}
 
@@ -142,6 +149,12 @@ def parse_args(fa):
 
     parse_or_set_def('PSOiter', 1000, fa, av)
     parse_or_set_def('PSOs', 40, fa, av)
+
+    s = 'PSOmaxit'
+    if fa[s] != -1 and fa['PSOiter'] == -1:
+        av['PSOiter'] = sys.argv[fa[s]]
+
+    parse_or_set_def('PSOtrace', 0, fa, av)
 
     # TODO: PSO
 
@@ -225,10 +238,11 @@ def check_args(args):
 
     check_is_int(args['PSOiter'])
     check_is_int(args['PSOs'])
+    check_is_int(args['PSOtrace'])
 
 
 def prepare_data(a_type, i_type, args):
-    pso_args = (args['PSOiter'], args['PSOs'])
+    pso_args = (args['PSOiter'], args['PSOs'], args['PSOtrace'], args['PSOfnscale'])
 
     if i_type == 'gen':
         if a_type == 'a1':
@@ -254,7 +268,7 @@ arguments = [
     'sciezkaOutputKlas', 'sciezkaOutputErr', 'sciezkaObceTrain', 'sciezkaObceTest', 'iloscKlas', 'iloscCech',
     'iloscPowtorzenWKlasie', 'minLos', 'maxLos', 'zaburzenie',
     'procRozmTest', 'procRozmObce', 'procRozmZaburz', 'dyskretyzacja',
-    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs']
+    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs', 'PSOmaxit', 'PSOtrace', 'PSOfnscale']
 
 argc = len(sys.argv)
 
