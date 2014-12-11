@@ -2,6 +2,7 @@
 
 import sys
 import os
+import math
 import data_gen
 
 
@@ -155,6 +156,10 @@ def parse_args(fa):
         av['PSOiter'] = sys.argv[fa[s]]
 
     parse_or_set_def('PSOtrace', 0, fa, av)
+    parse_or_set_def('PSOfnscale', 1.0, fa, av)
+    parse_or_set_def('PSOw', 1 / (2 * math.log(2)), fa, av)
+    parse_or_set_def('PSOc.p', math.log(2) + 0.5, fa, av)
+    parse_or_set_def('PSOc.g', math.log(2) + 0.5, fa, av)
 
     # TODO: PSO
 
@@ -239,10 +244,15 @@ def check_args(args):
     check_is_int(args['PSOiter'])
     check_is_int(args['PSOs'])
     check_is_int(args['PSOtrace'])
+    check_is_float(args['PSOfnscale'])
+    check_is_float(args['PSOw'])
+    check_is_float(args['PSOc.p'])
+    check_is_float(args['PSOc.g'])
 
 
 def prepare_data(a_type, i_type, args):
-    pso_args = (args['PSOiter'], args['PSOs'], args['PSOtrace'], args['PSOfnscale'])
+    pso_args = (args['PSOiter'], args['PSOs'], args['PSOtrace'], args['PSOfnscale'],
+                args['PSOw'], args['PSOc.p'], args['PSOc.g'])
 
     if i_type == 'gen':
         if a_type == 'a1':
@@ -268,7 +278,8 @@ arguments = [
     'sciezkaOutputKlas', 'sciezkaOutputErr', 'sciezkaObceTrain', 'sciezkaObceTest', 'iloscKlas', 'iloscCech',
     'iloscPowtorzenWKlasie', 'minLos', 'maxLos', 'zaburzenie',
     'procRozmTest', 'procRozmObce', 'procRozmZaburz', 'dyskretyzacja',
-    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs', 'PSOmaxit', 'PSOtrace', 'PSOfnscale']
+    'ograniczNietermin', 'rownolegle', 'PSOiter', 'PSOs', 'PSOmaxit', 'PSOtrace', 'PSOfnscale',
+    'PSOw', 'PSOc.p', 'PSOc.g']
 
 argc = len(sys.argv)
 
