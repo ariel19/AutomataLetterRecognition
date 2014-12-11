@@ -27,7 +27,8 @@ int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *s
     fscanf(f, "%u, %u, %u, %u, %u, %lf, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
            (unsigned int*)splits_num, (unsigned int*)train_size, (unsigned int*)test_size, min_los, max_los);
 
-    fscanf(f, "%u, %u, \n\n", &psopar->iterations, &psopar->swarmsize);
+    fscanf(f, "%u, %u, %u, %lf, %lf, %lf, %lf,  \n\n", &psopar->iterations, &psopar->swarmsize, &psopar->trace,
+           &psopar->fnscale, &psopar->w, &psopar->cp, &psopar->cg);
 
     *features = (feature_t*)_calloc(*train_size, sizeof(feature_t));
     *test_features = (feature_t*)_calloc(*test_size, sizeof(feature_t));
@@ -99,15 +100,14 @@ int main(int argc, char **argv) {
 
     puts("Starting pso...");
     pso(atm.mtx.m * atm.mtx.n * atm.mtx.k,
-        psoparams.swarmsize,
         min_x,
         max_x,
-        psoparams.iterations,
         /*0.0,*/
         automata_build,
         &atm,
         train_size,
-        features);
+        features,
+        &psoparams);
 
     puts("PSO finished");
     puts("Running with test data...");

@@ -111,6 +111,11 @@ typedef uint8_t		bool_t; /* boolean type */
 typedef struct pso_params {
     uint32_t iterations;
     uint32_t swarmsize;
+    uint32_t trace;
+    double fnscale;
+    double w;
+    double cp;
+    double cg;
 } pso_params_t;
 
 #endif /* _TYPES_H */

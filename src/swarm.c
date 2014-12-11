@@ -3,10 +3,12 @@
 #include <float.h>
 
 /* PSO */
-void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, unsigned int maxEpochs, /*double exitError,*/
+void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
          void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, double *),
-         automata_t *atm, msize_t input_size, feature_t *features) {
+         automata_t *atm, msize_t input_size, feature_t *features, pso_params_t *psoparams) {
 
+    unsigned int numParticles = psoparams->swarmsize;
+    unsigned int maxEpochs = psoparams->iterations;
     Particle* swarm = (Particle*)_calloc(numParticles, sizeof(Particle));
     double*   bestGlobalPosition = (double*)_calloc(dim, sizeof(double));
     double    bestGlobalError = DBL_MAX;
@@ -14,6 +16,7 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
     double error;
     double lo, hi;
     msize_t mi, mj;
+    double fnscale = psoparams->fnscale;
 
     unsigned int i, j, k; /* indicies */
     double* randomPosition;
@@ -53,7 +56,7 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
 
         /* error = errorFunction(randomPosition, dim); */
         errorFunction(randomPosition, atm, input_size, features, &derror);
-        error = derror;
+        error = derror * fnscale;
         
         fprintf(stdout, "error <random position[%u]>: %f\n", i, error);
 
@@ -79,9 +82,9 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
         }
     } /* Initialization */
 
-    w = 0.729;
-    c1 = 1.49445;
-    c2 = 1.49445;
+    w = psoparams->w;
+    c1 = psoparams->cp;
+    c2 = psoparams->cg;
     probDeath = 0.01;
 
     epoch = 0;
@@ -125,7 +128,7 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
 
             /*newError = errorFunction(newPosition, dim);*/
             errorFunction(newPosition, atm, input_size, features, &derror);
-            newError = derror;
+            newError = derror * fnscale;
             currP.error = newError;
             
             fprintf(stdout, "error epoch: %u <new position[%u]>: %f\n", epoch, i, derror);
@@ -166,7 +169,7 @@ void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, 
                 
                 /* currP.error = errorFunction(currP.position, dim);*/
                 errorFunction(currP.position, atm, input_size, features, &derror);
-                currP.error = derror;
+                currP.error = derror * fnscale;
 
                 /*fprintf(stdout, "error epoch: %u <cur position[%u]>: %u\n", epoch, i, uerror);*/
 

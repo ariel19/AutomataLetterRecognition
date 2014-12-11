@@ -32,8 +32,8 @@ typedef struct Particle
 double* pso_solve(unsigned int dim, unsigned int numParticles, double minX, double maxX,
                   unsigned int maxEpochs, double exitError, double (*errorFunction)(double *x, int dim));
                   
-void pso(unsigned int dim, unsigned int numParticles, double minX, double maxX, unsigned int maxEpochs, /*double exitError, */
-		 void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, double *),
-		 automata_t *atm, msize_t input_size, feature_t *features);
+void pso(unsigned int dim, double minX, double maxX, /*double exitError, */
+         void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, double *),
+         automata_t *atm, msize_t input_size, feature_t *features, pso_params_t *psoparams);
 
 #endif
