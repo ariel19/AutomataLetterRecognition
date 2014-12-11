@@ -17,6 +17,7 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
     double lo, hi;
     msize_t mi, mj;
     double fnscale = psoparams->fnscale;
+    int trace = psoparams->trace;
 
     unsigned int i, j, k; /* indicies */
     double* randomPosition;
@@ -58,7 +59,8 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
         errorFunction(randomPosition, atm, input_size, features, &derror);
         error = derror * fnscale;
         
-        fprintf(stdout, "error <random position[%u]>: %f\n", i, error);
+        if(trace)
+            fprintf(stdout, "error <random position[%u]>: %f\n", i, error);
 
         for(j = 0; j < dim; ++j){
             lo = minX * 0.1;
@@ -94,7 +96,8 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
 
     /* main loop */
     while(epoch < maxEpochs) {
-        printf("epoch %d\n", epoch);
+        if(trace)
+            printf("epoch %d\n", epoch);
         for(i = 0; i < numParticles; ++i) {
 
             Particle currP = swarm[i];
@@ -131,7 +134,8 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
             newError = derror * fnscale;
             currP.error = newError;
             
-            fprintf(stdout, "error epoch: %u <new position[%u]>: %f\n", epoch, i, derror);
+            if(trace)
+                fprintf(stdout, "error epoch: %u <new position[%u]>: %f\n", epoch, i, derror);
 
             if (newError < currP.bestError){
                 for(k = 0; k < dim; ++k)
@@ -152,7 +156,8 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
 
             if (die < probDeath)
             {
-                printf("Particle %d died\n", i);
+                if(trace)
+                    printf("Particle %d died\n", i);
                 /*for (j = 0; j < dim; ++j)
                     currP.position[j] = (maxX - minX) * ((double)rand() / RAND_MAX ) + minX;*/
 
