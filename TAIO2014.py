@@ -8,7 +8,7 @@ import data_gen
 
 def print_err(s):
     print s
-    error(1)
+    sys.exit(1)
 
 
 def error_no_arg(a):
@@ -236,7 +236,7 @@ def check_args(args):
     s = 'procRozmObce'
     try:
         if s in args:
-            if float(args[s]) < 0 or float(args[s]) > 100:
+            if float(args[s]) < 0:
                 error_invalid_arg(s, args[s])
     except ValueError:
         error_invalid_arg(s, args[s])
@@ -260,7 +260,9 @@ def prepare_data(a_type, i_type, args):
                                       args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
                                       args['dyskretyzacja'], pso_args)
         elif a_type == 'a2':
-            data_gen.generate_data_a2()
+            data_gen.generate_data_a2(args['iloscKlas'], args['iloscCech'], args['iloscPowtorzenWKlasie'],
+                                      args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
+                                      args['dyskretyzacja'], args['procRozmObce'], pso_args)
         elif a_type == 'a3':
             data_gen.generate_data_a3()
         elif a_type == 'a4':
