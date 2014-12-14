@@ -4,8 +4,8 @@
 
 /* PSO */
 void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
-         void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, double *),
-         automata_t *atm, msize_t input_size, feature_t *features, pso_params_t *psoparams) {
+         void (*errorFunction)(double *, automata_t *, msize_t, feature_t *, double *, double),
+         automata_t *atm, msize_t input_size, feature_t *features, pso_params_t *psoparams, double nondet_prop) {
 
     unsigned int numParticles = psoparams->swarmsize;
     unsigned int maxEpochs = psoparams->iterations;
@@ -56,7 +56,7 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
         }
 
         /* error = errorFunction(randomPosition, dim); */
-        errorFunction(randomPosition, atm, input_size, features, &derror);
+        errorFunction(randomPosition, atm, input_size, features, &derror, nondet_prop);
         error = derror * fnscale;
         
         if(trace)
@@ -130,7 +130,7 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
                 currP.position[k] = newPosition[k];
 
             /*newError = errorFunction(newPosition, dim);*/
-            errorFunction(newPosition, atm, input_size, features, &derror);
+            errorFunction(newPosition, atm, input_size, features, &derror, nondet_prop);
             newError = derror * fnscale;
             currP.error = newError;
             
@@ -173,7 +173,7 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
                 }
                 
                 /* currP.error = errorFunction(currP.position, dim);*/
-                errorFunction(currP.position, atm, input_size, features, &derror);
+                errorFunction(currP.position, atm, input_size, features, &derror, nondet_prop);
                 currP.error = derror * fnscale;
 
                 /*fprintf(stdout, "error epoch: %u <cur position[%u]>: %u\n", epoch, i, uerror);*/
@@ -208,7 +208,7 @@ void pso(unsigned int dim, double minX, double maxX, /*double exitError,*/
 
 	if (atm->fuzzy)
 		init_from_dvec(bestGlobalPosition, atm);
-	else init_from_vec(bestGlobalPosition, atm);
+    else init_from_vec(bestGlobalPosition, atm, nondet_prop);
 	
     free(bestGlobalPosition);
 }

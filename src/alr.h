@@ -107,7 +107,7 @@ melem_t amax(const mvec1_t vec1, const msize_t size);
 atm_err_code automata_init(automata_t *atm, double max_los, double min_los, const fsize_t feature_num,
                            const msize_t splits, const msize_t sym_class_num);
 
-void init_from_vec(double *vec, automata_t *atm);
+void init_from_vec(double *vec, automata_t *atm, double nondet_prop);
 
 void init_from_dvec(double *vec, automata_t *atm);
 
@@ -129,7 +129,7 @@ atm_err_code automata_init_matrix(automata_t *atm);
  */
 atm_err_code automata_build_start(automata_t *atm, msize_t input_size, feature_t *features, msize_t repeat);
 
-void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, double *err_num);
+void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, double *err_num, double nondet_prop);
 
 /**
  * @brief maps real values -> deterministic

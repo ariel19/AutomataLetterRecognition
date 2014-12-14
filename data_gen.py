@@ -12,6 +12,7 @@ max_los = 0
 disturbance = 0.0
 test_proportions = 0.0
 foreign_proportions = 0.0
+nondeterministic_proportions = 0.0
 is_foreign = False
 splits_num = 0
 pso_args = ()
@@ -82,7 +83,7 @@ def gen_dat():
 
     f.write(str(class_num) + ', ' + str(feat_num) + ', ' + str(splits_num) + ', ' +
             str(train_size + foreign_train_size) + ', ' + str(test_size + foreign_test_size) + ', ' +
-            str(min_los) + ', ' + str(max_los) + ', \n')
+            str(min_los) + ', ' + str(max_los) + ', ' + str(nondeterministic_proportions) + ', \n')
 
     for a in pso_args:
         f.write(str(a) + ', ')
@@ -104,9 +105,9 @@ def gen_dat():
 
 
 def generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop,
-                      _splits, _for_prop, _pso_args, _is_for):
+                      _splits, _for_prop, _nondet_prop, _pso_args, _is_for):
     global class_num, class_repeat, feat_num, min_los, max_los, disturbance
-    global test_proportions, splits_num, foreign_proportions
+    global test_proportions, splits_num, foreign_proportions, nondeterministic_proportions
     global pso_args, is_foreign
 
     class_num = int(_class_num)
@@ -120,27 +121,32 @@ def generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los, 
     foreign_proportions = float(_for_prop)
     pso_args = _pso_args
     is_foreign = _is_for
+    nondeterministic_proportions = float(_nondet_prop)
 
     gen_dat()
 
 
 def generate_data_a1(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _pso_args):
     generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los,
-                      _dist, _test_prop, _splits, 0.0, _pso_args, False)
+                      _dist, _test_prop, _splits, 0.0, 0.0, _pso_args, False)
     return
 
 
 def generate_data_a2(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _foreign_prop, _pso_args):
     generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los,
-                      _dist, _test_prop, _splits, _foreign_prop, _pso_args, True)
+                      _dist, _test_prop, _splits, _foreign_prop, 0.0, _pso_args, True)
     return
 
 
-def generate_data_a3():
+def generate_data_a3(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _nondet_prop, _pso_args):
+    generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los,
+                      _dist, _test_prop, _splits, 0.0, _nondet_prop, _pso_args, False)
     return
 
 
-def generate_data_a4():
+def generate_data_a4(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _foreign_prop, _nondet_prop, _pso_args):
+    generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los,
+                      _dist, _test_prop, _splits, _foreign_prop, _nondet_prop, _pso_args, True)
     return
 
 

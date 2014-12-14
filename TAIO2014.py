@@ -122,6 +122,8 @@ def parse_args(fa):
     s = 'ograniczNietermin'
     if fa[s] != -1:
         av[s] = sys.argv[fa[s]]
+    elif av['etap'] == 'a3' or av['etap'] == 'a4':
+        error_no_arg(s)
 
     s = 'dyskretyzacja'
     if fa[s] == -1:
@@ -264,9 +266,13 @@ def prepare_data(a_type, i_type, args):
                                       args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
                                       args['dyskretyzacja'], args['procRozmObce'], pso_args)
         elif a_type == 'a3':
-            data_gen.generate_data_a3()
+            data_gen.generate_data_a3(args['iloscKlas'], args['iloscCech'], args['iloscPowtorzenWKlasie'],
+                                      args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
+                                      args['dyskretyzacja'], args['ograniczNietermin'], pso_args)
         elif a_type == 'a4':
-            data_gen.generate_data_a4()
+            data_gen.generate_data_a4(args['iloscKlas'], args['iloscCech'], args['iloscPowtorzenWKlasie'],
+                                      args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
+                                      args['dyskretyzacja'], args['procRozmObce'], args['ograniczNietermin'], pso_args)
         elif a_type == 'a5':
             data_gen.generate_data_a5()
         else:

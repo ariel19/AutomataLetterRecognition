@@ -8,7 +8,7 @@
 #include "swarm.h"
 
 int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *symbol_class_num,
-              fsize_t *feature_num, msize_t *train_size, msize_t *test_size, double *max_los, double *min_los,
+              fsize_t *feature_num, msize_t *train_size, msize_t *test_size, double *max_los, double *min_los, double *nondet_prop,
               feature_t **features, feature_t **test_features, pso_params_t *psopar)
 {
     unsigned int i, j;
@@ -24,8 +24,8 @@ int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *s
     *is_rej = 0;
 #endif
 
-    fscanf(f, "%u, %u, %u, %u, %u, %lf, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
-           (unsigned int*)splits_num, (unsigned int*)train_size, (unsigned int*)test_size, min_los, max_los);
+    fscanf(f, "%u, %u, %u, %u, %u, %lf, %lf, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
+           (unsigned int*)splits_num, (unsigned int*)train_size, (unsigned int*)test_size, min_los, max_los, nondet_prop);
 
     fscanf(f, "%u, %u, %u, %lf, %lf, %lf, %lf,  \n\n", &psopar->iterations, &psopar->swarmsize, &psopar->trace,
            &psopar->fnscale, &psopar->w, &psopar->cp, &psopar->cg);
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     msize_t test_size = 0;
     msize_t i;
     pso_params_t psoparams;
-    double max_los, min_los;
+    double max_los, min_los, nondet_prop;
     int is_rej = 0;
 
     double min_x = 0.0, max_x = 1.0;
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     }
 
     if(read_data(argv[1], &is_rej, &splits_num, &symbol_class_num,
-                 &feature_num, &train_size, &test_size, &max_los, &min_los,
+                 &feature_num, &train_size, &test_size, &max_los, &min_los, &nondet_prop,
                  &features, &test_features, &psoparams))
         return 1;
 
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
         &atm,
         train_size,
         features,
-        &psoparams);
+        &psoparams, nondet_prop);
 
     puts("PSO finished");
     puts("Running with test data...");
@@ -115,8 +115,8 @@ int main(int argc, char **argv) {
     for(i = 0; i < test_size; ++i)
         automata_feature_normalize(&atm, &test_features[i]);
 
-    automata_build(NULL, &atm, train_size, features, NULL);
-    automata_build(NULL, &atm, test_size, test_features, NULL);
+    automata_build(NULL, &atm, train_size, features, NULL, nondet_prop);
+    automata_build(NULL, &atm, test_size, test_features, NULL, nondet_prop);
 
     /*print_atm(&atm);*/
 
