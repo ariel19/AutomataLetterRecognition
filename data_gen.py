@@ -150,9 +150,13 @@ def generate_data_a4(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _
     return
 
 
-def generate_data_a5():
+def generate_data_a5(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _pso_args):
+    generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los,
+                      _dist, _test_prop, _splits, 0.0, 0.0, _pso_args, False)
     return
 
 
-def generate_data_a6():
+def generate_data_a6(_class_num, _feat_num, _class_repeat, _min_los, _max_los, _dist, _test_prop, _splits, _foreign_prop, _pso_args):
+    generate_all_data(_class_num, _feat_num, _class_repeat, _min_los, _max_los,
+                      _dist, _test_prop, _splits, _foreign_prop, 0.0, _pso_args, True)
     return

@@ -273,8 +273,11 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
         /* Uncomment to print vectors */
         /*if(!err_num) {
             for(s = 0; s < vec_size; ++s)
+#ifndef FUZZY_TYPE
                 printf("%d ", cs_vec[s]);
-
+#else
+                printf("%f ", cs_vec[s]);
+#endif
             printf("\n");
         }*/
 
@@ -293,10 +296,11 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
         if (atm->fuzzy) {
             tmp_err = 0.0;
             for (j = 0; j < vec_size; ++j)
-                tmp_err += (atm->feat.correct == j) ?
-                            abs(cs_vec[j] - 1.0) : cs_vec[j];
+                tmp_err += ((atm->feat.correct == j) ?
+                            (fabs(cs_vec[j] - 1.0) * (vec_size - 1)) : cs_vec[j]);
 
             atm->stat.fuzzy_errors += tmp_err;
+            /*printf("E: %f\n", tmp_err);*/
 
         }
         else if(!cs_vec[atm->feat.correct])
@@ -309,11 +313,11 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
 
     if(err_num) {
         if(atm->fuzzy) {
-            *err_num = atm->stat.fuzzy_errors;
+            *err_num = atm->stat.fuzzy_errors / (2 * vec_size - 2);
         }
         else *err_num = (double)atm->stat.errors;
     }
-    else printf("Error: %f%%\n", 100.0 * ((!atm->fuzzy ? atm->stat.errors : atm->stat.fuzzy_errors) / (double)input_size));
+    else printf("Error: %f%%\n", 100.0 * ((!atm->fuzzy ? atm->stat.errors : (atm->stat.fuzzy_errors / (2 * vec_size - 2))) / (double)input_size));
 
     /* FIXME: should be free */
     /*
@@ -504,7 +508,7 @@ void print_atm(automata_t *atm)
         for(j = 0; j < atm->mtx.n; ++j) {
             for(k = 0; k < atm->mtx.k; ++k) {
 #ifdef FUZZY_TYPE
-                printf("%lf, ", atm->mtx.mtx[i][j * atm->mtx.n + k]);
+                printf("%f, ", atm->mtx.mtx[i][j * atm->mtx.n + k]);
 #else
                 printf("%u, ", atm->mtx.mtx[i][j * atm->mtx.n + k]);
 #endif

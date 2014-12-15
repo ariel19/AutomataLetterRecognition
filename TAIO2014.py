@@ -163,8 +163,6 @@ def parse_args(fa):
     parse_or_set_def('PSOc.p', math.log(2) + 0.5, fa, av)
     parse_or_set_def('PSOc.g', math.log(2) + 0.5, fa, av)
 
-    # TODO: PSO
-
     return av
 
 
@@ -274,9 +272,13 @@ def prepare_data(a_type, i_type, args):
                                       args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
                                       args['dyskretyzacja'], args['procRozmObce'], args['ograniczNietermin'], pso_args)
         elif a_type == 'a5':
-            data_gen.generate_data_a5()
+            data_gen.generate_data_a5(args['iloscKlas'], args['iloscCech'], args['iloscPowtorzenWKlasie'],
+                                      args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
+                                      args['dyskretyzacja'], pso_args)
         else:
-            data_gen.generate_data_a6()
+            data_gen.generate_data_a6(args['iloscKlas'], args['iloscCech'], args['iloscPowtorzenWKlasie'],
+                                      args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
+                                      args['dyskretyzacja'], args['procRozmObce'], pso_args)
     else:
         # TODO
         return

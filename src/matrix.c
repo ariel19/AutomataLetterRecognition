@@ -198,7 +198,11 @@ mtx_err_code matrix_show(const matrix_t *mtx, const msize_t m) {
 	for (n = 0; n < mtx->n; ++n) {
 		fprintf(stdout, "\t");
 		for (k = 0; k < mtx->k; ++k)
+#ifndef FUZZY_TYPE
 			fprintf(stdout, "%.1d ", vec2[MTX_2D(n, k, mtx->k)]);
+#else
+            fprintf(stdout, "%.1f ", vec2[MTX_2D(n, k, mtx->k)]);
+#endif
 		fprintf(stdout, "\n");
 	}
 	fprintf(stdout, "]\n");
