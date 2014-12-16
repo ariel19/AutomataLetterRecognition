@@ -1,9 +1,9 @@
 CC=
 GXX=${CC}gcc
 CFLAGS=-Wall -Wextra -pedantic -O3
-FUZZY=-DFUZZY_TYPE
+FUZZY=#-DFUZZY_TYPE
 NONDET=#-DNONDET_TYPE
-REJECTED=-DIS_REJECTED
+REJECTED=#-DIS_REJECTED
 DEFS=${FUZZY} ${REJECTED} ${NONDET}
 LDFLAGS=-lm
 OBJ=main.o matrix.o syswrap.o alr.o swarm.o

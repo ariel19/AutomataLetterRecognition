@@ -4,6 +4,7 @@ import sys
 import os
 import math
 import data_gen
+import data_read
 
 
 def print_err(s):
@@ -280,7 +281,39 @@ def prepare_data(a_type, i_type, args):
                                       args['minLos'], args['maxLos'], args['zaburzenie'], args['procRozmTest'],
                                       args['dyskretyzacja'], args['procRozmObce'], pso_args)
     else:
-        # TODO
+        is_test_file = ('sciezkaTest' in args.keys())
+        is_foreign_prop = ('procRozmObce' in args.keys())
+
+        if a_type == 'a1':
+            data_read.generate_data_a1(args['dyskretyzacja'], args['sciezkaTrain'],
+                                       args['sciezkaTest'] if is_test_file else args['procRozmTest'], is_test_file,
+                                       pso_args)
+        elif a_type == 'a2':
+            data_read.generate_data_a2(args['dyskretyzacja'], args['sciezkaTrain'],
+                                       args['sciezkaTest'] if is_test_file else args['procRozmTest'], is_test_file,
+                                       is_foreign_prop, args['sciezkaObceTrain'] if 'sciezkaObceTrain' in args.keys() else '',
+                                       args['sciezkaObceTest'] if 'sciezkaObceTest' in args.keys() else '',
+                                       args['procRozmObce'] if is_foreign_prop else 0.0, pso_args)
+        elif a_type == 'a3':
+            data_read.generate_data_a3(args['dyskretyzacja'], args['sciezkaTrain'],
+                                       args['sciezkaTest'] if is_test_file else args['procRozmTest'], is_test_file,
+                                       args['ograniczNietermin'], pso_args)
+        elif a_type == 'a4':
+            data_read.generate_data_a4(args['dyskretyzacja'], args['sciezkaTrain'],
+                                       args['sciezkaTest'] if is_test_file else args['procRozmTest'], is_test_file,
+                                       is_foreign_prop, args['sciezkaObceTrain'] if 'sciezkaObceTrain' in args.keys() else '',
+                                       args['sciezkaObceTest'] if 'sciezkaObceTest' in args.keys() else '',
+                                       args['procRozmObce'] if is_foreign_prop else 0.0, args['ograniczNietermin'], pso_args)
+        elif a_type == 'a5':
+            data_read.generate_data_a5(args['dyskretyzacja'], args['sciezkaTrain'],
+                                       args['sciezkaTest'] if is_test_file else args['procRozmTest'], is_test_file,
+                                       pso_args)
+        else:
+            data_read.generate_data_a6(args['dyskretyzacja'], args['sciezkaTrain'],
+                                       args['sciezkaTest'] if is_test_file else args['procRozmTest'], is_test_file,
+                                       is_foreign_prop, args['sciezkaObceTrain'] if 'sciezkaObceTrain' in args.keys() else '',
+                                       args['sciezkaObceTest'] if 'sciezkaObceTest' in args.keys() else '',
+                                       args['procRozmObce'] if is_foreign_prop else 0.0, pso_args)
         return
 
 arguments = [

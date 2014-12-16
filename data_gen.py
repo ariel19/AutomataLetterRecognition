@@ -81,6 +81,7 @@ def gen_dat():
 
     f = open(filename, 'w')
 
+    f.write('0\n')
     f.write(str(class_num) + ', ' + str(feat_num) + ', ' + str(splits_num) + ', ' +
             str(train_size + foreign_train_size) + ', ' + str(test_size + foreign_test_size) + ', ' +
             str(min_los) + ', ' + str(max_los) + ', ' + str(nondeterministic_proportions) + ', \n')
