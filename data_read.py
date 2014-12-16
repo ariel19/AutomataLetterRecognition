@@ -56,9 +56,9 @@ def read_train_test(path, tab):
         for cell in row:
             if first:
                 first = False
-                letter_id += cell.value
+                letter_id += int(cell.internal_value)
             else:
-                letter.append(cell.value)
+                letter.append(float(cell.internal_value))
         tab.append((letter, letter_id))
 
 
@@ -84,20 +84,24 @@ def create_min_max_los():
     files = [train_file, test_file, foreign_train_file, foreign_test_file]
     for f in files:
         if f != '':
-            wb = openpyxl.load_workbook(path, True)
+            wb = openpyxl.load_workbook(f, True)
             ws = wb.get_sheet_by_name(wb.get_sheet_names()[0])
 
             for row in ws.iter_rows():
+                first_cell = True
                 ncell = 0
                 for cell in row:
-                    if first:
-                        min_los[ncell] = cell.value
-                        max_los[ncell] = cell.value
-                    if cell.value < min_los[ncell]:
-                        min_los[ncell] = cell.value
-                    if cell.value > max_los[ncell]:
-                        max_los[ncell] = cell.value
-                    ncell += 1
+                    if first_cell:
+                        first_cell = False
+                    else:
+                        if first:
+                            min_los[ncell] = float(cell.internal_value)
+                            max_los[ncell] = float(cell.internal_value)
+                        if float(cell.internal_value) < min_los[ncell]:
+                            min_los[ncell] = float(cell.internal_value)
+                        if float(cell.internal_value) > max_los[ncell]:
+                            max_los[ncell] = float(cell.internal_value)
+                        ncell += 1
                 first = False
 
 
