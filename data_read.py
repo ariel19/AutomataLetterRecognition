@@ -214,7 +214,7 @@ def generate_all_data(_splits, _train_file, _test_param, _is_test_file, _is_for_
     global foreign_test_file, foreign_train_file, foreign_proportions
     global nondeterministic_proportions
 
-    splits_num = _splits
+    splits_num = int(_splits)
     train_file = _train_file
     pso_args = _pso_args
 
@@ -222,15 +222,15 @@ def generate_all_data(_splits, _train_file, _test_param, _is_test_file, _is_for_
     if test_data_from_file:
         test_file = _test_param
     else:
-        test_proportions = _test_param
+        test_proportions = float(_test_param)
 
     foreign_data_from_prop = _is_for_prop
     foreign_test_file = _for_test_file
     foreign_train_file = _for_train_file
-    foreign_proportions = _for_prop
+    foreign_proportions = float(_for_prop)
 
     is_foreign = _is_for
-    nondeterministic_proportions = _nondet_prop
+    nondeterministic_proportions = float(_nondet_prop)
 
     gen_dat()
 
