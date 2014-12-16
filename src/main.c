@@ -26,7 +26,7 @@ int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *s
 
     fscanf(f, "%d\n", is_read);
 
-    if(is_read)
+    if(*is_read)
         fscanf(f, "%u, %u, %u, %u, %u, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
            (unsigned int*)splits_num, (unsigned int*)train_size, (unsigned int*)test_size, nondet_prop);
     else
@@ -36,7 +36,7 @@ int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *s
     fscanf(f, "%u, %u, %u, %lf, %lf, %lf, %lf,  \n\n", &psopar->iterations, &psopar->swarmsize, &psopar->trace,
            &psopar->fnscale, &psopar->w, &psopar->cp, &psopar->cg);
 
-    if(is_read)
+    if(*is_read)
     {
         *min_tab = (feat_t)_calloc(*feature_num, sizeof(felem_t));
 
