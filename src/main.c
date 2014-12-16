@@ -9,7 +9,7 @@
 
 int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *symbol_class_num,
               fsize_t *feature_num, msize_t *train_size, msize_t *test_size, double *max_los, double *min_los, double *nondet_prop,
-              feature_t **features, feature_t **test_features, pso_params_t *psopar)
+              feature_t **features, feature_t **test_features, pso_params_t *psopar, int *is_read, feat_t *min_tab, feat_t *max_tab)
 {
     unsigned int i, j;
     FILE *f = NULL;
@@ -24,11 +24,34 @@ int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *s
     *is_rej = 0;
 #endif
 
-    fscanf(f, "%u, %u, %u, %u, %u, %lf, %lf, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
+    fscanf(f, "%d\n", is_read);
+
+    if(is_read)
+        fscanf(f, "%u, %u, %u, %u, %u, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
+           (unsigned int*)splits_num, (unsigned int*)train_size, (unsigned int*)test_size, nondet_prop);
+    else
+        fscanf(f, "%u, %u, %u, %u, %u, %lf, %lf, %lf, \n", (unsigned int*)symbol_class_num, (unsigned int*)feature_num,
            (unsigned int*)splits_num, (unsigned int*)train_size, (unsigned int*)test_size, min_los, max_los, nondet_prop);
 
     fscanf(f, "%u, %u, %u, %lf, %lf, %lf, %lf,  \n\n", &psopar->iterations, &psopar->swarmsize, &psopar->trace,
            &psopar->fnscale, &psopar->w, &psopar->cp, &psopar->cg);
+
+    if(is_read)
+    {
+        *min_tab = (feat_t)_calloc(*feature_num, sizeof(felem_t));
+
+        for(i = 0; i < *feature_num; ++i)
+            fscanf(f, "%lf, ", (double*)&(*min_tab)[i]);
+
+        fscanf(f, "\n");
+
+        *max_tab = (feat_t)_calloc(*feature_num, sizeof(felem_t));
+
+        for(i = 0; i < *feature_num; ++i)
+            fscanf(f, "%lf, ", (double*)&(*max_tab)[i]);
+
+        fscanf(f, "\n\n");
+    }
 
     *features = (feature_t*)_calloc(*train_size, sizeof(feature_t));
     *test_features = (feature_t*)_calloc(*test_size, sizeof(feature_t));
@@ -72,6 +95,8 @@ int main(int argc, char **argv) {
     pso_params_t psoparams;
     double max_los, min_los, nondet_prop;
     int is_rej = 0;
+    int is_read = 0;
+    feat_t min_tab, max_tab;
 
     double min_x = 0.0, max_x = 1.0;
 
@@ -86,14 +111,14 @@ int main(int argc, char **argv) {
 
     if(read_data(argv[1], &is_rej, &splits_num, &symbol_class_num,
                  &feature_num, &train_size, &test_size, &max_los, &min_los, &nondet_prop,
-                 &features, &test_features, &psoparams))
+                 &features, &test_features, &psoparams, &is_read, &min_tab, &max_tab))
         return 1;
 
     if(is_rej)
         symbol_class_num++;
 
     srand(time(NULL));
-    automata_init(&atm, max_los, min_los, feature_num, splits_num, symbol_class_num);
+    automata_init(&atm, is_read, max_los, min_los, &min_tab, &max_tab, feature_num, splits_num, symbol_class_num);
 
     for(i = 0; i < train_size; ++i)
         automata_feature_normalize(&atm, &features[i]);
@@ -134,6 +159,12 @@ int main(int argc, char **argv) {
 
     free(features);
     free(test_features);
+
+    if(is_read)
+    {
+        free(min_tab);
+        free(max_tab);
+    }
 
     return EXIT_SUCCESS;
 }

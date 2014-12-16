@@ -44,8 +44,8 @@ melem_t amax(const mvec1_t vec1, const msize_t size) {
 }
 
 /* initializes a specified automata instance */
-atm_err_code automata_init(automata_t *atm, double max_los, double min_los, const fsize_t feature_num, const msize_t splits,
-                           const msize_t sym_class_num) {
+atm_err_code automata_init(automata_t *atm, int is_read, double max_los, double min_los, feat_t *min_tab, feat_t *max_tab,
+                           const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num) {
     atm_err_code ret;
     if (!atm)
         return ATM_STRUCT_IS_NULL;
@@ -66,8 +66,14 @@ atm_err_code automata_init(automata_t *atm, double max_los, double min_los, cons
     /* init structures */
     memset(&(atm->feat), 0, sizeof(feature_t));
     memset(&(atm->stat), 0, sizeof(statistic_t));
+    memset(&(atm->min_tab), 0, sizeof(feature_t));
+    memset(&(atm->max_tab), 0, sizeof(feature_t));
     atm->max_los = max_los;
     atm->min_los = min_los;
+    atm->is_read = is_read;
+    atm->min_tab.feat = *min_tab;
+    atm->max_tab.feat = *max_tab;
+    atm->min_tab.size = atm->max_tab.size = feature_num;
     atm->feat.size = feature_num;
 
     /* init range according to the split value */
@@ -476,8 +482,16 @@ ftr_err_code automata_feature_normalize(automata_t *atm, feature_t *feat) {
     /*if (feat->size != max->size)
         return FTR_DIMENSION_DIFF;*/
 
-    for (s = 0; s < feat->size; ++s)
-        feat->feat[s] = (feat->feat[s] - min_los) / d;
+    if(atm->is_read)
+    {
+        for (s = 0; s < feat->size; ++s)
+            feat->feat[s] = (feat->feat[s] - atm->min_tab.feat[s]) / (atm->max_tab.feat[s] - atm->min_tab.feat[s]);
+    }
+    else
+    {
+        for (s = 0; s < feat->size; ++s)
+            feat->feat[s] = (feat->feat[s] - min_los) / d;
+    }
 
     /* use splitted range i order to fill deterministica vector */
     if (!atm->range)
