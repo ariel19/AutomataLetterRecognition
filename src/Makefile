@@ -1,11 +1,11 @@
 CC=
 GXX=${CC}gcc
-CFLAGS=-Wall -Wextra -pedantic -O3
+CFLAGS=-Wall -Wextra -pedantic -O3 -m32
 FUZZY=#-DFUZZY_TYPE
 NONDET=#-DNONDET_TYPE
 REJECTED=#-DIS_REJECTED
 DEFS=${FUZZY} ${REJECTED} ${NONDET}
-LDFLAGS=-lm
+LDFLAGS=-lm -m32
 OBJ=main.o matrix.o syswrap.o alr.o swarm.o
 SRC=src
 BIN=bin

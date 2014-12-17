@@ -243,6 +243,10 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
             cs_vec; /* current state vector */
     msize_t i, vec_size, /*valid_num = 0,*/ j;
     double tmp_err;
+    FILE *f = NULL;
+    FILE *df = NULL;
+    double max_val_test;
+    int max_idx_test = 0;
 
     if (atm->fuzzy)
         init_from_dvec(vec, atm);
@@ -257,6 +261,14 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
     atm->stat.fuzzy_errors = 0.0;
 
     cs_vec = (mvec1_t)_calloc(vec_size, sizeof(melem_t));
+
+    if(test_run)
+    {
+        df = fopen("output_class.dat", "w");
+
+        if(!df)
+            exit(1);
+    }
 
     for (i = 0; i < input_size; ++i) {
         /*printf("\rLetter %d/%d", i + 1, input_size);*/
@@ -306,12 +318,33 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
                             (fabs(cs_vec[j] - 1.0) * (vec_size - 1)) : cs_vec[j]);
 
             atm->stat.fuzzy_errors += tmp_err;
-            /*printf("E: %f\n", tmp_err);*/
 
         }
         else if(!cs_vec[atm->feat.correct])
             ++atm->stat.errors;
+
+        if(test_run)
+        {
+            max_val_test = -DBL_MAX;
+            for (j = 0; j < vec_size; ++j)
+            {
+                if(cs_vec[j] > max_val_test)
+                {
+                    max_val_test = cs_vec[j];
+                    max_idx_test = j;
+                }
+            }
+
+#ifdef IS_REJECTED
+            --max_idx_test;
+#endif
+
+            fprintf(df, "%d ", max_idx_test);
+        }
     }
+
+    if(test_run)
+        fclose(df);
 
     /* printf("\nErrors %d\n", atm->stat.errors); */
 
@@ -323,7 +356,20 @@ void automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t 
         }
         else *err_num = (double)atm->stat.errors;
     }
-    else printf("Error: %f%%\n", 100.0 * ((!atm->fuzzy ? atm->stat.errors : (atm->stat.fuzzy_errors / (2 * vec_size - 2))) / (double)input_size));
+    else
+    {
+        printf("%f%%", 100.0 * ((!atm->fuzzy ? atm->stat.errors : (atm->stat.fuzzy_errors / (2 * vec_size - 2))) / (double)input_size));
+        printf(" (%f / %d)\n", !atm->fuzzy ? atm->stat.errors : (atm->stat.fuzzy_errors / (2 * vec_size - 2)), input_size);
+
+        f = fopen(test_run ? "output_err_test.dat" : "output_err_train.dat", "w");
+
+        if(!f)
+            exit(1);
+
+        fprintf(f, "%f %d", !atm->fuzzy ? atm->stat.errors : (atm->stat.fuzzy_errors / (2 * vec_size - 2)), input_size);
+
+        fclose(f);
+    }
 
     /* FIXME: should be free */
     /*

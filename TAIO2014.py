@@ -5,6 +5,8 @@ import os
 import math
 import data_gen
 import data_read
+import openpyxl
+import subprocess
 
 
 def print_err(s):
@@ -316,6 +318,44 @@ def prepare_data(a_type, i_type, args):
                                        args['procRozmObce'] if is_foreign_prop else 0.0, pso_args)
         return
 
+
+def run_app(atype, err_file, class_file):
+    if atype == 'a1':
+        print 'A1: Automat deterministyczny bez elementow obcych'
+    elif atype == 'a2':
+        print 'A2 - automat deterministyczny z elementami obcymi'
+    elif atype == 'a3':
+        print 'A3: Automat niedeterministyczny bez elementow obcych'
+    elif atype == 'a4':
+        print 'A4: Automat niedeterministyczny z elementami obcymi'
+    elif atype == 'a5':
+        print 'A5: Automat rozmyty bez elementow obcych'
+    else:
+        print 'A6: Automat rozmyty z elementami obcymi'
+
+    subprocess.call(['./bin/' + atype, 'input.dat'])
+
+    if err_file != '':
+        wb = openpyxl.Workbook()
+        ws = wb.get_active_sheet()
+        with open('output_err_train.dat') as f:
+            x = f.readline().split()
+            ws.cell('A1').value = float(x[0]) / int(x[1])
+        with open('output_err_test.dat') as f:
+            x = f.readline().split()
+            ws.cell('A2').value = float(x[0]) / int(x[1])
+        wb.save(err_file)
+
+    if class_file != '':
+        wb = openpyxl.Workbook()
+        ws = wb.get_active_sheet()
+        with open('output_class.dat') as f:
+            x = f.readline().split()
+            for i in range(0, len(x)):
+                s = 'A' + str(i + 1)
+                ws.cell(s).value = int(x[i])
+        wb.save(class_file)
+
 arguments = [
     'etap', 'wejscieTyp', 'sciezkaTrain', 'sciezkaTest',
     'sciezkaOutputKlas', 'sciezkaOutputErr', 'sciezkaObceTrain', 'sciezkaObceTest', 'iloscKlas', 'iloscCech',
@@ -343,4 +383,7 @@ argValues = parse_args(foundArgs)
 check_args(argValues)
 
 prepare_data(argValues['etap'], argValues['wejscieTyp'], argValues)
-# TODO
+
+run_app(argValues['etap'],
+        '' if 'sciezkaOutputErr' not in argValues.keys() else argValues['sciezkaOutputErr'],
+        '' if 'sciezkaOutputKlas' not in argValues.keys() else argValues['sciezkaOutputKlas'])

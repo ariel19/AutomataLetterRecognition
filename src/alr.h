@@ -4,6 +4,8 @@
 #include "types.h"
 #include "matrix.h"
 
+int test_run;
+
 /**
  * @brief structure that represents feature vector
  * feat feature values vector

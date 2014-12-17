@@ -109,6 +109,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    test_run = 0;
+
     if(read_data(argv[1], &is_rej, &splits_num, &symbol_class_num,
                  &feature_num, &train_size, &test_size, &max_los, &min_los, &nondet_prop,
                  &features, &test_features, &psoparams, &is_read, &min_tab, &max_tab))
@@ -123,7 +125,7 @@ int main(int argc, char **argv) {
     for(i = 0; i < train_size; ++i)
         automata_feature_normalize(&atm, &features[i]);
 
-    puts("Starting pso...");
+    puts("Starting PSO...");
     pso(atm.mtx.m * atm.mtx.n * atm.mtx.k,
         min_x,
         max_x,
@@ -134,13 +136,16 @@ int main(int argc, char **argv) {
         features,
         &psoparams, nondet_prop);
 
-    puts("PSO finished");
+    puts("PSO finished...");
     puts("Running with test data...");
 
     for(i = 0; i < test_size; ++i)
         automata_feature_normalize(&atm, &test_features[i]);
 
+    printf("Training data error: ");
     automata_build(NULL, &atm, train_size, features, NULL, nondet_prop);
+    printf("Test data error: ");
+    test_run = 1;
     automata_build(NULL, &atm, test_size, test_features, NULL, nondet_prop);
 
     /*print_atm(&atm);*/
