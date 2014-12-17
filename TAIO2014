@@ -1,0 +1,5 @@
+#!/bin/bash
+
+python TAIO2014.py $@
+rm input.dat output_class.dat output_err_test.dat output_err_train.dat 2>/dev/null
+
