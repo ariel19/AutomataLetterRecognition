@@ -1,3 +1,5 @@
+/** @file Main */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,6 +9,26 @@
 #include "alr.h"
 #include "swarm.h"
 
+/**
+ * @brief Reads the data from input file (internal usage)
+ * @param filename: File name
+ * @param is_rej: Foreign symbols to recognize?
+ * @param splits_num: Number of splits of the [0..1] vector
+ * @param symbol_class_num: Number of unique symbols
+ * @param feature_num: Number of features
+ * @param train_size: Number of symbols in training set
+ * @param test_size: Number of symbols in test set
+ * @param max_los: Max value of features (generated)
+ * @param min_los: Min value of features (generated)
+ * @param nondet_prop: Nondeterministic automata limit
+ * @param features: Array of features of all symbols in training set
+ * @param test_features: Array of features ao all symbols in test set
+ * @param psopar: PSO parameters
+ * @param is_read: Is data read from files?
+ * @param min_tab: Min values of features (read)
+ * @param max_tab: Max values of features (read)
+ * @return
+ */
 int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *symbol_class_num,
               fsize_t *feature_num, msize_t *train_size, msize_t *test_size, double *max_los, double *min_los, double *nondet_prop,
               feature_t **features, feature_t **test_features, pso_params_t *psopar, int *is_read, feat_t *min_tab, feat_t *max_tab)
@@ -85,6 +107,12 @@ int read_data(const char* filename, int *is_rej, msize_t *splits_num, msize_t *s
     return 0;
 }
 
+/**
+ * @brief Entry point
+ * @param argc: Number of arguments
+ * @param argv: Argument list
+ * @return
+ */
 int main(int argc, char **argv) {
     msize_t splits_num = 0;
     msize_t symbol_class_num = 0;

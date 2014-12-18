@@ -1,0 +1,12 @@
+<map id="automata_init" name="automata_init">
+<area shape="rect" id="node3" href="$syswrap_8c.html#a4cdb595825971cee20544efa9845aa11" title="Calloc wrapper." alt="" coords="511,5,572,35"/>
+<area shape="rect" id="node5" href="$alr_8c.html#acccf23fb33ef2ca8bd9afd1c743fadf5" title="Maps real values &#45;&gt; [0..1]." alt="" coords="155,57,301,87"/>
+<area shape="rect" id="node7" href="$alr_8c.html#a4337f015fab6adb23d38faae40cc378d" title="Initializes a matrix related with specified automata." alt="" coords="157,164,299,193"/>
+<area shape="rect" id="node9" href="$matrix_8c.html#a95d291945358f6ac92c9c98d69be87ff" title="initializes matrix with specified args" alt="" coords="364,31,447,60"/>
+<area shape="rect" id="node12" href="$matrix_8c.html#a830977cb0de90bb59580e32cb18811a5" title="sets a function responsible for add operation in matrix multiplication" alt="" coords="351,84,460,113"/>
+<area shape="rect" id="node14" href="$alr_8c.html#ac811e294b5e0c0ba3db5eda36a24015e" title="implementation of plus operator" alt="" coords="379,137,432,167"/>
+<area shape="rect" id="node16" href="$matrix_8c.html#acfbad898e332491b196de01a9ee4fa66" title="sets a function responsible for mul operation in matrix multiplication" alt="" coords="351,191,460,220"/>
+<area shape="rect" id="node18" href="$alr_8c.html#af5df7647c80e69574495ad7833eb2795" title="implementation of mul operator" alt="" coords="380,244,431,273"/>
+<area shape="rect" id="node20" href="$alr_8c.html#acff303ddddc77a04eb6e8a0d48437cd0" title="finds maximum from the specified vector" alt="" coords="383,297,428,327"/>
+<area shape="rect" id="node22" href="$alr_8c.html#a52e321cf23b59535e518c501e8b7be56" title="finds minimum from two specified values" alt="" coords="384,351,427,380"/>
+</map>

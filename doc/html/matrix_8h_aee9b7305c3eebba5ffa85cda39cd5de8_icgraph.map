@@ -1,0 +1,11 @@
+<map id="matrix_ptr_check" name="matrix_ptr_check">
+<area shape="rect" id="node3" href="$matrix_8h.html#a68ceaf153044028e938b7919cff70ebc" title="randomly sets value one in every column of 2d array (get from split m)" alt="" coords="328,56,443,85"/>
+<area shape="rect" id="node7" href="$matrix_8h.html#ae7c26cdd84bd1e5836eed766dc38a874" title="frees and cleans memory in specified matrix" alt="" coords="185,5,271,35"/>
+<area shape="rect" id="node10" href="$matrix_8h.html#afa9f2f9d937965ae876c3a641a2f0b86" title="matrix x vector multiplication function" alt="" coords="343,216,428,245"/>
+<area shape="rect" id="node17" href="$matrix_8h.html#aef4c14420a092739627e2468af43e1d1" title="gets a 2d matrix from 3d matrix using specified split value" alt="" coords="176,109,280,139"/>
+<area shape="rect" id="node5" href="$alr_8c.html#a95c961e4fa720db406b761233fe7180d" title="automata_build_start" alt="" coords="492,56,633,85"/>
+<area shape="rect" id="node12" href="$alr_8h.html#a11948aac5ae0674311c17f266183658f" title="Starts building of the automata." alt="" coords="508,216,617,245"/>
+<area shape="rect" id="node14" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Entry point." alt="" coords="683,216,733,245"/>
+<area shape="rect" id="node21" href="$matrix_8h.html#a82363b691c68807628aa231b1a90308c" title="sets a value on specified position" alt="" coords="332,163,439,192"/>
+<area shape="rect" id="node23" href="$matrix_8h.html#a6118c1cdc8b1b3c4abd5f6bd83fc5a8e" title="shows matrix in human readable format" alt="" coords="337,109,433,139"/>
+</map>

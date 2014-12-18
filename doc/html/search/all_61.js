@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['add',['add',['../structmatrix__t.html#a9edaa57758ae90b18712bf19250e3b75',1,'matrix_t']]],
+  ['alr_2ec',['alr.c',['../alr_8c.html',1,'']]],
+  ['alr_2eh',['alr.h',['../alr_8h.html',1,'']]],
+  ['amax',['amax',['../alr_8c.html#ac811e294b5e0c0ba3db5eda36a24015e',1,'amax(const mvec1_t vec1, const msize_t size):&#160;alr.c'],['../alr_8h.html#ac811e294b5e0c0ba3db5eda36a24015e',1,'amax(const mvec1_t vec1, const msize_t size):&#160;alr.c']]],
+  ['amin',['amin',['../alr_8c.html#af5df7647c80e69574495ad7833eb2795',1,'amin(const melem_t v1, const melem_t v2):&#160;alr.c'],['../alr_8h.html#af5df7647c80e69574495ad7833eb2795',1,'amin(const melem_t v1, const melem_t v2):&#160;alr.c']]],
+  ['atm_5ferr_5fcode',['atm_err_code',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84',1,'types.h']]],
+  ['atm_5finternal_5ferror',['ATM_INTERNAL_ERROR',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84a92cedd5d94961f813df15c25cda9383e',1,'types.h']]],
+  ['atm_5fmax_5fis_5fnull',['ATM_MAX_IS_NULL',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84a9e7db1b4ba60f83453f160944f13e688',1,'types.h']]],
+  ['atm_5fmtx_5finit_5ferr',['ATM_MTX_INIT_ERR',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84aa9215c390b4a6e7914c62444e983ac0a',1,'types.h']]],
+  ['atm_5fok',['ATM_OK',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84a6b99be0445ec48232627a4a2b20e7352',1,'types.h']]],
+  ['atm_5frange_5fis_5fnull',['ATM_RANGE_IS_NULL',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84a07fcea48bc1165e513a7ff5d6b5525ad',1,'types.h']]],
+  ['atm_5fscn_5fpos',['ATM_SCN_POS',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84afe04dd271940d59e37651c769c6872b3',1,'types.h']]],
+  ['atm_5fsplit_5fpos',['ATM_SPLIT_POS',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84acdd66fefb8bb500b3f2a3dcd7561b9c6',1,'types.h']]],
+  ['atm_5fstruct_5fis_5fnull',['ATM_STRUCT_IS_NULL',['../types_8h.html#a9cf4b4aa35e29c0b7ac453f592d9bf84a5eaa58d390310eae0b77b729114df4aa',1,'types.h']]],
+  ['automata_5fbuild',['automata_build',['../alr_8c.html#a11948aac5ae0674311c17f266183658f',1,'automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, double *err_num, double nondet_prop):&#160;alr.c'],['../alr_8h.html#a11948aac5ae0674311c17f266183658f',1,'automata_build(double *vec, automata_t *atm, msize_t input_size, feature_t *features, double *err_num, double nondet_prop):&#160;alr.c']]],
+  ['automata_5fbuild_5fstart',['automata_build_start',['../alr_8c.html#a95c961e4fa720db406b761233fe7180d',1,'alr.c']]],
+  ['automata_5ffeature_5fnormalize',['automata_feature_normalize',['../alr_8c.html#af56f4c4068fc82770bca730d045d5727',1,'automata_feature_normalize(automata_t *atm, feature_t *feat):&#160;alr.c'],['../alr_8h.html#af56f4c4068fc82770bca730d045d5727',1,'automata_feature_normalize(automata_t *atm, feature_t *feat):&#160;alr.c']]],
+  ['automata_5ffree',['automata_free',['../alr_8c.html#a28ad4c77e48247a022126cce1b61e78c',1,'automata_free(automata_t *atm):&#160;alr.c'],['../alr_8h.html#a28ad4c77e48247a022126cce1b61e78c',1,'automata_free(automata_t *atm):&#160;alr.c']]],
+  ['automata_5finit',['automata_init',['../alr_8c.html#ada70870c4160d409463434090c089f03',1,'automata_init(automata_t *atm, int is_read, double max_los, double min_los, feat_t *min_tab, feat_t *max_tab, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num):&#160;alr.c'],['../alr_8h.html#ada70870c4160d409463434090c089f03',1,'automata_init(automata_t *atm, int is_read, double max_los, double min_los, feat_t *min_tab, feat_t *max_tab, const fsize_t feature_num, const msize_t splits, const msize_t sym_class_num):&#160;alr.c']]],
+  ['automata_5finit_5fmatrix',['automata_init_matrix',['../alr_8c.html#a4337f015fab6adb23d38faae40cc378d',1,'automata_init_matrix(automata_t *atm):&#160;alr.c'],['../alr_8h.html#a4337f015fab6adb23d38faae40cc378d',1,'automata_init_matrix(automata_t *atm):&#160;alr.c']]],
+  ['automata_5fsplit_5frange',['automata_split_range',['../alr_8c.html#acccf23fb33ef2ca8bd9afd1c743fadf5',1,'automata_split_range(automata_t *atm):&#160;alr.c'],['../alr_8h.html#acccf23fb33ef2ca8bd9afd1c743fadf5',1,'automata_split_range(automata_t *atm):&#160;alr.c']]],
+  ['automata_5ft',['automata_t',['../structautomata__t.html',1,'']]]
+];

@@ -1,0 +1,487 @@
+\hypertarget{matrix_8c}{\section{matrix.\-c File Reference}
+\label{matrix_8c}\index{matrix.\-c@{matrix.\-c}}
+}
+{\ttfamily \#include \char`\"{}matrix.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+Include dependency graph for matrix.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{matrix_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_aee9b7305c3eebba5ffa85cda39cd5de8}{matrix\-\_\-ptr\-\_\-check} (const \hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx)
+\begin{DoxyCompactList}\small\item\em initializes matrix with specified args \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_a95d291945358f6ac92c9c98d69be87ff}{matrix\-\_\-init} (\hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} m, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} n, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} k)
+\begin{DoxyCompactList}\small\item\em initializes matrix with specified args \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_a68ceaf153044028e938b7919cff70ebc}{matrix\-\_\-set\-\_\-cols} (\hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx)
+\begin{DoxyCompactList}\small\item\em randomly sets value one in every column of 2d array (get from split m) \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_ae7c26cdd84bd1e5836eed766dc38a874}{matrix\-\_\-free} (\hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx)
+\begin{DoxyCompactList}\small\item\em frees and cleans memory in specified matrix \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_a830977cb0de90bb59580e32cb18811a5}{matrix\-\_\-set\-\_\-add} (\hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a3472b426e98fe8245a0c3221c98d15a0}{mfunc\-\_\-add} add)
+\begin{DoxyCompactList}\small\item\em sets a function responsible for add operation in matrix multiplication \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_acfbad898e332491b196de01a9ee4fa66}{matrix\-\_\-set\-\_\-mul} (\hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a8552194635c37d32de855f3b57657efa}{mfunc\-\_\-mul} mul)
+\begin{DoxyCompactList}\small\item\em sets a function responsible for mul operation in matrix multiplication \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_afa9f2f9d937965ae876c3a641a2f0b86}{matrix\-\_\-mul} (const \hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} m, const \hyperlink{types_8h_a170cb8b681dd48ced181eb10f1c5c7c8}{mvec1\-\_\-t} vec1, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} vec\-\_\-size, \hyperlink{types_8h_a18fafbc4cdb252f40f312814635aa706}{mvec2\-\_\-t} $\ast$vec2)
+\begin{DoxyCompactList}\small\item\em matrix x vector multiplication function \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_aef4c14420a092739627e2468af43e1d1}{matrix\-\_\-get\-\_\-2d} (const \hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} m, \hyperlink{types_8h_a18fafbc4cdb252f40f312814635aa706}{mvec2\-\_\-t} $\ast$vec2)
+\begin{DoxyCompactList}\small\item\em gets a 2d matrix from 3d matrix using specified split value \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_a82363b691c68807628aa231b1a90308c}{matrix\-\_\-set\-\_\-val} (\hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} m, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} n, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} k, const \hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} val)
+\begin{DoxyCompactList}\small\item\em sets a value on specified position \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a48f551883200abf3c18683f9a83a61a7}{mtx\-\_\-err\-\_\-code} \hyperlink{matrix_8c_a6118c1cdc8b1b3c4abd5f6bd83fc5a8e}{matrix\-\_\-show} (const \hyperlink{structmatrix__t}{matrix\-\_\-t} $\ast$mtx, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} m)
+\begin{DoxyCompactList}\small\item\em shows matrix in human readable format \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{matrix_8c_ae7c26cdd84bd1e5836eed766dc38a874}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-free@{matrix\-\_\-free}}
+\index{matrix\-\_\-free@{matrix\-\_\-free}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix\-\_\-t} $\ast$}]{mtx}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_ae7c26cdd84bd1e5836eed766dc38a874}
+
+
+frees and cleans memory in specified matrix 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 68 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{matrix_8c_ae7c26cdd84bd1e5836eed766dc38a874_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{matrix_8c_ae7c26cdd84bd1e5836eed766dc38a874_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_aef4c14420a092739627e2468af43e1d1}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-get\-\_\-2d@{matrix\-\_\-get\-\_\-2d}}
+\index{matrix\-\_\-get\-\_\-2d@{matrix\-\_\-get\-\_\-2d}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-get\-\_\-2d}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-get\-\_\-2d (
+\begin{DoxyParamCaption}
+\item[{const {\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf msize\-\_\-t}}]{m, }
+\item[{{\bf mvec2\-\_\-t} $\ast$}]{vec2}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_aef4c14420a092739627e2468af43e1d1}
+
+
+gets a 2d matrix from 3d matrix using specified split value 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em m} & split value \\
+\hline
+{\em vec2(out)} & pointer to mvec2\-\_\-t, that will point to 2d matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 155 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{matrix_8c_aef4c14420a092739627e2468af43e1d1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_aef4c14420a092739627e2468af43e1d1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_a95d291945358f6ac92c9c98d69be87ff}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-init@{matrix\-\_\-init}}
+\index{matrix\-\_\-init@{matrix\-\_\-init}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf msize\-\_\-t}}]{m, }
+\item[{const {\bf msize\-\_\-t}}]{n, }
+\item[{const {\bf msize\-\_\-t}}]{k}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_a95d291945358f6ac92c9c98d69be87ff}
+
+
+initializes matrix with specified args 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em m} & third dimension \\
+\hline
+{\em n} & second dimension \\
+\hline
+{\em k} & first dimension\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 15 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{matrix_8c_a95d291945358f6ac92c9c98d69be87ff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_a95d291945358f6ac92c9c98d69be87ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_afa9f2f9d937965ae876c3a641a2f0b86}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-mul@{matrix\-\_\-mul}}
+\index{matrix\-\_\-mul@{matrix\-\_\-mul}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{const {\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf msize\-\_\-t}}]{m, }
+\item[{const {\bf mvec1\-\_\-t}}]{vec1, }
+\item[{const {\bf msize\-\_\-t}}]{vec\-\_\-size, }
+\item[{{\bf mvec2\-\_\-t} $\ast$}]{vec2}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_afa9f2f9d937965ae876c3a641a2f0b86}
+
+
+matrix x vector multiplication function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em m} & split value \\
+\hline
+{\em vec1} & vector \\
+\hline
+{\em vec\-\_\-size} & lenght of vector \\
+\hline
+{\em vec2(out)} & pointer to mvec2\-\_\-t filled with output multiplication vector values (!!!\-S\-H\-O\-U\-L\-D B\-E F\-R\-E\-E\-D!!!)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 118 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_afa9f2f9d937965ae876c3a641a2f0b86_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_afa9f2f9d937965ae876c3a641a2f0b86_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_aee9b7305c3eebba5ffa85cda39cd5de8}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-ptr\-\_\-check@{matrix\-\_\-ptr\-\_\-check}}
+\index{matrix\-\_\-ptr\-\_\-check@{matrix\-\_\-ptr\-\_\-check}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-ptr\-\_\-check}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-ptr\-\_\-check (
+\begin{DoxyParamCaption}
+\item[{const {\bf matrix\-\_\-t} $\ast$}]{mtx}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_aee9b7305c3eebba5ffa85cda39cd5de8}
+
+
+initializes matrix with specified args 
+
+2d/3d matrix functions 
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em m} & third dimension \\
+\hline
+{\em n} & second dimension \\
+\hline
+{\em k} & first dimension\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 5 of file matrix.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_aee9b7305c3eebba5ffa85cda39cd5de8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_a830977cb0de90bb59580e32cb18811a5}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-set\-\_\-add@{matrix\-\_\-set\-\_\-add}}
+\index{matrix\-\_\-set\-\_\-add@{matrix\-\_\-set\-\_\-add}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-set\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-set\-\_\-add (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf mfunc\-\_\-add}}]{add}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_a830977cb0de90bb59580e32cb18811a5}
+
+
+sets a function responsible for add operation in matrix multiplication 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em add} & pointer to add operation function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 98 of file matrix.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_a830977cb0de90bb59580e32cb18811a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_a68ceaf153044028e938b7919cff70ebc}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-set\-\_\-cols@{matrix\-\_\-set\-\_\-cols}}
+\index{matrix\-\_\-set\-\_\-cols@{matrix\-\_\-set\-\_\-cols}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-set\-\_\-cols}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-set\-\_\-cols (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix\-\_\-t} $\ast$}]{mtx}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_a68ceaf153044028e938b7919cff70ebc}
+
+
+randomly sets value one in every column of 2d array (get from split m) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 49 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_a68ceaf153044028e938b7919cff70ebc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{matrix_8c_a68ceaf153044028e938b7919cff70ebc_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_acfbad898e332491b196de01a9ee4fa66}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-set\-\_\-mul@{matrix\-\_\-set\-\_\-mul}}
+\index{matrix\-\_\-set\-\_\-mul@{matrix\-\_\-set\-\_\-mul}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-set\-\_\-mul}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-set\-\_\-mul (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf mfunc\-\_\-mul}}]{mul}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_acfbad898e332491b196de01a9ee4fa66}
+
+
+sets a function responsible for mul operation in matrix multiplication 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em mul} & pointer to mul operation function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 108 of file matrix.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_acfbad898e332491b196de01a9ee4fa66_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_a82363b691c68807628aa231b1a90308c}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-set\-\_\-val@{matrix\-\_\-set\-\_\-val}}
+\index{matrix\-\_\-set\-\_\-val@{matrix\-\_\-set\-\_\-val}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-set\-\_\-val}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-set\-\_\-val (
+\begin{DoxyParamCaption}
+\item[{{\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf msize\-\_\-t}}]{m, }
+\item[{const {\bf msize\-\_\-t}}]{n, }
+\item[{const {\bf msize\-\_\-t}}]{k, }
+\item[{const {\bf melem\-\_\-t}}]{val}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_a82363b691c68807628aa231b1a90308c}
+
+
+sets a value on specified position 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em m} & split value \\
+\hline
+{\em n} & second dimension \\
+\hline
+{\em k} & first dimension \\
+\hline
+{\em val} & value to set\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 173 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_a82363b691c68807628aa231b1a90308c_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{matrix_8c_a6118c1cdc8b1b3c4abd5f6bd83fc5a8e}{\index{matrix.\-c@{matrix.\-c}!matrix\-\_\-show@{matrix\-\_\-show}}
+\index{matrix\-\_\-show@{matrix\-\_\-show}!matrix.c@{matrix.\-c}}
+\subsubsection[{matrix\-\_\-show}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mtx\-\_\-err\-\_\-code} matrix\-\_\-show (
+\begin{DoxyParamCaption}
+\item[{const {\bf matrix\-\_\-t} $\ast$}]{mtx, }
+\item[{const {\bf msize\-\_\-t}}]{m}
+\end{DoxyParamCaption}
+)}}\label{matrix_8c_a6118c1cdc8b1b3c4abd5f6bd83fc5a8e}
+
+
+shows matrix in human readable format 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mtx} & pointer to \hyperlink{structmatrix__t}{matrix\-\_\-t} structure \\
+\hline
+{\em m} & split value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\-T\-X\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 189 of file matrix.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{matrix_8c_a6118c1cdc8b1b3c4abd5f6bd83fc5a8e_cgraph}
+\end{center}
+\end{figure}
+
+

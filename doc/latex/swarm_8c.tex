@@ -1,0 +1,87 @@
+\hypertarget{swarm_8c}{\section{swarm.\-c File Reference}
+\label{swarm_8c}\index{swarm.\-c@{swarm.\-c}}
+}
+{\ttfamily \#include \char`\"{}swarm.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}syswrap.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$float.\-h$>$}\\*
+Include dependency graph for swarm.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swarm_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{swarm_8c_a2d406351d99808475f08517e0f317272}{pso} (unsigned int dim, double min\-X, double max\-X, void($\ast$error\-Function)(double $\ast$, \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t}, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$, double $\ast$, double), \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} input\-\_\-size, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$features, \hyperlink{structpso__params__t}{pso\-\_\-params\-\_\-t} $\ast$psoparams, double nondet\-\_\-prop)
+\begin{DoxyCompactList}\small\item\em P\-S\-O. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{swarm_8c_a2d406351d99808475f08517e0f317272}{\index{swarm.\-c@{swarm.\-c}!pso@{pso}}
+\index{pso@{pso}!swarm.c@{swarm.\-c}}
+\subsubsection[{pso}]{\setlength{\rightskip}{0pt plus 5cm}void pso (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{dim, }
+\item[{double}]{min\-X, }
+\item[{double}]{max\-X, }
+\item[{void($\ast$)(double $\ast$, {\bf automata\-\_\-t} $\ast$, {\bf msize\-\_\-t}, {\bf feature\-\_\-t} $\ast$, double $\ast$, double)}]{error\-Function, }
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm, }
+\item[{{\bf msize\-\_\-t}}]{input\-\_\-size, }
+\item[{{\bf feature\-\_\-t} $\ast$}]{features, }
+\item[{{\bf pso\-\_\-params\-\_\-t} $\ast$}]{psoparams, }
+\item[{double}]{nondet\-\_\-prop}
+\end{DoxyParamCaption}
+)}}\label{swarm_8c_a2d406351d99808475f08517e0f317272}
+
+
+P\-S\-O. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dim,\-:} & Size of the problem \\
+\hline
+{\em min\-X,\-:} & Minimal value of particles' position \\
+\hline
+{\em max\-X,\-:} & Maximal value of particles' position \\
+\hline
+{\em atm,\-:} & Automata \\
+\hline
+{\em error\-Function,\-:} & Error function \\
+\hline
+{\em input\-\_\-size,\-:} & Size of input \\
+\hline
+{\em features,\-:} & Features \\
+\hline
+{\em psoparams,\-:} & P\-S\-O parameters \\
+\hline
+{\em nondet\-\_\-prop,\-:} & Nondeterministic automata limit \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 6 of file swarm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{swarm_8c_a2d406351d99808475f08517e0f317272_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{swarm_8c_a2d406351d99808475f08517e0f317272_icgraph}
+\end{center}
+\end{figure}
+
+

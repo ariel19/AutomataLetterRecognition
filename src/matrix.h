@@ -1,3 +1,5 @@
+/** @file Matrix definition header */
+
 #ifndef _MATRIX_H
 #define _MATRIX_H
 

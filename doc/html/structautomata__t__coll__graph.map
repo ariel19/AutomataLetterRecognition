@@ -1,0 +1,5 @@
+<map id="automata_t" name="automata_t">
+<area shape="rect" id="node2" href="$structstatistic__t.html" title="Structure that represents statistics of correctly distinguished symbols whole: Whole number of input ..." alt="" coords="5,5,83,35"/>
+<area shape="rect" id="node4" href="$structfeature__t.html" title="Structure that represents feature vector feat: Feature values vector size: Vector size correct: Corre..." alt="" coords="107,5,179,35"/>
+<area shape="rect" id="node6" href="$structmatrix__t.html" title="3d matrix structure m := split n, k := states add := add operator handler mul := mul operator handler..." alt="" coords="203,5,272,35"/>
+</map>

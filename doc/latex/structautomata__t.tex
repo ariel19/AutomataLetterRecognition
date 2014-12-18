@@ -1,0 +1,156 @@
+\hypertarget{structautomata__t}{\section{automata\-\_\-t Struct Reference}
+\label{structautomata__t}\index{automata\-\_\-t@{automata\-\_\-t}}
+}
+
+
+structure that represents dynamically generated automata feat\-: Feature structure mtx\-: Matrix structure stat\-: Statistic structure range\-: Range structure state\-: Current state splits\-: Number of splits on \mbox{[}0, 1\mbox{]} sym\-\_\-class\-\_\-num\-: Number of symbol classes max\-\_\-los\-: Max feature value of generated data min\-\_\-los\-: Min feature value of generated data min\-\_\-tab\-: Min feature values of read data max\-\_\-tab\-: Max feature values of read data is\-\_\-read\-: Is data read from files? fuzzy\-: Is automata fuzzy?  
+
+
+
+
+{\ttfamily \#include $<$alr.\-h$>$}
+
+
+
+Collaboration diagram for automata\-\_\-t\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{structautomata__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structfeature__t}{feature\-\_\-t} \hyperlink{structautomata__t_aea937bcdfee70c1a1c33ebdd8abe22e4}{feat}
+\item 
+double \hyperlink{structautomata__t_ac1b32f1fedaa18ce4660e0c861d02499}{max\-\_\-los}
+\item 
+double \hyperlink{structautomata__t_a1c154215cdc0a2385e5ef4d638b90d7f}{min\-\_\-los}
+\item 
+\hyperlink{structfeature__t}{feature\-\_\-t} \hyperlink{structautomata__t_a42a70ea18f8540b5b62c425a51a716ca}{min\-\_\-tab}
+\item 
+\hyperlink{structfeature__t}{feature\-\_\-t} \hyperlink{structautomata__t_a6f76cc86cd6b6a69a21293f071391122}{max\-\_\-tab}
+\item 
+int \hyperlink{structautomata__t_a2d180cfe5698f6f9999b03cebaf83fcd}{is\-\_\-read}
+\item 
+\hyperlink{structmatrix__t}{matrix\-\_\-t} \hyperlink{structautomata__t_ad622b3580c94fcb06420e0d67dccfa3d}{mtx}
+\item 
+\hyperlink{structstatistic__t}{statistic\-\_\-t} \hyperlink{structautomata__t_ab202220b21f1095ec7837e4c14b0e9ed}{stat}
+\item 
+\hyperlink{types_8h_ac2a93159315d50befc9dd047d7de19a3}{symbol\-\_\-class} \hyperlink{structautomata__t_a967887d248745296590c426dd1046cea}{state}
+\item 
+\hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} \hyperlink{structautomata__t_a419b230963c5665dfe3b183ebf656708}{splits}
+\item 
+\hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} \hyperlink{structautomata__t_af7d9c374fd308653e15298ed62c36d59}{sym\-\_\-class\-\_\-num}
+\item 
+\hyperlink{types_8h_a9052d9742e283c5c2169b5b06f8245f0}{feat\-\_\-t} \hyperlink{structautomata__t_afcdd7f850b7d570e79cb82885fd973d1}{range}
+\item 
+\hyperlink{types_8h_a57c3b7201116536b822f0f8520aa99c7}{bool\-\_\-t} \hyperlink{structautomata__t_aeb015ceca00323d9a3ef30c7cb219246}{fuzzy}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+structure that represents dynamically generated automata feat\-: Feature structure mtx\-: Matrix structure stat\-: Statistic structure range\-: Range structure state\-: Current state splits\-: Number of splits on \mbox{[}0, 1\mbox{]} sym\-\_\-class\-\_\-num\-: Number of symbol classes max\-\_\-los\-: Max feature value of generated data min\-\_\-los\-: Min feature value of generated data min\-\_\-tab\-: Min feature values of read data max\-\_\-tab\-: Max feature values of read data is\-\_\-read\-: Is data read from files? fuzzy\-: Is automata fuzzy? 
+
+Definition at line 53 of file alr.\-h.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{structautomata__t_aea937bcdfee70c1a1c33ebdd8abe22e4}{\index{automata\-\_\-t@{automata\-\_\-t}!feat@{feat}}
+\index{feat@{feat}!automata_t@{automata\-\_\-t}}
+\subsubsection[{feat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\-\_\-t} automata\-\_\-t\-::feat}}\label{structautomata__t_aea937bcdfee70c1a1c33ebdd8abe22e4}
+
+
+Definition at line 54 of file alr.\-h.
+
+\hypertarget{structautomata__t_aeb015ceca00323d9a3ef30c7cb219246}{\index{automata\-\_\-t@{automata\-\_\-t}!fuzzy@{fuzzy}}
+\index{fuzzy@{fuzzy}!automata_t@{automata\-\_\-t}}
+\subsubsection[{fuzzy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool\-\_\-t} automata\-\_\-t\-::fuzzy}}\label{structautomata__t_aeb015ceca00323d9a3ef30c7cb219246}
+
+
+Definition at line 66 of file alr.\-h.
+
+\hypertarget{structautomata__t_a2d180cfe5698f6f9999b03cebaf83fcd}{\index{automata\-\_\-t@{automata\-\_\-t}!is\-\_\-read@{is\-\_\-read}}
+\index{is\-\_\-read@{is\-\_\-read}!automata_t@{automata\-\_\-t}}
+\subsubsection[{is\-\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}int automata\-\_\-t\-::is\-\_\-read}}\label{structautomata__t_a2d180cfe5698f6f9999b03cebaf83fcd}
+
+
+Definition at line 59 of file alr.\-h.
+
+\hypertarget{structautomata__t_ac1b32f1fedaa18ce4660e0c861d02499}{\index{automata\-\_\-t@{automata\-\_\-t}!max\-\_\-los@{max\-\_\-los}}
+\index{max\-\_\-los@{max\-\_\-los}!automata_t@{automata\-\_\-t}}
+\subsubsection[{max\-\_\-los}]{\setlength{\rightskip}{0pt plus 5cm}double automata\-\_\-t\-::max\-\_\-los}}\label{structautomata__t_ac1b32f1fedaa18ce4660e0c861d02499}
+
+
+Definition at line 55 of file alr.\-h.
+
+\hypertarget{structautomata__t_a6f76cc86cd6b6a69a21293f071391122}{\index{automata\-\_\-t@{automata\-\_\-t}!max\-\_\-tab@{max\-\_\-tab}}
+\index{max\-\_\-tab@{max\-\_\-tab}!automata_t@{automata\-\_\-t}}
+\subsubsection[{max\-\_\-tab}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\-\_\-t} automata\-\_\-t\-::max\-\_\-tab}}\label{structautomata__t_a6f76cc86cd6b6a69a21293f071391122}
+
+
+Definition at line 58 of file alr.\-h.
+
+\hypertarget{structautomata__t_a1c154215cdc0a2385e5ef4d638b90d7f}{\index{automata\-\_\-t@{automata\-\_\-t}!min\-\_\-los@{min\-\_\-los}}
+\index{min\-\_\-los@{min\-\_\-los}!automata_t@{automata\-\_\-t}}
+\subsubsection[{min\-\_\-los}]{\setlength{\rightskip}{0pt plus 5cm}double automata\-\_\-t\-::min\-\_\-los}}\label{structautomata__t_a1c154215cdc0a2385e5ef4d638b90d7f}
+
+
+Definition at line 56 of file alr.\-h.
+
+\hypertarget{structautomata__t_a42a70ea18f8540b5b62c425a51a716ca}{\index{automata\-\_\-t@{automata\-\_\-t}!min\-\_\-tab@{min\-\_\-tab}}
+\index{min\-\_\-tab@{min\-\_\-tab}!automata_t@{automata\-\_\-t}}
+\subsubsection[{min\-\_\-tab}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\-\_\-t} automata\-\_\-t\-::min\-\_\-tab}}\label{structautomata__t_a42a70ea18f8540b5b62c425a51a716ca}
+
+
+Definition at line 57 of file alr.\-h.
+
+\hypertarget{structautomata__t_ad622b3580c94fcb06420e0d67dccfa3d}{\index{automata\-\_\-t@{automata\-\_\-t}!mtx@{mtx}}
+\index{mtx@{mtx}!automata_t@{automata\-\_\-t}}
+\subsubsection[{mtx}]{\setlength{\rightskip}{0pt plus 5cm}{\bf matrix\-\_\-t} automata\-\_\-t\-::mtx}}\label{structautomata__t_ad622b3580c94fcb06420e0d67dccfa3d}
+
+
+Definition at line 60 of file alr.\-h.
+
+\hypertarget{structautomata__t_afcdd7f850b7d570e79cb82885fd973d1}{\index{automata\-\_\-t@{automata\-\_\-t}!range@{range}}
+\index{range@{range}!automata_t@{automata\-\_\-t}}
+\subsubsection[{range}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feat\-\_\-t} automata\-\_\-t\-::range}}\label{structautomata__t_afcdd7f850b7d570e79cb82885fd973d1}
+
+
+Definition at line 65 of file alr.\-h.
+
+\hypertarget{structautomata__t_a419b230963c5665dfe3b183ebf656708}{\index{automata\-\_\-t@{automata\-\_\-t}!splits@{splits}}
+\index{splits@{splits}!automata_t@{automata\-\_\-t}}
+\subsubsection[{splits}]{\setlength{\rightskip}{0pt plus 5cm}{\bf msize\-\_\-t} automata\-\_\-t\-::splits}}\label{structautomata__t_a419b230963c5665dfe3b183ebf656708}
+
+
+Definition at line 63 of file alr.\-h.
+
+\hypertarget{structautomata__t_ab202220b21f1095ec7837e4c14b0e9ed}{\index{automata\-\_\-t@{automata\-\_\-t}!stat@{stat}}
+\index{stat@{stat}!automata_t@{automata\-\_\-t}}
+\subsubsection[{stat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf statistic\-\_\-t} automata\-\_\-t\-::stat}}\label{structautomata__t_ab202220b21f1095ec7837e4c14b0e9ed}
+
+
+Definition at line 61 of file alr.\-h.
+
+\hypertarget{structautomata__t_a967887d248745296590c426dd1046cea}{\index{automata\-\_\-t@{automata\-\_\-t}!state@{state}}
+\index{state@{state}!automata_t@{automata\-\_\-t}}
+\subsubsection[{state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf symbol\-\_\-class} automata\-\_\-t\-::state}}\label{structautomata__t_a967887d248745296590c426dd1046cea}
+
+
+Definition at line 62 of file alr.\-h.
+
+\hypertarget{structautomata__t_af7d9c374fd308653e15298ed62c36d59}{\index{automata\-\_\-t@{automata\-\_\-t}!sym\-\_\-class\-\_\-num@{sym\-\_\-class\-\_\-num}}
+\index{sym\-\_\-class\-\_\-num@{sym\-\_\-class\-\_\-num}!automata_t@{automata\-\_\-t}}
+\subsubsection[{sym\-\_\-class\-\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}{\bf msize\-\_\-t} automata\-\_\-t\-::sym\-\_\-class\-\_\-num}}\label{structautomata__t_af7d9c374fd308653e15298ed62c36d59}
+
+
+Definition at line 63 of file alr.\-h.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{alr_8h}{alr.\-h}\end{DoxyCompactItemize}

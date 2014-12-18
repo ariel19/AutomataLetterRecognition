@@ -1,0 +1,8 @@
+<map id="automata_build_start" name="automata_build_start">
+<area shape="rect" id="node3" href="$matrix_8c.html#a68ceaf153044028e938b7919cff70ebc" title="randomly sets value one in every column of 2d array (get from split m)" alt="" coords="197,108,312,137"/>
+<area shape="rect" id="node10" href="$syswrap_8c.html#a4cdb595825971cee20544efa9845aa11" title="Calloc wrapper." alt="" coords="381,213,443,243"/>
+<area shape="rect" id="node12" href="$matrix_8c.html#afa9f2f9d937965ae876c3a641a2f0b86" title="matrix x vector multiplication function" alt="" coords="212,161,297,191"/>
+<area shape="rect" id="node17" href="$matrix_8c.html#ae7c26cdd84bd1e5836eed766dc38a874" title="frees and cleans memory in specified matrix" alt="" coords="369,5,455,35"/>
+<area shape="rect" id="node5" href="$matrix_8c.html#aee9b7305c3eebba5ffa85cda39cd5de8" title="initializes matrix with specified args" alt="" coords="512,84,635,113"/>
+<area shape="rect" id="node7" href="$matrix_8c.html#aef4c14420a092739627e2468af43e1d1" title="gets a 2d matrix from 3d matrix using specified split value" alt="" coords="360,109,464,139"/>
+</map>

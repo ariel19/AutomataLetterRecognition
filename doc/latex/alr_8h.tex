@@ -1,0 +1,607 @@
+\hypertarget{alr_8h}{\section{alr.\-h File Reference}
+\label{alr_8h}\index{alr.\-h@{alr.\-h}}
+}
+{\ttfamily \#include \char`\"{}types.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}matrix.\-h\char`\"{}}\\*
+Include dependency graph for alr.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{alr_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{alr_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfeature__t}{feature\-\_\-t}
+\begin{DoxyCompactList}\small\item\em Structure that represents feature vector feat\-: Feature values vector size\-: Vector size correct\-: Correct state determin\-\_\-splits\-: Vector of deterministic splits A\-\_\-1, A\-\_\-3 .... A\-\_\-6, A\-\_\-2. \end{DoxyCompactList}\item 
+struct \hyperlink{structstatistic__t}{statistic\-\_\-t}
+\begin{DoxyCompactList}\small\item\em Structure that represents statistics of correctly distinguished symbols whole\-: Whole number of input features errors\-: Number of errors during the automata work fuzzy\-\_\-errors\-: Number of errors during the fuzzy automata work. \end{DoxyCompactList}\item 
+struct \hyperlink{structautomata__t}{automata\-\_\-t}
+\begin{DoxyCompactList}\small\item\em structure that represents dynamically generated automata feat\-: Feature structure mtx\-: Matrix structure stat\-: Statistic structure range\-: Range structure state\-: Current state splits\-: Number of splits on \mbox{[}0, 1\mbox{]} sym\-\_\-class\-\_\-num\-: Number of symbol classes max\-\_\-los\-: Max feature value of generated data min\-\_\-los\-: Min feature value of generated data min\-\_\-tab\-: Min feature values of read data max\-\_\-tab\-: Max feature values of read data is\-\_\-read\-: Is data read from files? fuzzy\-: Is automata fuzzy? \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} \hyperlink{alr_8h_a52e321cf23b59535e518c501e8b7be56}{min} (const \hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} v1, const \hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} v2)
+\begin{DoxyCompactList}\small\item\em finds minimum from two specified values \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} \hyperlink{alr_8h_acff303ddddc77a04eb6e8a0d48437cd0}{max} (const \hyperlink{types_8h_a170cb8b681dd48ced181eb10f1c5c7c8}{mvec1\-\_\-t} vec1, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} size)
+\begin{DoxyCompactList}\small\item\em finds maximum from the specified vector \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} \hyperlink{alr_8h_af5df7647c80e69574495ad7833eb2795}{amin} (const \hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} v1, const \hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} v2)
+\begin{DoxyCompactList}\small\item\em implementation of mul operator \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a7bc9d9790537ce02dc19f7fc4080b98b}{melem\-\_\-t} \hyperlink{alr_8h_ac811e294b5e0c0ba3db5eda36a24015e}{amax} (const \hyperlink{types_8h_a170cb8b681dd48ced181eb10f1c5c7c8}{mvec1\-\_\-t} vec1, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} size)
+\begin{DoxyCompactList}\small\item\em implementation of plus operator \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a9cf4b4aa35e29c0b7ac453f592d9bf84}{atm\-\_\-err\-\_\-code} \hyperlink{alr_8h_ada70870c4160d409463434090c089f03}{automata\-\_\-init} (\hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm, int is\-\_\-read, double max\-\_\-los, double min\-\_\-los, \hyperlink{types_8h_a9052d9742e283c5c2169b5b06f8245f0}{feat\-\_\-t} $\ast$min\-\_\-tab, \hyperlink{types_8h_a9052d9742e283c5c2169b5b06f8245f0}{feat\-\_\-t} $\ast$max\-\_\-tab, const \hyperlink{types_8h_a594c3568b9a4bfb59d5d849a52dd9fe0}{fsize\-\_\-t} feature\-\_\-num, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} splits, const \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} sym\-\_\-class\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Initializes automata instance. \end{DoxyCompactList}\item 
+void \hyperlink{alr_8h_a6cf5da7c9a1427caebc7d9f01823a03a}{init\-\_\-from\-\_\-vec} (double $\ast$vec, \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm, double nondet\-\_\-prop)
+\begin{DoxyCompactList}\small\item\em Initializes the automata matrix (integers) from pso optimized data. \end{DoxyCompactList}\item 
+void \hyperlink{alr_8h_a9d4a407471cd04d276f161516201c865}{init\-\_\-from\-\_\-dvec} (double $\ast$vec, \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm)
+\begin{DoxyCompactList}\small\item\em Initializes the automata matrix (doubles) from pso optimized data. \end{DoxyCompactList}\item 
+void \hyperlink{alr_8h_a28ad4c77e48247a022126cce1b61e78c}{automata\-\_\-free} (\hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm)
+\begin{DoxyCompactList}\small\item\em Frees the memory. \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a9cf4b4aa35e29c0b7ac453f592d9bf84}{atm\-\_\-err\-\_\-code} \hyperlink{alr_8h_a4337f015fab6adb23d38faae40cc378d}{automata\-\_\-init\-\_\-matrix} (\hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm)
+\begin{DoxyCompactList}\small\item\em Initializes a matrix related with specified automata. \end{DoxyCompactList}\item 
+void \hyperlink{alr_8h_a11948aac5ae0674311c17f266183658f}{automata\-\_\-build} (double $\ast$vec, \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} input\-\_\-size, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$features, double $\ast$err\-\_\-num, double nondet\-\_\-prop)
+\begin{DoxyCompactList}\small\item\em Starts building of the automata. \end{DoxyCompactList}\item 
+\hyperlink{types_8h_a9cf4b4aa35e29c0b7ac453f592d9bf84}{atm\-\_\-err\-\_\-code} \hyperlink{alr_8h_acccf23fb33ef2ca8bd9afd1c743fadf5}{automata\-\_\-split\-\_\-range} (\hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm)
+\begin{DoxyCompactList}\small\item\em Maps real values -\/$>$ \mbox{[}0..1\mbox{]}. \end{DoxyCompactList}\item 
+\hyperlink{types_8h_af7ba14dcfbe385d9b130ff508c4e89b8}{ftr\-\_\-err\-\_\-code} \hyperlink{alr_8h_af56f4c4068fc82770bca730d045d5727}{automata\-\_\-feature\-\_\-normalize} (\hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$feat)
+\begin{DoxyCompactList}\small\item\em Responsible for normalizing specified feature vector. \end{DoxyCompactList}\item 
+void \hyperlink{alr_8h_a41b4a4554ba45c4eddf5c20f8f48f2b9}{print\-\_\-atm} (\hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm)
+\begin{DoxyCompactList}\small\item\em Printing the automata matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{alr_8h_a52eec20db404060f6d759e455219ac67}{test\-\_\-run}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{alr_8h_ac811e294b5e0c0ba3db5eda36a24015e}{\index{alr.\-h@{alr.\-h}!amax@{amax}}
+\index{amax@{amax}!alr.h@{alr.\-h}}
+\subsubsection[{amax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf melem\-\_\-t} amax (
+\begin{DoxyParamCaption}
+\item[{const {\bf mvec1\-\_\-t}}]{vec1, }
+\item[{const {\bf msize\-\_\-t}}]{size}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_ac811e294b5e0c0ba3db5eda36a24015e}
+
+
+implementation of plus operator 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec1} & vector of elements \\
+\hline
+{\em size} & size of vector\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+composition function result 
+\end{DoxyReturn}
+
+
+Definition at line 37 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_ac811e294b5e0c0ba3db5eda36a24015e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_af5df7647c80e69574495ad7833eb2795}{\index{alr.\-h@{alr.\-h}!amin@{amin}}
+\index{amin@{amin}!alr.h@{alr.\-h}}
+\subsubsection[{amin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf melem\-\_\-t} amin (
+\begin{DoxyParamCaption}
+\item[{const {\bf melem\-\_\-t}}]{v1, }
+\item[{const {\bf melem\-\_\-t}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_af5df7647c80e69574495ad7833eb2795}
+
+
+implementation of mul operator 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v1} & first value \\
+\hline
+{\em v2} & second value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+composition function result 
+\end{DoxyReturn}
+
+
+Definition at line 32 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_af5df7647c80e69574495ad7833eb2795_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a11948aac5ae0674311c17f266183658f}{\index{alr.\-h@{alr.\-h}!automata\-\_\-build@{automata\-\_\-build}}
+\index{automata\-\_\-build@{automata\-\_\-build}!alr.h@{alr.\-h}}
+\subsubsection[{automata\-\_\-build}]{\setlength{\rightskip}{0pt plus 5cm}void automata\-\_\-build (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{vec, }
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm, }
+\item[{{\bf msize\-\_\-t}}]{input\-\_\-size, }
+\item[{{\bf feature\-\_\-t} $\ast$}]{features, }
+\item[{double $\ast$}]{err\-\_\-num, }
+\item[{double}]{nondet\-\_\-prop}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a11948aac5ae0674311c17f266183658f}
+
+
+Starts building of the automata. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec,\-:} & Vector with data to initialize the automata matrix \\
+\hline
+{\em atm,\-:} & Automata \\
+\hline
+{\em input\-\_\-size,\-:} & Number of symbols to test \\
+\hline
+{\em features,\-:} & Vector of features \\
+\hline
+{\em err\-\_\-num,\-:} & Number of wrong recognized symbols \\
+\hline
+{\em nondet\-\_\-prop,\-:} & Nondeterministic automata percentage limit \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 239 of file alr.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_a11948aac5ae0674311c17f266183658f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{alr_8h_a11948aac5ae0674311c17f266183658f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_af56f4c4068fc82770bca730d045d5727}{\index{alr.\-h@{alr.\-h}!automata\-\_\-feature\-\_\-normalize@{automata\-\_\-feature\-\_\-normalize}}
+\index{automata\-\_\-feature\-\_\-normalize@{automata\-\_\-feature\-\_\-normalize}!alr.h@{alr.\-h}}
+\subsubsection[{automata\-\_\-feature\-\_\-normalize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ftr\-\_\-err\-\_\-code} automata\-\_\-feature\-\_\-normalize (
+\begin{DoxyParamCaption}
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm, }
+\item[{{\bf feature\-\_\-t} $\ast$}]{feat}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_af56f4c4068fc82770bca730d045d5727}
+
+
+Responsible for normalizing specified feature vector. 
+
+F\-E\-A\-T\-U\-R\-E 
+\begin{DoxyParams}{Parameters}
+{\em atm,\-:} & Pointer to \hyperlink{structautomata__t}{automata\-\_\-t}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\-T\-M\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 514 of file alr.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{alr_8h_af56f4c4068fc82770bca730d045d5727_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{alr_8h_af56f4c4068fc82770bca730d045d5727_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a28ad4c77e48247a022126cce1b61e78c}{\index{alr.\-h@{alr.\-h}!automata\-\_\-free@{automata\-\_\-free}}
+\index{automata\-\_\-free@{automata\-\_\-free}!alr.h@{alr.\-h}}
+\subsubsection[{automata\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void automata\-\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a28ad4c77e48247a022126cce1b61e78c}
+
+
+Frees the memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em atm,\-:} & Automata \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 228 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{alr_8h_a28ad4c77e48247a022126cce1b61e78c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_ada70870c4160d409463434090c089f03}{\index{alr.\-h@{alr.\-h}!automata\-\_\-init@{automata\-\_\-init}}
+\index{automata\-\_\-init@{automata\-\_\-init}!alr.h@{alr.\-h}}
+\subsubsection[{automata\-\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf atm\-\_\-err\-\_\-code} automata\-\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm, }
+\item[{int}]{is\-\_\-read, }
+\item[{double}]{max\-\_\-los, }
+\item[{double}]{min\-\_\-los, }
+\item[{{\bf feat\-\_\-t} $\ast$}]{min\-\_\-tab, }
+\item[{{\bf feat\-\_\-t} $\ast$}]{max\-\_\-tab, }
+\item[{const {\bf fsize\-\_\-t}}]{feature\-\_\-num, }
+\item[{const {\bf msize\-\_\-t}}]{splits, }
+\item[{const {\bf msize\-\_\-t}}]{sym\-\_\-class\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_ada70870c4160d409463434090c089f03}
+
+
+Initializes automata instance. 
+
+A\-U\-T\-O\-M\-A\-T\-A 
+\begin{DoxyParams}{Parameters}
+{\em atm,\-:} & Automata \\
+\hline
+{\em is\-\_\-read,\-:} & Is data read from file? \\
+\hline
+{\em max\-\_\-los,\-:} & Max value of generated feature \\
+\hline
+{\em min\-\_\-los,\-:} & Min value of generated feature \\
+\hline
+{\em min\-\_\-tab,\-:} & Min values of read features \\
+\hline
+{\em max\-\_\-tab,\-:} & Max values of read features \\
+\hline
+{\em feature\-\_\-num,\-:} & Number of features \\
+\hline
+{\em splits,\-:} & Number of \mbox{[}0..1\mbox{]} vector splits \\
+\hline
+{\em sym\-\_\-class\-\_\-num,\-:} & Number of symbols \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 47 of file alr.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_ada70870c4160d409463434090c089f03_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{alr_8h_ada70870c4160d409463434090c089f03_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a4337f015fab6adb23d38faae40cc378d}{\index{alr.\-h@{alr.\-h}!automata\-\_\-init\-\_\-matrix@{automata\-\_\-init\-\_\-matrix}}
+\index{automata\-\_\-init\-\_\-matrix@{automata\-\_\-init\-\_\-matrix}!alr.h@{alr.\-h}}
+\subsubsection[{automata\-\_\-init\-\_\-matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf atm\-\_\-err\-\_\-code} automata\-\_\-init\-\_\-matrix (
+\begin{DoxyParamCaption}
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a4337f015fab6adb23d38faae40cc378d}
+
+
+Initializes a matrix related with specified automata. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em atm,\-:} & Pointer to \hyperlink{structautomata__t}{automata\-\_\-t}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\-T\-M\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 457 of file alr.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_a4337f015fab6adb23d38faae40cc378d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_a4337f015fab6adb23d38faae40cc378d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_acccf23fb33ef2ca8bd9afd1c743fadf5}{\index{alr.\-h@{alr.\-h}!automata\-\_\-split\-\_\-range@{automata\-\_\-split\-\_\-range}}
+\index{automata\-\_\-split\-\_\-range@{automata\-\_\-split\-\_\-range}!alr.h@{alr.\-h}}
+\subsubsection[{automata\-\_\-split\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}{\bf atm\-\_\-err\-\_\-code} automata\-\_\-split\-\_\-range (
+\begin{DoxyParamCaption}
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_acccf23fb33ef2ca8bd9afd1c743fadf5}
+
+
+Maps real values -\/$>$ \mbox{[}0..1\mbox{]}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em atm,\-:} & Pointer to \hyperlink{structautomata__t}{automata\-\_\-t}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\-T\-M\-\_\-\-O\-K if function succeed, error code in other cases 
+\end{DoxyReturn}
+
+
+Definition at line 442 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_acccf23fb33ef2ca8bd9afd1c743fadf5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a9d4a407471cd04d276f161516201c865}{\index{alr.\-h@{alr.\-h}!init\-\_\-from\-\_\-dvec@{init\-\_\-from\-\_\-dvec}}
+\index{init\-\_\-from\-\_\-dvec@{init\-\_\-from\-\_\-dvec}!alr.h@{alr.\-h}}
+\subsubsection[{init\-\_\-from\-\_\-dvec}]{\setlength{\rightskip}{0pt plus 5cm}void init\-\_\-from\-\_\-dvec (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{vec, }
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a9d4a407471cd04d276f161516201c865}
+
+
+Initializes the automata matrix (doubles) from pso optimized data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec,\-:} & P\-S\-O vector \\
+\hline
+{\em atm,\-:} & Automata \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 177 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_a9d4a407471cd04d276f161516201c865_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a6cf5da7c9a1427caebc7d9f01823a03a}{\index{alr.\-h@{alr.\-h}!init\-\_\-from\-\_\-vec@{init\-\_\-from\-\_\-vec}}
+\index{init\-\_\-from\-\_\-vec@{init\-\_\-from\-\_\-vec}!alr.h@{alr.\-h}}
+\subsubsection[{init\-\_\-from\-\_\-vec}]{\setlength{\rightskip}{0pt plus 5cm}void init\-\_\-from\-\_\-vec (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{vec, }
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm, }
+\item[{double}]{nondet\-\_\-prop}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a6cf5da7c9a1427caebc7d9f01823a03a}
+
+
+Initializes the automata matrix (integers) from pso optimized data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec,\-:} & P\-S\-O vector \\
+\hline
+{\em atm,\-:} & Automata \\
+\hline
+{\em nondet\-\_\-prop,\-:} & Nondeterministic automata percentage limit \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 97 of file alr.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{alr_8h_a6cf5da7c9a1427caebc7d9f01823a03a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_a6cf5da7c9a1427caebc7d9f01823a03a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_acff303ddddc77a04eb6e8a0d48437cd0}{\index{alr.\-h@{alr.\-h}!max@{max}}
+\index{max@{max}!alr.h@{alr.\-h}}
+\subsubsection[{max}]{\setlength{\rightskip}{0pt plus 5cm}{\bf melem\-\_\-t} max (
+\begin{DoxyParamCaption}
+\item[{const {\bf mvec1\-\_\-t}}]{vec1, }
+\item[{const {\bf msize\-\_\-t}}]{size}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_acff303ddddc77a04eb6e8a0d48437cd0}
+
+
+finds maximum from the specified vector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec1} & vector of elements \\
+\hline
+{\em size} & size of vector\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+maximum value from vector 
+\end{DoxyReturn}
+
+
+Definition at line 13 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_acff303ddddc77a04eb6e8a0d48437cd0_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a52e321cf23b59535e518c501e8b7be56}{\index{alr.\-h@{alr.\-h}!min@{min}}
+\index{min@{min}!alr.h@{alr.\-h}}
+\subsubsection[{min}]{\setlength{\rightskip}{0pt plus 5cm}{\bf melem\-\_\-t} min (
+\begin{DoxyParamCaption}
+\item[{const {\bf melem\-\_\-t}}]{v1, }
+\item[{const {\bf melem\-\_\-t}}]{v2}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a52e321cf23b59535e518c501e8b7be56}
+
+
+finds minimum from two specified values 
+
+M\-A\-T\-R\-I\-X A\-D\-D \& M\-U\-L F\-U\-N\-C 
+\begin{DoxyParams}{Parameters}
+{\em v1} & first value \\
+\hline
+{\em v2} & second value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+minimum from two values 
+\end{DoxyReturn}
+
+
+Definition at line 8 of file alr.\-c.
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{alr_8h_a52e321cf23b59535e518c501e8b7be56_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{alr_8h_a41b4a4554ba45c4eddf5c20f8f48f2b9}{\index{alr.\-h@{alr.\-h}!print\-\_\-atm@{print\-\_\-atm}}
+\index{print\-\_\-atm@{print\-\_\-atm}!alr.h@{alr.\-h}}
+\subsubsection[{print\-\_\-atm}]{\setlength{\rightskip}{0pt plus 5cm}void print\-\_\-atm (
+\begin{DoxyParamCaption}
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm}
+\end{DoxyParamCaption}
+)}}\label{alr_8h_a41b4a4554ba45c4eddf5c20f8f48f2b9}
+
+
+Printing the automata matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em atm,\-:} & Automata \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 563 of file alr.\-c.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{alr_8h_a52eec20db404060f6d759e455219ac67}{\index{alr.\-h@{alr.\-h}!test\-\_\-run@{test\-\_\-run}}
+\index{test\-\_\-run@{test\-\_\-run}!alr.h@{alr.\-h}}
+\subsubsection[{test\-\_\-run}]{\setlength{\rightskip}{0pt plus 5cm}int test\-\_\-run}}\label{alr_8h_a52eec20db404060f6d759e455219ac67}
+
+
+Definition at line 9 of file alr.\-h.
+

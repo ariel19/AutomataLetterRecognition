@@ -1,3 +1,5 @@
+/** @file Types definition */
+
 #ifndef _TYPES_H
 #define _TYPES_H
 
@@ -11,6 +13,7 @@
 #define ERR_PANIC(src) (fprintf(stderr, "%s: %d", __FILE__, __LINE__), \
 						perror(src), exit(EXIT_FAILURE))
 
+// Unused
 typedef enum {
 				SYM_A,
 				SYM_B,
@@ -108,6 +111,16 @@ typedef uint8_t		err_t;	 /* error type */
 typedef uint32_t	lssize_t; /* learn set size and number of errors type */
 typedef uint8_t		bool_t; /* boolean type */
 
+/**
+ * @brief PSO parameters
+ * iterations: Number of PSO iterations
+ * swarmsize: Swarm size
+ * trace: Print trace?
+ * fnscale: Error scale
+ * w: The exploitation constant
+ * cp: Local exploration constant
+ * cg: Global exploration constant
+**/
 typedef struct pso_params {
     uint32_t iterations;
     uint32_t swarmsize;

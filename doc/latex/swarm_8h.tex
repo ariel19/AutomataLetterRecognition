@@ -1,0 +1,141 @@
+\hypertarget{swarm_8h}{\section{swarm.\-h File Reference}
+\label{swarm_8h}\index{swarm.\-h@{swarm.\-h}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$limits.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}types.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}alr.\-h\char`\"{}}\\*
+Include dependency graph for swarm.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swarm_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{swarm_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structParticle}{Particle}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double $\ast$ \hyperlink{swarm_8h_ab44532ee7c9c02c23ab267017e218674}{pso\-\_\-solve} (unsigned int dim, unsigned int num\-Particles, double min\-X, double max\-X, unsigned int max\-Epochs, double exit\-Error, double($\ast$error\-Function)(double $\ast$x, int dim))
+\begin{DoxyCompactList}\small\item\em P\-S\-O. \end{DoxyCompactList}\item 
+void \hyperlink{swarm_8h_a2d406351d99808475f08517e0f317272}{pso} (unsigned int dim, double min\-X, double max\-X, void($\ast$error\-Function)(double $\ast$, \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t}, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$, double $\ast$, double), \hyperlink{structautomata__t}{automata\-\_\-t} $\ast$atm, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} input\-\_\-size, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$features, \hyperlink{structpso__params__t}{pso\-\_\-params\-\_\-t} $\ast$psoparams, double nondet\-\_\-prop)
+\begin{DoxyCompactList}\small\item\em P\-S\-O. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{swarm_8h_a2d406351d99808475f08517e0f317272}{\index{swarm.\-h@{swarm.\-h}!pso@{pso}}
+\index{pso@{pso}!swarm.h@{swarm.\-h}}
+\subsubsection[{pso}]{\setlength{\rightskip}{0pt plus 5cm}void pso (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{dim, }
+\item[{double}]{min\-X, }
+\item[{double}]{max\-X, }
+\item[{void($\ast$)(double $\ast$, {\bf automata\-\_\-t} $\ast$, {\bf msize\-\_\-t}, {\bf feature\-\_\-t} $\ast$, double $\ast$, double)}]{error\-Function, }
+\item[{{\bf automata\-\_\-t} $\ast$}]{atm, }
+\item[{{\bf msize\-\_\-t}}]{input\-\_\-size, }
+\item[{{\bf feature\-\_\-t} $\ast$}]{features, }
+\item[{{\bf pso\-\_\-params\-\_\-t} $\ast$}]{psoparams, }
+\item[{double}]{nondet\-\_\-prop}
+\end{DoxyParamCaption}
+)}}\label{swarm_8h_a2d406351d99808475f08517e0f317272}
+
+
+P\-S\-O. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dim,\-:} & Size of the problem \\
+\hline
+{\em min\-X,\-:} & Minimal value of particles' position \\
+\hline
+{\em max\-X,\-:} & Maximal value of particles' position \\
+\hline
+{\em atm,\-:} & Automata \\
+\hline
+{\em error\-Function,\-:} & Error function \\
+\hline
+{\em input\-\_\-size,\-:} & Size of input \\
+\hline
+{\em features,\-:} & Features \\
+\hline
+{\em psoparams,\-:} & P\-S\-O parameters \\
+\hline
+{\em nondet\-\_\-prop,\-:} & Nondeterministic automata limit \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 6 of file swarm.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{swarm_8h_a2d406351d99808475f08517e0f317272_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{swarm_8h_a2d406351d99808475f08517e0f317272_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{swarm_8h_ab44532ee7c9c02c23ab267017e218674}{\index{swarm.\-h@{swarm.\-h}!pso\-\_\-solve@{pso\-\_\-solve}}
+\index{pso\-\_\-solve@{pso\-\_\-solve}!swarm.h@{swarm.\-h}}
+\subsubsection[{pso\-\_\-solve}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ pso\-\_\-solve (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{dim, }
+\item[{unsigned int}]{num\-Particles, }
+\item[{double}]{min\-X, }
+\item[{double}]{max\-X, }
+\item[{unsigned int}]{max\-Epochs, }
+\item[{double}]{exit\-Error, }
+\item[{double($\ast$)(double $\ast$x, int dim)}]{error\-Function}
+\end{DoxyParamCaption}
+)}}\label{swarm_8h_ab44532ee7c9c02c23ab267017e218674}
+
+
+P\-S\-O. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dim} & size of the problem \\
+\hline
+{\em num\-Particles} & number of particles used in the algorithm \\
+\hline
+{\em min\-X} & minimal value of particles' position \\
+\hline
+{\em max\-X} & maximal value of particles' position \\
+\hline
+{\em max\-Epochs} & maximal number of iterations \\
+\hline
+{\em exit\-Error} & \\
+\hline
+{\em error\-Funcion} & the function calculating error of the current position\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+solution vector 
+\end{DoxyReturn}

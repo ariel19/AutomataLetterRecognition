@@ -1,0 +1,154 @@
+\hypertarget{main_8c}{\section{main.\-c File Reference}
+\label{main_8c}\index{main.\-c@{main.\-c}}
+}
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}types.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}matrix.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}alr.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}swarm.\-h\char`\"{}}\\*
+Include dependency graph for main.\-c\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{main_8c_ac55bb64dc156887fc077ea35d9a4e483}{read\-\_\-data} (const char $\ast$filename, int $\ast$is\-\_\-rej, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} $\ast$splits\-\_\-num, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} $\ast$symbol\-\_\-class\-\_\-num, \hyperlink{types_8h_a594c3568b9a4bfb59d5d849a52dd9fe0}{fsize\-\_\-t} $\ast$feature\-\_\-num, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} $\ast$train\-\_\-size, \hyperlink{types_8h_a4717ab46b712567c1482ad0f5b910027}{msize\-\_\-t} $\ast$test\-\_\-size, double $\ast$max\-\_\-los, double $\ast$min\-\_\-los, double $\ast$nondet\-\_\-prop, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$$\ast$features, \hyperlink{structfeature__t}{feature\-\_\-t} $\ast$$\ast$test\-\_\-features, \hyperlink{structpso__params__t}{pso\-\_\-params\-\_\-t} $\ast$psopar, int $\ast$is\-\_\-read, \hyperlink{types_8h_a9052d9742e283c5c2169b5b06f8245f0}{feat\-\_\-t} $\ast$min\-\_\-tab, \hyperlink{types_8h_a9052d9742e283c5c2169b5b06f8245f0}{feat\-\_\-t} $\ast$max\-\_\-tab)
+\begin{DoxyCompactList}\small\item\em Reads the data from input file (internal usage) \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Entry point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{\index{main.\-c@{main.\-c}!main@{main}}
+\index{main@{main}!main.c@{main.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Entry point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc,\-:} & Number of arguments \\
+\hline
+{\em argv,\-:} & Argument list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 116 of file main.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{main_8c_ac55bb64dc156887fc077ea35d9a4e483}{\index{main.\-c@{main.\-c}!read\-\_\-data@{read\-\_\-data}}
+\index{read\-\_\-data@{read\-\_\-data}!main.c@{main.\-c}}
+\subsubsection[{read\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}int read\-\_\-data (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filename, }
+\item[{int $\ast$}]{is\-\_\-rej, }
+\item[{{\bf msize\-\_\-t} $\ast$}]{splits\-\_\-num, }
+\item[{{\bf msize\-\_\-t} $\ast$}]{symbol\-\_\-class\-\_\-num, }
+\item[{{\bf fsize\-\_\-t} $\ast$}]{feature\-\_\-num, }
+\item[{{\bf msize\-\_\-t} $\ast$}]{train\-\_\-size, }
+\item[{{\bf msize\-\_\-t} $\ast$}]{test\-\_\-size, }
+\item[{double $\ast$}]{max\-\_\-los, }
+\item[{double $\ast$}]{min\-\_\-los, }
+\item[{double $\ast$}]{nondet\-\_\-prop, }
+\item[{{\bf feature\-\_\-t} $\ast$$\ast$}]{features, }
+\item[{{\bf feature\-\_\-t} $\ast$$\ast$}]{test\-\_\-features, }
+\item[{{\bf pso\-\_\-params\-\_\-t} $\ast$}]{psopar, }
+\item[{int $\ast$}]{is\-\_\-read, }
+\item[{{\bf feat\-\_\-t} $\ast$}]{min\-\_\-tab, }
+\item[{{\bf feat\-\_\-t} $\ast$}]{max\-\_\-tab}
+\end{DoxyParamCaption}
+)}}\label{main_8c_ac55bb64dc156887fc077ea35d9a4e483}
+
+
+Reads the data from input file (internal usage) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename,\-:} & File name \\
+\hline
+{\em is\-\_\-rej,\-:} & Foreign symbols to recognize? \\
+\hline
+{\em splits\-\_\-num,\-:} & Number of splits of the \mbox{[}0..1\mbox{]} vector \\
+\hline
+{\em symbol\-\_\-class\-\_\-num,\-:} & Number of unique symbols \\
+\hline
+{\em feature\-\_\-num,\-:} & Number of features \\
+\hline
+{\em train\-\_\-size,\-:} & Number of symbols in training set \\
+\hline
+{\em test\-\_\-size,\-:} & Number of symbols in test set \\
+\hline
+{\em max\-\_\-los,\-:} & Max value of features (generated) \\
+\hline
+{\em min\-\_\-los,\-:} & Min value of features (generated) \\
+\hline
+{\em nondet\-\_\-prop,\-:} & Nondeterministic automata limit \\
+\hline
+{\em features,\-:} & Array of features of all symbols in training set \\
+\hline
+{\em test\-\_\-features,\-:} & Array of features ao all symbols in test set \\
+\hline
+{\em psopar,\-:} & P\-S\-O parameters \\
+\hline
+{\em is\-\_\-read,\-:} & Is data read from files? \\
+\hline
+{\em min\-\_\-tab,\-:} & Min values of features (read) \\
+\hline
+{\em max\-\_\-tab,\-:} & Max values of features (read) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 32 of file main.\-c.
+
+
+
+Here is the call graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{main_8c_ac55bb64dc156887fc077ea35d9a4e483_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{main_8c_ac55bb64dc156887fc077ea35d9a4e483_icgraph}
+\end{center}
+\end{figure}
+
+

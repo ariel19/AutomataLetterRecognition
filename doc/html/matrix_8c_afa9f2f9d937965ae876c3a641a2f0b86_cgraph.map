@@ -1,0 +1,5 @@
+<map id="matrix_mul" name="matrix_mul">
+<area shape="rect" id="node3" href="$matrix_8c.html#aee9b7305c3eebba5ffa85cda39cd5de8" title="initializes matrix with specified args" alt="" coords="293,5,416,35"/>
+<area shape="rect" id="node5" href="$matrix_8c.html#aef4c14420a092739627e2468af43e1d1" title="gets a 2d matrix from 3d matrix using specified split value" alt="" coords="141,31,245,60"/>
+<area shape="rect" id="node8" href="$syswrap_8c.html#a4cdb595825971cee20544efa9845aa11" title="Calloc wrapper." alt="" coords="163,84,224,113"/>
+</map>
