@@ -3,9 +3,13 @@
 import sys
 import os
 import math
+try:
+    import openpyxl
+except ImportError:
+    print 'openpyxl not found! Try: sudo apt-get install python-openpyxl'
+    sys.exit(1)
 import data_gen
 import data_read
-import openpyxl
 import subprocess
 
 
